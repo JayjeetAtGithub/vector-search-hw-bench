@@ -44,6 +44,11 @@ std::unique_ptr<faiss::Index> create_ivf_flat_index(size_t dim, size_t nlist,
 }
 
 int main(int argc, char **argv) {
+  if (argc != 3) {
+    std::cerr << "Usage: " << argv[0] << " <dataset> <mode>" << std::endl;
+    std::exit(1);
+  }
+
   std::string dataset = argv[1];
   std::string mode = argv[2];
 
