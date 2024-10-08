@@ -9,7 +9,7 @@
 #include <faiss/IndexIVFFlat.h>
 #include <faiss/IndexHNSW.h>
 #include <faiss/IndexLSH.h>
-#include <faiss/gpu/GpuIndexFlatL2.h>
+#include <faiss/gpu/GpuIndexFlat.h>
 #include <faiss/index_io.h>
 
 #include "utils.h"
