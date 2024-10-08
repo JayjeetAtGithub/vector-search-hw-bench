@@ -9,6 +9,7 @@
 #include <faiss/IndexIVFFlat.h>
 #include <faiss/IndexHNSW.h>
 #include <faiss/IndexLSH.h>
+#include <faiss/gpu/GpuIndexFlatL2.h>
 #include <faiss/index_io.h>
 
 #include "utils.h"
@@ -27,6 +28,10 @@ std::shared_ptr<faiss::Index> create_index(std::string index, size_t dim) {
         return idx;
     } else if (index == "lsh") {
         auto idx = std::make_shared<faiss::IndexLSH>(dim, 16 * dim);
+        return idx;
+    } else if (index == "ivf_gpu") {
+        faiss::gpu::StandardGpuResources res;
+        auto idx = sts::make_shared<faiss::GpuIndexFlatL2>(&res, dim);
         return idx;
     }
     return nullptr;
