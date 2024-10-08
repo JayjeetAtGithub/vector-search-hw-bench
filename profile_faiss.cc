@@ -31,8 +31,8 @@ std::shared_ptr<faiss::Index> create_index(std::string index, size_t dim) {
         auto idx = std::make_shared<faiss::IndexLSH>(dim, 16 * dim);
         return idx;
     } else if (index == "ivf_gpu") {
-        auto res = std::make_shared<faiss::gpu::StandardGpuResources>();
-        auto idx = std::make_shared<faiss::gpu::GpuIndexFlatL2>(res, dim);
+        faiss::gpu::StandardGpuResources res;
+        auto idx = std::make_shared<faiss::gpu::GpuIndexFlatL2>(&res, dim);
         return idx;
     }
     return nullptr;
