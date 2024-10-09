@@ -48,7 +48,7 @@ void preview_dataset(float *xb) {
 }
 
 template <typename T>
-void read_dataset2(const char *filename, T *&xb, uint32_t *d, uint32_t *n,
+void read_dataset(const char *filename, T *&xb, uint32_t *d, uint32_t *n,
                    uint32_t limit) {
   xb = file_read<T>(filename, d, n, limit);
 }
