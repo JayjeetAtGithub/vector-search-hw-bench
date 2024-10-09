@@ -38,8 +38,7 @@ T *file_read(const char *fname, uint32_t *n, uint32_t *d, uint32_t limit) {
   return v;
 }
 
-template <typename T>
-void preview_dataset(T *xb) {
+template <typename T> void preview_dataset(T *xb) {
   for (int i = 0; i < 5; i++) {
     for (int j = 0; j < 10; j++) {
       std::cout << xb[i * 10 + j] << " ";

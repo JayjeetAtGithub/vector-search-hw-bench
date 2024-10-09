@@ -106,7 +106,7 @@ int main(int argc, char **argv) {
     // Print information about the learn dataset
     std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << n_learn
               << std::endl;
-    preview_dataset(data_learn);
+    preview_dataset<float_t>(data_learn);
 
     // Create the index
     faiss::Index *idx;
@@ -164,7 +164,7 @@ int main(int argc, char **argv) {
     // Print information about the search dataset
     std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
               << std::endl;
-    preview_dataset(data_query);
+    preview_dataset<float_t>(data_query);
 
     // Load the index
     faiss::Index *idx;
