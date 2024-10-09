@@ -12,60 +12,51 @@
 #include <faiss/gpu/GpuIndexFlat.h>
 #include <faiss/gpu/GpuIndexIVFFlat.h>
 #include <faiss/gpu/StandardGpuResources.h>
+#include <faiss/gpu/GpuCloner.h>
 #include <faiss/index_io.h>
 
 #include "utils.h"
 
-std::unique_ptr<faiss::Index> CPU_create_ivf_flat_index(size_t dim, size_t nlist,
+faiss::Index* CPU_create_ivf_flat_index(size_t dim, size_t nlist,
                                                     size_t nprobe) {
-  auto index = std::make_unique<faiss::IndexIVFFlat>(
+  return new faiss::IndexIVFFlat(
       new faiss::IndexFlatL2(dim), dim, nlist);
-  return index;
-}
-
-std::unique_ptr<faiss::Index>
-GPU_create_ivf_flat_gpu_index(size_t dim, size_t nlist, size_t nprobe) {
-  auto res = new faiss::gpu::StandardGpuResources();
-  auto index = std::make_unique<faiss::gpu::GpuIndexIVFFlat>(
-      res, new faiss::gpu::GpuIndexFlatL2(res, dim), dim, nlist);
-  return index;
-}
-
-std::unique_ptr<faiss::Index> create_ivf_flat_index(size_t dim, size_t nlist,
-                                                size_t nprobe, std::string mode) {
-  if (mode == "cpu") {
-    return CPU_create_ivf_flat_index(dim, nlist, nprobe);
-  } else if (mode == "gpu") {
-    return GPU_create_ivf_flat_gpu_index(dim, nlist, nprobe);
-  } else {
-    std::cerr << "[ERROR] Invalid mode: " << mode << std::endl;
-    std::exit(1);
-  }
 }
 
 int main(int argc, char **argv) {
-  if (argc != 3) {
-    std::cerr << "Usage: " << argv[0] << " <dataset> <mode>" << std::endl;
+  if (argc != 5) {
+    std::cerr << "Usage: " << argv[0] << " <dataset> <mode> <limit> <top_k>" << std::endl;
     std::exit(1);
   }
 
   std::string dataset = argv[1];
   std::string mode = argv[2];
+  uint32_t limit = std::atoi(argv[3]);
+  int32_t top_k = std::atoi(argv[4]);
 
-  int32_t top_k = 100;
-
+  // Print the arguments
   std::cout << "[ARG] dataset: " << dataset << std::endl;
-  std::cout << "[ARG] top_k: " << top_k << std::endl;
   std::cout << "[ARG] mode: " << mode << std::endl;
+  std::cout << "[ARG] limit: " << limit << std::endl;
+  std::cout << "[ARG] top_k: " << top_k << std::endl;
 
   std::cout << std::endl;
 
+  // Preparing GPU resources
+  auto const n_gpus = faiss::gpu::getNumDevices();
+  std::cout << "[INFO] Number of GPUs: " << n_gpus << std::endl;
+  std::vector<faiss::gpu::GpuResourcesProvider*> res;
+  std::vector<int> devs;
+  for(int i = 0; i < n_gpus; i++) {
+      res.push_back(new faiss::gpu::StandardGpuResources());
+      devs.push_back(i);
+  }
+
   // Load the learn dataset
-  size_t dim_learn, n_learn;
+  uint32_t dim_learn, n_learn;
   float *data_learn;
-  std::string dataset_path_learn = dataset + "/base.fvecs";
-  read_dataset(dataset_path_learn.c_str(), data_learn, &dim_learn, &n_learn);
-  n_learn = 1'000'000;
+  std::string dataset_path_learn = dataset + "/base.bin";
+  read_dataset2<float_t>(dataset_path_learn.c_str(), data_learn, &n_learn, &dim_learn, limit);
   
   // Print information about the learn dataset
   std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << n_learn
@@ -73,7 +64,17 @@ int main(int argc, char **argv) {
   preview_dataset(data_learn);
 
   // Create and train the index
-  auto const idx = create_ivf_flat_index(dim_learn, 1024, 100, mode);
+  auto idx = CPU_create_ivf_flat_index(dim_learn, 1024, 100);
+  if (mode == "gpu_multiple") {
+    idx = faiss::gpu::index_cpu_to_gpu_multiple(res, devs, idx);
+  } else if (mode == "gpu_single") {
+    idx = faiss::gpu::index_cpu_to_gpu(res[0], devs[0], idx);
+  } else if (mode == "cpu") {
+    // Do nothing
+  } else {
+    std::cerr << "[ERROR] Invalid mode" << std::endl;
+    std::exit(1);
+  }
   idx->train(n_learn, data_learn);
 
   // Add vectors to the index
@@ -91,11 +92,10 @@ int main(int argc, char **argv) {
   std::cout << std::endl;
 
   // Load the query dataset
-  size_t dim_query, n_query;
+  uint32_t dim_query, n_query;
   float *data_query;
-  std::string dataset_path_query = dataset + "/learn.fvecs";
-  read_dataset(dataset_path_query.c_str(), data_query, &dim_query, &n_query);
-  n_query = 10'000;
+  std::string dataset_path_query = dataset + "/query.bin";
+  read_dataset2<float_t>(dataset_path_query.c_str(), data_query, &n_query, &dim_query, 10'000);
   
   // Print information about the query dataset
   std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
