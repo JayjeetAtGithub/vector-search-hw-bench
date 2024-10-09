@@ -5,6 +5,7 @@
 #include <thread>
 #include <vector>
 
+#include "CLI11.hpp"
 #include <faiss/IndexFlat.h>
 #include <faiss/IndexHNSW.h>
 #include <faiss/IndexIVFFlat.h>
@@ -14,7 +15,6 @@
 #include <faiss/gpu/GpuIndexIVFFlat.h>
 #include <faiss/gpu/StandardGpuResources.h>
 #include <faiss/index_io.h>
-#include "CLI11.hpp"
 
 #include "utils.h"
 
@@ -24,14 +24,17 @@ faiss::Index *CPU_create_ivf_flat_index(size_t dim, size_t nlist,
   return new faiss::IndexIVFFlat(quantizer, dim, nlist, faiss::METRIC_L2);
 }
 
-faiss::Index *GPU_create_ivf_flat_index(size_t dim, size_t nlist, size_t nprobe, std::string mem_type, int32_t cuda_device) {
+faiss::Index *GPU_create_ivf_flat_index(size_t dim, size_t nlist, size_t nprobe,
+                                        std::string mem_type,
+                                        int32_t cuda_device) {
   auto res = new faiss::gpu::StandardGpuResources();
   auto quantizer = new faiss::gpu::GpuIndexFlatL2(res, dim);
   auto config = faiss::gpu::GpuIndexIVFFlatConfig();
   config.device = cuda_device;
-  config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device : faiss::gpu::MemorySpace::Unified;
-  return new faiss::gpu::GpuIndexIVFFlat(
-    res, quantizer, dim, nlist, faiss::METRIC_L2, config);
+  config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
+                                            : faiss::gpu::MemorySpace::Unified;
+  return new faiss::gpu::GpuIndexIVFFlat(res, quantizer, dim, nlist,
+                                         faiss::METRIC_L2, config);
 }
 
 int main(int argc, char **argv) {
@@ -97,7 +100,8 @@ int main(int argc, char **argv) {
   if (mode == "cpu") {
     idx = CPU_create_ivf_flat_index(dim_learn, 1024, 100);
   } else {
-    idx = GPU_create_ivf_flat_index(dim_learn, 1024, 100, mem_type, cuda_device);
+    idx =
+        GPU_create_ivf_flat_index(dim_learn, 1024, 100, mem_type, cuda_device);
   }
 
   // Train the index
