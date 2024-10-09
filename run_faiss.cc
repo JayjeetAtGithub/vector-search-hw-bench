@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
   app.add_option("-d,--dataset", dataset, "Path to the dataset");
 
   std::string mode = "cpu";
-  app.add_option("-m,--mode", mode, "Mode: cpu or gpu");
+  app.add_option("--mode", mode, "Mode: cpu or gpu");
 
   std::string mem_type = "cuda";
   app.add_option("--mem-type", mem_type, "Memory type: cuda or managed");
