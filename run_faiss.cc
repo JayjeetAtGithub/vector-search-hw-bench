@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
             << std::endl;
   preview_dataset(data_learn);
 
-  // Create and train the index
+  // Create the index
   auto idx = CPU_create_ivf_flat_index(dim_learn, 1024, 100);
   if (mode == "gpu_multiple") {
     idx = faiss::gpu::index_cpu_to_gpu_multiple(res, devs, idx);
@@ -75,12 +75,20 @@ int main(int argc, char **argv) {
     std::cerr << "[ERROR] Invalid mode" << std::endl;
     std::exit(1);
   }
+  
+  // Train the index
+  auto s = std::chrono::high_resolution_clock::now();
   idx->train(n_learn, data_learn);
+  auto e = std::chrono::high_resolution_clock::now();
+  std::cout
+      << "[TIME] Train: "
+      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+      << " ms" << std::endl;
 
   // Add vectors to the index
-  auto s = std::chrono::high_resolution_clock::now();
+  s = std::chrono::high_resolution_clock::now();
   idx->add(n_learn, data_learn);
-  auto e = std::chrono::high_resolution_clock::now();
+  e = std::chrono::high_resolution_clock::now();
   std::cout
       << "[TIME] Index: "
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
