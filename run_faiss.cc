@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
   argv = app.ensure_utf8(argv);
 
   std::string op;
-  app.add_option("-o,--op", op, "Operation to perform: index or search");
+  app.add_option("--op", op, "Operation to perform: index or search");
 
   std::string dataset;
   app.add_option("-d,--dataset", dataset, "Path to the dataset");
@@ -50,22 +50,25 @@ int main(int argc, char **argv) {
   app.add_option("-m,--mode", mode, "Mode: cpu or gpu");
 
   std::string mem_type = "cuda";
-  app.add_option("-t,--mem_type", mem_type, "Memory type: cuda or managed");
+  app.add_option("--mem-type", mem_type, "Memory type: cuda or managed");
 
   int32_t cuda_device = 0;
-  app.add_option("-c,--cuda_device", cuda_device, "The CUDA device to use");
+  app.add_option("--cuda-device", cuda_device, "The CUDA device to use");
 
-  uint32_t limit = 1000;
-  app.add_option("-l,--limit", limit, "Limit the number of vectors");
+  uint32_t learn_limit = 1000;
+  app.add_option("--learn-limit", learn_limit, "Limit the number of learn vectors");
+
+  uint32_t search_limit = 1000;
+  app.add_option("--search-limit", search_limit, "Limit the number of search vectors");
 
   int32_t top_k = 10;
-  app.add_option("-k,--top_k", top_k, "Number of nearest neighbors");
+  app.add_option("-k,--top-k", top_k, "Number of nearest neighbors");
 
   int32_t n_list = 100;
-  app.add_option("-n,--n_list", n_list, "Number of inverted lists");
+  app.add_option("-n,--n-list", n_list, "Number of inverted lists");
 
   int32_t n_probe = 10;
-  app.add_option("-p,--n_probe", n_probe, "Number of cells to probe");
+  app.add_option("-p,--n-probe", n_probe, "Number of cells to probe");
 
   CLI11_PARSE(app, argc, argv);
 
@@ -78,23 +81,23 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  // // Preparing GPU resources
-  // auto const n_gpus = faiss::gpu::getNumDevices();
-  // std::cout << "[INFO] Number of GPUs: " << n_gpus << std::endl;
-  // std::vector<faiss::gpu::GpuResourcesProvider *> res;
-  // std::vector<int> devs;
-  // for (int i = 0; i < n_gpus; i++) {
-  //   res.push_back(new faiss::gpu::StandardGpuResources());
-  //   devs.push_back(i);
-  // }
+  // Preparing GPU resources
+  auto const n_gpus = faiss::gpu::getNumDevices();
+  std::cout << "[INFO] Number of GPUs: " << n_gpus << std::endl;
+  std::vector<faiss::gpu::GpuResourcesProvider *> res;
+  std::vector<int> devs;
+  for (int i = 0; i < n_gpus; i++) {
+    res.push_back(new faiss::gpu::StandardGpuResources());
+    devs.push_back(i);
+  }
 
   if (op == "index") {
     // Load the learn dataset
     uint32_t dim_learn, n_learn;
     float *data_learn;
-    std::string dataset_path_learn = dataset + "/base.bin";
+    std::string dataset_path_learn = dataset + "/base.1B.bin";
     read_dataset<float_t>(dataset_path_learn.c_str(), data_learn, &n_learn,
-                          &dim_learn, limit);
+                          &dim_learn, learn_limit);
 
     // Print information about the learn dataset
     std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << n_learn
@@ -146,33 +149,44 @@ int main(int argc, char **argv) {
     delete[] data_learn;
   }
 
-  // // Load the query dataset
-  // uint32_t dim_query, n_query;
-  // float *data_query;
-  // std::string dataset_path_query = dataset + "/query.bin";
-  // read_dataset2<float_t>(dataset_path_query.c_str(), data_query, &n_query,
-  //                        &dim_query, 10'000);
+  if (op == "search") {
+    // Load the search dataset
+    uint32_t dim_query, n_query;
+    float *data_query;
+    std::string dataset_path_query = dataset + "/query.bin";
+    read_dataset<float_t>(dataset_path_query.c_str(), data_query, &n_query,
+                          &dim_query, search_limit);
 
-  // // Print information about the query dataset
-  // std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
-  //           << std::endl;
-  // preview_dataset(data_query);
+    // Print information about the search dataset
+    std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
+              << std::endl;
+    preview_dataset(data_query);
 
-  // // Containers to hold the search results
-  // std::vector<faiss::idx_t> nns(top_k * n_query);
-  // std::vector<float> dis(top_k * n_query);
+    // Load the index
+    faiss::Index *idx;
+    if (mode == "cpu") {
+      idx = faiss::read_index("index.faiss");
+    } else {
+      idx = faiss::gpu::index_cpu_to_gpu(res[0], cuda_device,
+                                          faiss::read_index("index.faiss"));
+    }
 
-  // // Perform the search
-  // s = std::chrono::high_resolution_clock::now();
-  // idx->search(n_query, data_query, top_k, dis.data(), nns.data());
-  // e = std::chrono::high_resolution_clock::now();
-  // std::cout
-  //     << "[TIME] Search: "
-  //     << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-  //     << " ms" << std::endl;
+    // Containers to hold the search results
+    std::vector<faiss::idx_t> nns(top_k * n_query);
+    std::vector<float> dis(top_k * n_query);
 
-  // // Delete the query dataset
-  // delete[] data_query;
+    // Perform the search
+    auto s = std::chrono::high_resolution_clock::now();
+    idx->search(n_query, data_query, top_k, dis.data(), nns.data());
+    auto e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Search: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
+
+    // Delete the search dataset
+    delete[] data_query;
+  }
 
   return 0;
 }
