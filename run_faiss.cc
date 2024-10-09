@@ -29,9 +29,11 @@ faiss::Index *GPU_create_ivf_flat_index(size_t dim, size_t nlist, size_t nprobe,
   config.device = cuda_device;
   config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
                                             : faiss::gpu::MemorySpace::Unified;
-  auto quantizer = new faiss::gpu::GpuIndexFlatL2(res, dim, faiss::gpu::GpuIndexFlatConfig{config});
-  auto index = new faiss::gpu::GpuIndexIVFFlat(res, quantizer, dim, nlist,
-                                         faiss::METRIC_L2, faiss::gpu::GpuIndexIVFFlatConfig{config});
+  auto quantizer = new faiss::gpu::GpuIndexFlatL2(
+      res, dim, faiss::gpu::GpuIndexFlatConfig{config});
+  auto index = new faiss::gpu::GpuIndexIVFFlat(
+      res, quantizer, dim, nlist, faiss::METRIC_L2,
+      faiss::gpu::GpuIndexIVFFlatConfig{config});
   index->nprobe = nprobe;
   return index;
 }
@@ -56,10 +58,12 @@ int main(int argc, char **argv) {
   app.add_option("--cuda-device", cuda_device, "The CUDA device to use");
 
   uint32_t learn_limit = 1000;
-  app.add_option("--learn-limit", learn_limit, "Limit the number of learn vectors");
+  app.add_option("--learn-limit", learn_limit,
+                 "Limit the number of learn vectors");
 
   uint32_t search_limit = 1000;
-  app.add_option("--search-limit", search_limit, "Limit the number of search vectors");
+  app.add_option("--search-limit", search_limit,
+                 "Limit the number of search vectors");
 
   int32_t top_k = 10;
   app.add_option("-k,--top-k", top_k, "Number of nearest neighbors");
@@ -109,8 +113,8 @@ int main(int argc, char **argv) {
     if (mode == "cpu") {
       idx = CPU_create_ivf_flat_index(dim_learn, n_list, n_probe);
     } else {
-      idx =
-          GPU_create_ivf_flat_index(dim_learn, n_list, n_probe, mem_type, cuda_device);
+      idx = GPU_create_ivf_flat_index(dim_learn, n_list, n_probe, mem_type,
+                                      cuda_device);
     }
 
     // Train the index
@@ -169,8 +173,8 @@ int main(int argc, char **argv) {
     } else {
       auto options = new faiss::gpu::GpuMultipleClonerOptions();
       options->shard = true;
-      idx = faiss::gpu::index_cpu_to_gpu_multiple(res, devs,
-                                          faiss::read_index("index.faiss"), options);
+      idx = faiss::gpu::index_cpu_to_gpu_multiple(
+          res, devs, faiss::read_index("index.faiss"), options);
     }
 
     // Containers to hold the search results
