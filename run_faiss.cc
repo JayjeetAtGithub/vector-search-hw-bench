@@ -167,8 +167,10 @@ int main(int argc, char **argv) {
     if (mode == "cpu") {
       idx = faiss::read_index("index.faiss");
     } else {
-      idx = faiss::gpu::index_cpu_to_gpu(res[0], cuda_device,
-                                          faiss::read_index("index.faiss"));
+      auto options = new faiss::gpu::GpuMultipleClonerOptions();
+      options->shard = true;
+      idx = faiss::gpu::index_cpu_to_gpu_multiple(res, devs,
+                                          faiss::read_index("index.faiss"), options);
     }
 
     // Containers to hold the search results
