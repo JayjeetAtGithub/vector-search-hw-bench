@@ -9,23 +9,23 @@
 #include <faiss/IndexHNSW.h>
 #include <faiss/IndexIVFFlat.h>
 #include <faiss/IndexLSH.h>
+#include <faiss/gpu/GpuCloner.h>
 #include <faiss/gpu/GpuIndexFlat.h>
 #include <faiss/gpu/GpuIndexIVFFlat.h>
 #include <faiss/gpu/StandardGpuResources.h>
-#include <faiss/gpu/GpuCloner.h>
 #include <faiss/index_io.h>
 
 #include "utils.h"
 
-faiss::Index* CPU_create_ivf_flat_index(size_t dim, size_t nlist,
-                                                    size_t nprobe) {
-  return new faiss::IndexIVFFlat(
-      new faiss::IndexFlatL2(dim), dim, nlist);
+faiss::Index *CPU_create_ivf_flat_index(size_t dim, size_t nlist,
+                                        size_t nprobe) {
+  return new faiss::IndexIVFFlat(new faiss::IndexFlatL2(dim), dim, nlist);
 }
 
 int main(int argc, char **argv) {
   if (argc != 5) {
-    std::cerr << "Usage: " << argv[0] << " <dataset> <mode> <limit> <top_k>" << std::endl;
+    std::cerr << "Usage: " << argv[0] << " <dataset> <mode> <limit> <top_k>"
+              << std::endl;
     std::exit(1);
   }
 
@@ -45,19 +45,20 @@ int main(int argc, char **argv) {
   // Preparing GPU resources
   auto const n_gpus = faiss::gpu::getNumDevices();
   std::cout << "[INFO] Number of GPUs: " << n_gpus << std::endl;
-  std::vector<faiss::gpu::GpuResourcesProvider*> res;
+  std::vector<faiss::gpu::GpuResourcesProvider *> res;
   std::vector<int> devs;
-  for(int i = 0; i < n_gpus; i++) {
-      res.push_back(new faiss::gpu::StandardGpuResources());
-      devs.push_back(i);
+  for (int i = 0; i < n_gpus; i++) {
+    res.push_back(new faiss::gpu::StandardGpuResources());
+    devs.push_back(i);
   }
 
   // Load the learn dataset
   uint32_t dim_learn, n_learn;
   float *data_learn;
   std::string dataset_path_learn = dataset + "/base.bin";
-  read_dataset2<float_t>(dataset_path_learn.c_str(), data_learn, &n_learn, &dim_learn, limit);
-  
+  read_dataset2<float_t>(dataset_path_learn.c_str(), data_learn, &n_learn,
+                         &dim_learn, limit);
+
   // Print information about the learn dataset
   std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << n_learn
             << std::endl;
@@ -75,7 +76,7 @@ int main(int argc, char **argv) {
     std::cerr << "[ERROR] Invalid mode" << std::endl;
     std::exit(1);
   }
-  
+
   // Train the index
   auto s = std::chrono::high_resolution_clock::now();
   idx->train(n_learn, data_learn);
@@ -103,8 +104,9 @@ int main(int argc, char **argv) {
   uint32_t dim_query, n_query;
   float *data_query;
   std::string dataset_path_query = dataset + "/query.bin";
-  read_dataset2<float_t>(dataset_path_query.c_str(), data_query, &n_query, &dim_query, 10'000);
-  
+  read_dataset2<float_t>(dataset_path_query.c_str(), data_query, &n_query,
+                         &dim_query, 10'000);
+
   // Print information about the query dataset
   std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
             << std::endl;
