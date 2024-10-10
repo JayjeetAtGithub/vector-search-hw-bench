@@ -1,10 +1,12 @@
 #include <chrono>
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 #include "CLI11.hpp"
 #include <faiss/IndexFlat.h>
 #include <faiss/IndexIVFFlat.h>
+#include <faiss/IndexHNSW.h>
 #include <faiss/gpu/GpuCloner.h>
 #include <faiss/gpu/GpuIndexFlat.h>
 #include <faiss/gpu/GpuIndexIVFFlat.h>
@@ -13,16 +15,35 @@
 
 #include "utils.h"
 
-faiss::Index *CPU_create_ivf_flat_index(size_t dim, size_t nlist,
-                                        size_t nprobe) {
+faiss::Index *CPU_create_hnsw_index(size_t dim) {
+  auto idx = new faiss::IndexHNSWFlat(dim, 32);
+  // idx->hnsw.efConstruction = 32;
+  // idx->hnsw.efSearch = 16;
+  return idx;
+}
+
+/**
+ * @brief Create an IVF Flat index using the CPU
+ * We use the default value of `n_probe` which is 1
+ * 
+ * @param dim The dimension of the vectors
+ * @param nlist The number of inverted lists
+ */
+faiss::Index *CPU_create_ivf_flat_index(size_t dim, size_t nlist) {
   auto quantizer = new faiss::IndexFlatL2(dim);
   auto index = new faiss::IndexIVFFlat(quantizer, dim, nlist, faiss::METRIC_L2);
-  index->nprobe = nprobe;
   return index;
 }
 
+/**
+ * @brief Create an IVF Flat index using the GPU
+ * We use the default value of `n_probe` which is 1
+ * 
+ * @param dim The dimension of the vectors
+ * @param nlist The number of inverted lists
+ */
 faiss::Index *GPU_create_ivf_flat_index(
-    size_t dim, size_t nlist, size_t nprobe, std::string mem_type,
+    size_t dim, size_t nlist, std::string mem_type,
     faiss::gpu::GpuResourcesProvider *provider, int32_t cuda_device) {
   auto config = faiss::gpu::GpuIndexConfig();
   config.device = cuda_device;
@@ -33,7 +54,6 @@ faiss::Index *GPU_create_ivf_flat_index(
   auto index = new faiss::gpu::GpuIndexIVFFlat(
       provider, quantizer, dim, nlist, faiss::METRIC_L2,
       faiss::gpu::GpuIndexIVFFlatConfig{config});
-  index->nprobe = nprobe;
   return index;
 }
 
@@ -67,12 +87,6 @@ int main(int argc, char **argv) {
   int32_t top_k = 10;
   app.add_option("-k,--top-k", top_k, "Number of nearest neighbors");
 
-  int32_t n_list = 100;
-  app.add_option("-n,--n-list", n_list, "Number of inverted lists");
-
-  int32_t n_probe = 10;
-  app.add_option("-p,--n-probe", n_probe, "Number of cells to probe");
-
   CLI11_PARSE(app, argc, argv);
 
   if (dataset.empty()) {
@@ -95,12 +109,15 @@ int main(int argc, char **argv) {
             << std::endl;
   preview_dataset<float_t>(data_learn);
 
+  // Set parameters
+  size_t n_list = size_t(4 * std::sqrt(n_learn));
+
   // Create the index
   faiss::Index *idx;
   if (mode == "cpu") {
-    idx = CPU_create_ivf_flat_index(dim_learn, n_list, n_probe);
+    idx = CPU_create_ivf_flat_index(dim_learn, n_list);
   } else {
-    idx = GPU_create_ivf_flat_index(dim_learn, n_list, n_probe, mem_type,
+    idx = GPU_create_ivf_flat_index(dim_learn, n_list, mem_type,
                                     provider, cuda_device);
   }
 
