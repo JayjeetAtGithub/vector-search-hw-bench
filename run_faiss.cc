@@ -1,12 +1,12 @@
 #include <chrono>
+#include <cmath>
 #include <iostream>
 #include <vector>
-#include <cmath>
 
 #include "CLI11.hpp"
 #include <faiss/IndexFlat.h>
-#include <faiss/IndexIVFFlat.h>
 #include <faiss/IndexHNSW.h>
+#include <faiss/IndexIVFFlat.h>
 #include <faiss/gpu/GpuCloner.h>
 #include <faiss/gpu/GpuIndexFlat.h>
 #include <faiss/gpu/GpuIndexIVFFlat.h>
@@ -25,7 +25,7 @@ faiss::Index *CPU_create_hnsw_index(size_t dim) {
 /**
  * @brief Create an IVF Flat index using the CPU
  * We use the default value of `n_probe` which is 1
- * 
+ *
  * @param dim The dimension of the vectors
  * @param nlist The number of inverted lists
  */
@@ -38,13 +38,14 @@ faiss::Index *CPU_create_ivf_flat_index(size_t dim, size_t nlist) {
 /**
  * @brief Create an IVF Flat index using the GPU
  * We use the default value of `n_probe` which is 1
- * 
+ *
  * @param dim The dimension of the vectors
  * @param nlist The number of inverted lists
  */
-faiss::Index *GPU_create_ivf_flat_index(
-    size_t dim, size_t nlist, std::string mem_type,
-    faiss::gpu::GpuResourcesProvider *provider, int32_t cuda_device) {
+faiss::Index *
+GPU_create_ivf_flat_index(size_t dim, size_t nlist, std::string mem_type,
+                          faiss::gpu::GpuResourcesProvider *provider,
+                          int32_t cuda_device) {
   auto config = faiss::gpu::GpuIndexConfig();
   config.device = cuda_device;
   config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
@@ -117,8 +118,8 @@ int main(int argc, char **argv) {
   if (mode == "cpu") {
     idx = CPU_create_ivf_flat_index(dim_learn, n_list);
   } else {
-    idx = GPU_create_ivf_flat_index(dim_learn, n_list, mem_type,
-                                    provider, cuda_device);
+    idx = GPU_create_ivf_flat_index(dim_learn, n_list, mem_type, provider,
+                                    cuda_device);
   }
 
   // Train the index
