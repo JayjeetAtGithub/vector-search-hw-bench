@@ -9,7 +9,7 @@ rm -rf build/
 mkdir -p build/
 cd build/
 
-sudo apt-get install -y libblas-dev libopenblas-dev liblapack-dev swig python3-numpy
+sudo apt-get install -y libssl-dev libblas-dev libopenblas-dev liblapack-dev swig python3-numpy
 
 cmake -DFAISS_ENABLE_GPU=ON \
       -DFAISS_ENABLE_PYTHON=OFF \
