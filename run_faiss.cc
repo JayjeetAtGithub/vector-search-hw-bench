@@ -15,27 +15,6 @@
 
 #include "utils.h"
 
-faiss::Index *CPU_create_hnsw_index(uint32_t dim) {
-  auto idx = new faiss::IndexHNSWFlat(dim, 32);
-  // idx->hnsw.efConstruction = 32;
-  // idx->hnsw.efSearch = 16;
-  return idx;
-}
-
-/**
- * @brief Create an IVF Flat index using the CPU
- *
- * @param dim The dimension of the vectors
- * @param nlist The number of inverted lists
- */
-faiss::Index *CPU_create_ivf_flat_index(uint32_t dim, uint32_t nlist,
-                                        uint32_t nprobe) {
-  auto quantizer = new faiss::IndexFlatL2(dim);
-  auto index = new faiss::IndexIVFFlat(quantizer, dim, nlist, faiss::METRIC_L2);
-  index->nprobe = nprobe;
-  return index;
-}
-
 /**
  * @brief Create a Flat index using the GPU
  *
@@ -88,9 +67,6 @@ int main(int argc, char **argv) {
   std::string dataset;
   app.add_option("-d,--dataset", dataset, "Path to the dataset");
 
-  bool persist_index = false;
-  app.add_flag("--persist-index", persist_index, "Save the index");
-
   std::string mode = "cpu";
   app.add_option("--mode", mode, "Mode: cpu or gpu");
 
@@ -139,21 +115,16 @@ int main(int argc, char **argv) {
   // Set parameters
   uint32_t n_list = uint32_t(4 * std::sqrt(n_learn));
 
-  // Create the index
-  faiss::Index *idx;
-  if (mode == "cpu") {
-    idx = CPU_create_ivf_flat_index(dim_learn, n_list, n_probe);
-  } else {
-    idx = GPU_create_ivf_flat_index(dim_learn, n_list, n_probe, mem_type,
-                                    provider, cuda_device);
-  }
+  // Create the index (always on the GPU)
+  faiss::Index *idx = GPU_create_ivf_flat_index(dim_learn, n_list, n_probe,
+                                                mem_type, provider, cuda_device);
 
   // Train the index
   auto s = std::chrono::high_resolution_clock::now();
   idx->train(n_learn, data_learn);
   auto e = std::chrono::high_resolution_clock::now();
   std::cout
-      << "[TIME] Train: "
+      << "[TIME] Train [gpu]: "
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
       << " ms" << std::endl;
 
@@ -168,18 +139,13 @@ int main(int argc, char **argv) {
   idx->add(n_learn, data_learn);
   e = std::chrono::high_resolution_clock::now();
   std::cout
-      << "[TIME] Index: "
+      << "[TIME] Index [gpu]: "
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
       << " ms" << std::endl;
 
-  if (persist_index) {
-    // Save the index
-    std::string index_path = "index.faiss";
-    if (mode == "cpu") {
-      faiss::write_index(idx, index_path.c_str());
-    } else {
-      faiss::write_index(faiss::gpu::index_gpu_to_cpu(idx), index_path.c_str());
-    }
+  // If mode is CPU, copy the index to CPU
+  if (mode == "cpu") {
+    idx = faiss::gpu::index_gpu_to_cpu(idx);
   }
 
   // Load the search dataset
@@ -194,17 +160,6 @@ int main(int argc, char **argv) {
             << std::endl;
   preview_dataset<float_t>(data_query);
 
-  if (persist_index) {
-    // Load the index
-    faiss::Index *idx;
-    if (mode == "cpu") {
-      idx = faiss::read_index("index.faiss");
-    } else {
-      idx = faiss::gpu::index_cpu_to_gpu(provider, cuda_device,
-                                         faiss::read_index("index.faiss"));
-    }
-  }
-
   // Containers to hold the search results
   std::vector<faiss::idx_t> nns(top_k * n_query);
   std::vector<float> dis(top_k * n_query);
@@ -214,7 +169,7 @@ int main(int argc, char **argv) {
   idx->search(n_query, data_query, top_k, dis.data(), nns.data());
   e = std::chrono::high_resolution_clock::now();
   std::cout
-      << "[TIME] Search: "
+      << "[TIME] Search [" << mode << "]: "
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
       << " ms" << std::endl;
 
