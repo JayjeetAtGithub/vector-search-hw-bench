@@ -116,8 +116,8 @@ int main(int argc, char **argv) {
   uint32_t n_list = uint32_t(4 * std::sqrt(n_learn));
 
   // Create the index (always on the GPU)
-  faiss::Index *idx = GPU_create_ivf_flat_index(dim_learn, n_list, n_probe,
-                                                mem_type, provider, cuda_device);
+  faiss::Index *idx = GPU_create_ivf_flat_index(
+      dim_learn, n_list, n_probe, mem_type, provider, cuda_device);
 
   // Train the index
   auto s = std::chrono::high_resolution_clock::now();
