@@ -13,6 +13,7 @@
 #include <faiss/gpu/StandardGpuResources.h>
 #include <faiss/index_io.h>
 
+#include "cuda_profiler_api.h"
 #include "utils.h"
 
 /**
@@ -164,10 +165,12 @@ int main(int argc, char **argv) {
   std::vector<faiss::idx_t> nns(top_k * n_query);
   std::vector<float> dis(top_k * n_query);
 
+  cudaProfilerStart();
   // Perform the search
   s = std::chrono::high_resolution_clock::now();
   idx->search(n_query, data_query, top_k, dis.data(), nns.data());
   e = std::chrono::high_resolution_clock::now();
+  cudaProfilerStop();
   std::cout
       << "[TIME] Search [" << mode << "]: "
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
