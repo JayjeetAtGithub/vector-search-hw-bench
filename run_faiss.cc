@@ -15,7 +15,7 @@
 
 #include "utils.h"
 
-faiss::Index *CPU_create_hnsw_index(size_t dim) {
+faiss::Index *CPU_create_hnsw_index(uint32_t dim) {
   auto idx = new faiss::IndexHNSWFlat(dim, 32);
   // idx->hnsw.efConstruction = 32;
   // idx->hnsw.efSearch = 16;
@@ -24,28 +24,50 @@ faiss::Index *CPU_create_hnsw_index(size_t dim) {
 
 /**
  * @brief Create an IVF Flat index using the CPU
- * We use the default value of `n_probe` which is 1
  *
  * @param dim The dimension of the vectors
  * @param nlist The number of inverted lists
  */
-faiss::Index *CPU_create_ivf_flat_index(size_t dim, size_t nlist) {
+faiss::Index *CPU_create_ivf_flat_index(uint32_t dim, uint32_t nlist,
+                                        uint32_t nprobe) {
   auto quantizer = new faiss::IndexFlatL2(dim);
   auto index = new faiss::IndexIVFFlat(quantizer, dim, nlist, faiss::METRIC_L2);
+  index->nprobe = nprobe;
+  return index;
+}
+
+/**
+ * @brief Create a Flat index using the GPU
+ *
+ * @param dim The dimension of the vectors
+ * @param mem_type The memory type to use
+ * @param provider The GPU resources provider
+ * @param cuda_device The CUDA device to use
+ */
+faiss::Index *GPU_create_flat_index(uint32_t dim, std::string mem_type,
+                                    faiss::gpu::GpuResourcesProvider *provider,
+                                    uint32_t cuda_device) {
+  auto config = faiss::gpu::GpuIndexConfig();
+  config.device = cuda_device;
+  config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
+                                            : faiss::gpu::MemorySpace::Unified;
+  auto index = new faiss::gpu::GpuIndexFlatL2(
+      provider, dim, faiss::gpu::GpuIndexFlatConfig{config});
   return index;
 }
 
 /**
  * @brief Create an IVF Flat index using the GPU
- * We use the default value of `n_probe` which is 1
  *
  * @param dim The dimension of the vectors
  * @param nlist The number of inverted lists
+ * @param mem_type The memory type to use
+ * @param provider The GPU resources provider
+ * @param cuda_device The CUDA device to use
  */
-faiss::Index *
-GPU_create_ivf_flat_index(size_t dim, size_t nlist, std::string mem_type,
-                          faiss::gpu::GpuResourcesProvider *provider,
-                          int32_t cuda_device) {
+faiss::Index *GPU_create_ivf_flat_index(
+    uint32_t dim, uint32_t nlist, uint32_t nprobe, std::string mem_type,
+    faiss::gpu::GpuResourcesProvider *provider, uint32_t cuda_device) {
   auto config = faiss::gpu::GpuIndexConfig();
   config.device = cuda_device;
   config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
@@ -55,6 +77,7 @@ GPU_create_ivf_flat_index(size_t dim, size_t nlist, std::string mem_type,
   auto index = new faiss::gpu::GpuIndexIVFFlat(
       provider, quantizer, dim, nlist, faiss::METRIC_L2,
       faiss::gpu::GpuIndexIVFFlatConfig{config});
+  index->nprobe = nprobe;
   return index;
 }
 
@@ -74,7 +97,7 @@ int main(int argc, char **argv) {
   std::string mem_type = "cuda";
   app.add_option("--mem-type", mem_type, "Memory type: cuda or managed");
 
-  int32_t cuda_device = 0;
+  uint32_t cuda_device = 0;
   app.add_option("--cuda-device", cuda_device, "The CUDA device to use");
 
   uint32_t learn_limit = 1000;
@@ -85,8 +108,11 @@ int main(int argc, char **argv) {
   app.add_option("--search-limit", search_limit,
                  "Limit the number of search vectors");
 
-  int32_t top_k = 10;
+  uint32_t top_k = 10;
   app.add_option("-k,--top-k", top_k, "Number of nearest neighbors");
+
+  uint32_t n_probe = 32;
+  app.add_option("--n-probe", n_probe, "Number of probes");
 
   CLI11_PARSE(app, argc, argv);
 
@@ -111,15 +137,15 @@ int main(int argc, char **argv) {
   preview_dataset<float_t>(data_learn);
 
   // Set parameters
-  size_t n_list = size_t(4 * std::sqrt(n_learn));
+  uint32_t n_list = uint32_t(4 * std::sqrt(n_learn));
 
   // Create the index
   faiss::Index *idx;
   if (mode == "cpu") {
-    idx = CPU_create_ivf_flat_index(dim_learn, n_list);
+    idx = CPU_create_ivf_flat_index(dim_learn, n_list, n_probe);
   } else {
-    idx = GPU_create_ivf_flat_index(dim_learn, n_list, mem_type, provider,
-                                    cuda_device);
+    idx = GPU_create_ivf_flat_index(dim_learn, n_list, n_probe, mem_type,
+                                    provider, cuda_device);
   }
 
   // Train the index
@@ -156,9 +182,6 @@ int main(int argc, char **argv) {
     }
   }
 
-  // Delete the learn dataset
-  delete[] data_learn;
-
   // Load the search dataset
   uint32_t dim_query, n_query;
   float *data_query;
@@ -177,7 +200,7 @@ int main(int argc, char **argv) {
     if (mode == "cpu") {
       idx = faiss::read_index("index.faiss");
     } else {
-      idx = faiss::gpu::index_cpu_to_gpu(provider, 0,
+      idx = faiss::gpu::index_cpu_to_gpu(provider, cuda_device,
                                          faiss::read_index("index.faiss"));
     }
   }
@@ -195,7 +218,31 @@ int main(int argc, char **argv) {
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
       << " ms" << std::endl;
 
-  // Delete the search dataset
+  // Run bruteforce experiments
+  std::vector<faiss::idx_t> gt_nns(top_k * n_query);
+  std::vector<float> gt_dis(top_k * n_query);
+  auto brute_force_index =
+      GPU_create_flat_index(dim_learn, mem_type, provider, cuda_device);
+  brute_force_index->add(n_learn, data_learn);
+  brute_force_index->search(n_query, data_query, top_k, gt_dis.data(),
+                            gt_nns.data());
+
+  // Calculate the recall
+  uint32_t recalls = 0;
+  for (uint32_t i = 0; i < n_query; ++i) {
+    for (uint32_t n = 0; n < top_k; n++) {
+      for (uint32_t m = 0; m < top_k; m++) {
+        if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
+          recalls += 1;
+        }
+      }
+    }
+  }
+  float recall = 1.0f * recalls / (top_k * n_query);
+  std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
+
+  // Delete the datasets
+  delete[] data_learn;
   delete[] data_query;
 
   return 0;
