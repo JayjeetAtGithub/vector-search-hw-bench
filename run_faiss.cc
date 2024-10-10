@@ -21,18 +21,17 @@ faiss::Index *CPU_create_ivf_flat_index(size_t dim, size_t nlist,
   return index;
 }
 
-faiss::Index *GPU_create_ivf_flat_index(size_t dim, size_t nlist, size_t nprobe,
-                                        std::string mem_type,
-                                        int32_t cuda_device) {
-  auto res = new faiss::gpu::StandardGpuResources();
+faiss::Index *GPU_create_ivf_flat_index(
+    size_t dim, size_t nlist, size_t nprobe, std::string mem_type,
+    faiss::gpu::GpuResourcesProvider *provider, int32_t cuda_device) {
   auto config = faiss::gpu::GpuIndexConfig();
   config.device = cuda_device;
   config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
                                             : faiss::gpu::MemorySpace::Unified;
   auto quantizer = new faiss::gpu::GpuIndexFlatL2(
-      res, dim, faiss::gpu::GpuIndexFlatConfig{config});
+      provider, dim, faiss::gpu::GpuIndexFlatConfig{config});
   auto index = new faiss::gpu::GpuIndexIVFFlat(
-      res, quantizer, dim, nlist, faiss::METRIC_L2,
+      provider, quantizer, dim, nlist, faiss::METRIC_L2,
       faiss::gpu::GpuIndexIVFFlatConfig{config});
   index->nprobe = nprobe;
   return index;
@@ -82,19 +81,12 @@ int main(int argc, char **argv) {
   }
 
   // Preparing GPU resources
-  auto const n_gpus = faiss::gpu::getNumDevices();
-  std::cout << "[INFO] Number of GPUs: " << n_gpus << std::endl;
-  std::vector<faiss::gpu::GpuResourcesProvider *> res;
-  std::vector<int> devs;
-  for (int i = 0; i < n_gpus; i++) {
-    res.push_back(new faiss::gpu::StandardGpuResources());
-    devs.push_back(i);
-  }
+  auto provider = new faiss::gpu::StandardGpuResources();
 
   // Load the learn dataset
   uint32_t dim_learn, n_learn;
   float *data_learn;
-  std::string dataset_path_learn = dataset + "/base.1B.bin";
+  std::string dataset_path_learn = dataset + "/dataset.bin";
   read_dataset<float_t>(dataset_path_learn.c_str(), data_learn, &n_learn,
                         &dim_learn, learn_limit);
 
@@ -109,7 +101,7 @@ int main(int argc, char **argv) {
     idx = CPU_create_ivf_flat_index(dim_learn, n_list, n_probe);
   } else {
     idx = GPU_create_ivf_flat_index(dim_learn, n_list, n_probe, mem_type,
-                                    cuda_device);
+                                    provider, cuda_device);
   }
 
   // Train the index
@@ -167,10 +159,8 @@ int main(int argc, char **argv) {
     if (mode == "cpu") {
       idx = faiss::read_index("index.faiss");
     } else {
-      auto options = new faiss::gpu::GpuMultipleClonerOptions();
-      options->shard = true;
-      idx = faiss::gpu::index_cpu_to_gpu_multiple(
-          res, devs, faiss::read_index("index.faiss"), options);
+      idx = faiss::gpu::index_cpu_to_gpu(provider, 0,
+                                         faiss::read_index("index.faiss"));
     }
   }
 
