@@ -42,11 +42,11 @@ int main(int argc, char **argv) {
   CLI::App app{"Run FAISS Benchmarks"};
   argv = app.ensure_utf8(argv);
 
-  std::string op;
-  app.add_option("--op", op, "Operation to perform: index or search");
-
   std::string dataset;
   app.add_option("-d,--dataset", dataset, "Path to the dataset");
+
+  bool save_index = false;
+  app.add_flag("--save-index", save_index, "Save the index");
 
   std::string mode = "cpu";
   app.add_option("--mode", mode, "Mode: cpu or gpu");
@@ -76,10 +76,6 @@ int main(int argc, char **argv) {
 
   CLI11_PARSE(app, argc, argv);
 
-  if (op.empty()) {
-    std::cerr << "[ERROR] Please provide an operation" << std::endl;
-    return 1;
-  }
   if (dataset.empty()) {
     std::cerr << "[ERROR] Please provide a dataset" << std::endl;
     return 1;
@@ -95,52 +91,52 @@ int main(int argc, char **argv) {
     devs.push_back(i);
   }
 
-  if (op == "index") {
-    // Load the learn dataset
-    uint32_t dim_learn, n_learn;
-    float *data_learn;
-    std::string dataset_path_learn = dataset + "/base.1B.bin";
-    read_dataset<float_t>(dataset_path_learn.c_str(), data_learn, &n_learn,
-                          &dim_learn, learn_limit);
+  // Load the learn dataset
+  uint32_t dim_learn, n_learn;
+  float *data_learn;
+  std::string dataset_path_learn = dataset + "/base.1B.bin";
+  read_dataset<float_t>(dataset_path_learn.c_str(), data_learn, &n_learn,
+                        &dim_learn, learn_limit);
 
-    // Print information about the learn dataset
-    std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << n_learn
-              << std::endl;
-    preview_dataset<float_t>(data_learn);
+  // Print information about the learn dataset
+  std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << n_learn
+            << std::endl;
+  preview_dataset<float_t>(data_learn);
 
-    // Create the index
-    faiss::Index *idx;
-    if (mode == "cpu") {
-      idx = CPU_create_ivf_flat_index(dim_learn, n_list, n_probe);
-    } else {
-      idx = GPU_create_ivf_flat_index(dim_learn, n_list, n_probe, mem_type,
-                                      cuda_device);
-    }
+  // Create the index
+  faiss::Index *idx;
+  if (mode == "cpu") {
+    idx = CPU_create_ivf_flat_index(dim_learn, n_list, n_probe);
+  } else {
+    idx = GPU_create_ivf_flat_index(dim_learn, n_list, n_probe, mem_type,
+                                    cuda_device);
+  }
 
-    // Train the index
-    auto s = std::chrono::high_resolution_clock::now();
-    idx->train(n_learn, data_learn);
-    auto e = std::chrono::high_resolution_clock::now();
-    std::cout
-        << "[TIME] Train: "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-        << " ms" << std::endl;
+  // Train the index
+  auto s = std::chrono::high_resolution_clock::now();
+  idx->train(n_learn, data_learn);
+  auto e = std::chrono::high_resolution_clock::now();
+  std::cout
+      << "[TIME] Train: "
+      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+      << " ms" << std::endl;
 
-    // Check if the index is trained
-    if (!idx->is_trained) {
-      std::cout << "[ERROR] Index is not trained" << std::endl;
-      return 1;
-    }
+  // Check if the index is trained
+  if (!idx->is_trained) {
+    std::cout << "[ERROR] Index is not trained" << std::endl;
+    return 1;
+  }
 
-    // Add vectors to the index
-    s = std::chrono::high_resolution_clock::now();
-    idx->add(n_learn, data_learn);
-    e = std::chrono::high_resolution_clock::now();
-    std::cout
-        << "[TIME] Index: "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-        << " ms" << std::endl;
+  // Add vectors to the index
+  s = std::chrono::high_resolution_clock::now();
+  idx->add(n_learn, data_learn);
+  e = std::chrono::high_resolution_clock::now();
+  std::cout
+      << "[TIME] Index: "
+      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+      << " ms" << std::endl;
 
+  if (save_index) {
     // Save the index
     std::string index_path = "index.faiss";
     if (mode == "cpu") {
@@ -148,24 +144,24 @@ int main(int argc, char **argv) {
     } else {
       faiss::write_index(faiss::gpu::index_gpu_to_cpu(idx), index_path.c_str());
     }
-
-    // Delete the learn dataset
-    delete[] data_learn;
   }
 
-  if (op == "search") {
-    // Load the search dataset
-    uint32_t dim_query, n_query;
-    float *data_query;
-    std::string dataset_path_query = dataset + "/query.bin";
-    read_dataset<float_t>(dataset_path_query.c_str(), data_query, &n_query,
-                          &dim_query, search_limit);
+  // Delete the learn dataset
+  delete[] data_learn;
 
-    // Print information about the search dataset
-    std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
-              << std::endl;
-    preview_dataset<float_t>(data_query);
+  // Load the search dataset
+  uint32_t dim_query, n_query;
+  float *data_query;
+  std::string dataset_path_query = dataset + "/query.bin";
+  read_dataset<float_t>(dataset_path_query.c_str(), data_query, &n_query,
+                        &dim_query, search_limit);
 
+  // Print information about the search dataset
+  std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
+            << std::endl;
+  preview_dataset<float_t>(data_query);
+
+  if (save_index) {
     // Load the index
     faiss::Index *idx;
     if (mode == "cpu") {
@@ -176,23 +172,23 @@ int main(int argc, char **argv) {
       idx = faiss::gpu::index_cpu_to_gpu_multiple(
           res, devs, faiss::read_index("index.faiss"), options);
     }
-
-    // Containers to hold the search results
-    std::vector<faiss::idx_t> nns(top_k * n_query);
-    std::vector<float> dis(top_k * n_query);
-
-    // Perform the search
-    auto s = std::chrono::high_resolution_clock::now();
-    idx->search(n_query, data_query, top_k, dis.data(), nns.data());
-    auto e = std::chrono::high_resolution_clock::now();
-    std::cout
-        << "[TIME] Search: "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-        << " ms" << std::endl;
-
-    // Delete the search dataset
-    delete[] data_query;
   }
+
+  // Containers to hold the search results
+  std::vector<faiss::idx_t> nns(top_k * n_query);
+  std::vector<float> dis(top_k * n_query);
+
+  // Perform the search
+  s = std::chrono::high_resolution_clock::now();
+  idx->search(n_query, data_query, top_k, dis.data(), nns.data());
+  e = std::chrono::high_resolution_clock::now();
+  std::cout
+      << "[TIME] Search: "
+      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+      << " ms" << std::endl;
+
+  // Delete the search dataset
+  delete[] data_query;
 
   return 0;
 }
