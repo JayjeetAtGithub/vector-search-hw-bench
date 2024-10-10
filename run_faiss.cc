@@ -45,8 +45,8 @@ int main(int argc, char **argv) {
   std::string dataset;
   app.add_option("-d,--dataset", dataset, "Path to the dataset");
 
-  bool save_index = false;
-  app.add_flag("--save-index", save_index, "Save the index");
+  bool persist_index = false;
+  app.add_flag("--persist-index", persist_index, "Save the index");
 
   std::string mode = "cpu";
   app.add_option("--mode", mode, "Mode: cpu or gpu");
@@ -136,7 +136,7 @@ int main(int argc, char **argv) {
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
       << " ms" << std::endl;
 
-  if (save_index) {
+  if (persist_index) {
     // Save the index
     std::string index_path = "index.faiss";
     if (mode == "cpu") {
@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
             << std::endl;
   preview_dataset<float_t>(data_query);
 
-  if (save_index) {
+  if (persist_index) {
     // Load the index
     faiss::Index *idx;
     if (mode == "cpu") {
