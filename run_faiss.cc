@@ -23,9 +23,9 @@
  * @param provider The GPU resources provider
  * @param cuda_device The CUDA device to use
  */
-faiss::Index *GPU_create_flat_index(uint32_t dim, std::string mem_type,
+faiss::Index *GPU_create_flat_index(int64_t dim, std::string mem_type,
                                     faiss::gpu::GpuResourcesProvider *provider,
-                                    uint32_t cuda_device) {
+                                    int64_t cuda_device) {
   auto config = faiss::gpu::GpuIndexConfig();
   config.device = cuda_device;
   config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
@@ -45,8 +45,8 @@ faiss::Index *GPU_create_flat_index(uint32_t dim, std::string mem_type,
  * @param cuda_device The CUDA device to use
  */
 faiss::Index *GPU_create_ivf_flat_index(
-    uint32_t dim, uint32_t nlist, uint32_t nprobe, std::string mem_type,
-    faiss::gpu::GpuResourcesProvider *provider, uint32_t cuda_device) {
+    int64_t dim, int64_t nlist, int64_t nprobe, std::string mem_type,
+    faiss::gpu::GpuResourcesProvider *provider, int64_t cuda_device) {
   auto config = faiss::gpu::GpuIndexConfig();
   config.device = cuda_device;
   config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
@@ -73,21 +73,21 @@ int main(int argc, char **argv) {
   std::string mem_type = "cuda";
   app.add_option("--mem-type", mem_type, "Memory type: cuda or managed");
 
-  uint32_t cuda_device = 0;
+  int64_t cuda_device = 0;
   app.add_option("--cuda-device", cuda_device, "The CUDA device to use");
 
-  uint32_t learn_limit = 1000;
+  int64_t learn_limit = 1000;
   app.add_option("--learn-limit", learn_limit,
                  "Limit the number of learn vectors");
 
-  uint32_t search_limit = 1000;
+  int64_t search_limit = 1000;
   app.add_option("--search-limit", search_limit,
                  "Limit the number of search vectors");
 
-  uint32_t top_k = 10;
+  int64_t top_k = 10;
   app.add_option("-k,--top-k", top_k, "Number of nearest neighbors");
 
-  uint32_t n_probe = 32;
+  int64_t n_probe = 32;
   app.add_option("--n-probe", n_probe, "Number of probes");
 
   CLI11_PARSE(app, argc, argv);
@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
   auto provider = new faiss::gpu::StandardGpuResources();
 
   // Load the learn dataset
-  uint32_t dim_learn, n_learn;
+  int64_t dim_learn, n_learn;
   float *data_learn;
   std::string dataset_path_learn = dataset + "/dataset.bin";
   read_dataset<float_t>(dataset_path_learn.c_str(), data_learn, &n_learn,
@@ -113,7 +113,7 @@ int main(int argc, char **argv) {
   preview_dataset<float_t>(data_learn);
 
   // Set parameters
-  uint32_t n_list = uint32_t(4 * std::sqrt(n_learn));
+  int64_t n_list = int64_t(4 * std::sqrt(n_learn));
 
   // Create the index (always on the GPU)
   faiss::Index *idx = GPU_create_ivf_flat_index(
@@ -149,7 +149,7 @@ int main(int argc, char **argv) {
   }
 
   // Load the search dataset
-  uint32_t dim_query, n_query;
+  int64_t dim_query, n_query;
   float *data_query;
   std::string dataset_path_query = dataset + "/query.bin";
   read_dataset<float_t>(dataset_path_query.c_str(), data_query, &n_query,
@@ -183,10 +183,10 @@ int main(int argc, char **argv) {
                             gt_nns.data());
 
   // Calculate the recall
-  uint32_t recalls = 0;
-  for (uint32_t i = 0; i < n_query; ++i) {
-    for (uint32_t n = 0; n < top_k; n++) {
-      for (uint32_t m = 0; m < top_k; m++) {
+  int64_t recalls = 0;
+  for (int64_t i = 0; i < n_query; ++i) {
+    for (int64_t n = 0; n < top_k; n++) {
+      for (int64_t m = 0; m < top_k; m++) {
         if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
           recalls += 1;
         }

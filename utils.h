@@ -12,7 +12,7 @@
 #include <unistd.h>
 
 template <typename T>
-T *file_read(const char *fname, uint32_t *n, uint32_t *d, uint32_t limit) {
+T *file_read(const char *fname, int64_t *n, int64_t *d, int64_t limit) {
   FILE *f = fopen(fname, "r");
   if (!f) {
     fprintf(stderr, "Could not open %s\n", fname);
@@ -20,27 +20,28 @@ T *file_read(const char *fname, uint32_t *n, uint32_t *d, uint32_t limit) {
     abort();
   }
 
-  int e;
+  int64_t e;
 
-  uint32_t N;
+  int64_t N;
   e = fread(&N, sizeof(uint32_t), 1, f);
   *n = std::min(N, limit);
 
-  uint32_t D;
+  int64_t D;
   e = fread(&D, sizeof(uint32_t), 1, f);
   *d = D;
 
-  uint32_t len = std::min(N, limit) * D;
+  int64_t len = std::min(N, limit) * D;
   T *v = new T[len];
   e = fread(v, sizeof(T), len, f);
+  std::cout << "Read " << e << " elements" << std::endl;
 
   fclose(f);
   return v;
 }
 
 template <typename T> void preview_dataset(T *xb) {
-  for (int i = 0; i < 5; i++) {
-    for (int j = 0; j < 10; j++) {
+  for (int64_t i = 0; i < 5; i++) {
+    for (int64_t j = 0; j < 10; j++) {
       std::cout << xb[i * 10 + j] << " ";
     }
     std::cout << std::endl;
@@ -48,7 +49,7 @@ template <typename T> void preview_dataset(T *xb) {
 }
 
 template <typename T>
-void read_dataset(const char *filename, T *&xb, uint32_t *d, uint32_t *n,
-                  uint32_t limit) {
+void read_dataset(const char *filename, T *&xb, int64_t *d, int64_t *n,
+                  int64_t limit) {
   xb = file_read<T>(filename, d, n, limit);
 }
