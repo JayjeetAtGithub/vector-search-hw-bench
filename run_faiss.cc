@@ -16,6 +16,13 @@
 #include "cuda_profiler_api.h"
 #include "utils.h"
 
+faiss::Index *CPU_create_hnsw_index(int64_t dim, int64_t ef) {
+  auto index = new faiss::IndexHNSWFlat(dim, 32);
+  index->hnsw.efConstruction = ef;
+  index->hnsw.efSearch = ef;
+  return index;
+}
+
 /**
  * @brief Create a Flat index using the GPU
  *
@@ -71,6 +78,9 @@ int main(int argc, char **argv) {
   std::string mode = "cpu";
   app.add_option("--mode", mode, "Mode: cpu or gpu");
 
+  std::string algo = "ivf";
+  app.add_option("--algo", algo, "Algorithm to run: hnsw or ivf");
+
   std::string mem_type = "cuda";
   app.add_option("--mem-type", mem_type, "Memory type: cuda or managed");
 
@@ -90,6 +100,9 @@ int main(int argc, char **argv) {
 
   int64_t n_probe = 32;
   app.add_option("--n-probe", n_probe, "Number of probes");
+
+  int64_t ef = 256;
+  app.add_option("--ef", ef, "Number of neighbors to explore");
 
   CLI11_PARSE(app, argc, argv);
 
@@ -115,37 +128,48 @@ int main(int argc, char **argv) {
 
   // Set parameters
   int64_t n_list = int64_t(4 * std::sqrt(n_learn));
+  std::string id = algo + " / " + mode + " / " + mem_type;
 
   // Create the index (always on the GPU)
-  faiss::Index *idx = GPU_create_ivf_flat_index(
-      dim_learn, n_list, n_probe, mem_type, provider, cuda_device);
-
-  // Train the index
-  auto s = std::chrono::high_resolution_clock::now();
-  idx->train(n_learn, data_learn);
-  auto e = std::chrono::high_resolution_clock::now();
-  std::cout
-      << "[TIME] Train [gpu]: "
-      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-      << " ms" << std::endl;
-
-  // Check if the index is trained
-  if (!idx->is_trained) {
-    std::cout << "[ERROR] Index is not trained" << std::endl;
+  faiss::Index *idx;
+  if (algo == "hnsw") {
+    idx = CPU_create_hnsw_index(dim_learn, ef);
+  } else if (algo == "ivf") {
+    idx = GPU_create_ivf_flat_index(dim_learn, n_list, n_probe, mem_type,
+                                    provider, cuda_device);
+  } else {
+    std::cout << "[ERROR] Invalid algorithm" << std::endl;
     return 1;
   }
 
+  if (algo == "ivf") {
+    // Train the index
+    auto s = std::chrono::high_resolution_clock::now();
+    idx->train(n_learn, data_learn);
+    auto e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Train [" << id << "]: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
+
+    // Check if the index is trained
+    if (!idx->is_trained) {
+      std::cout << "[ERROR] Index is not trained" << std::endl;
+      return 1;
+    }
+  }
+
   // Add vectors to the index
-  s = std::chrono::high_resolution_clock::now();
+  auto s = std::chrono::high_resolution_clock::now();
   idx->add(n_learn, data_learn);
-  e = std::chrono::high_resolution_clock::now();
+  auto e = std::chrono::high_resolution_clock::now();
   std::cout
-      << "[TIME] Index [gpu]: "
+      << "[TIME] Index [" << id << "]: "
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
       << " ms" << std::endl;
 
   // If mode is CPU, copy the index to CPU
-  if (mode == "cpu") {
+  if (mode == "cpu" && algo == "ivf") {
     idx = faiss::gpu::index_gpu_to_cpu(idx);
   }
 
@@ -172,7 +196,7 @@ int main(int argc, char **argv) {
   e = std::chrono::high_resolution_clock::now();
   cudaProfilerStop();
   std::cout
-      << "[TIME] Search [" << mode << "]: "
+      << "[TIME] Search [" << id << "]: "
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
       << " ms" << std::endl;
 
