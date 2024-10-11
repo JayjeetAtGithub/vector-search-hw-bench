@@ -18,7 +18,7 @@
 
 /**
  * @brief Create a HNSW index using the CPU
- * 
+ *
  * @param dim The dimension of the vectors
  * @param ef The number of neighbors to explore
  */
