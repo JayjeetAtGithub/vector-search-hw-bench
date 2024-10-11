@@ -16,6 +16,12 @@
 #include "cuda_profiler_api.h"
 #include "utils.h"
 
+/**
+ * @brief Create a HNSW index using the CPU
+ * 
+ * @param dim The dimension of the vectors
+ * @param ef The number of neighbors to explore
+ */
 faiss::Index *CPU_create_hnsw_index(int64_t dim, int64_t ef) {
   auto index = new faiss::IndexHNSWFlat(dim, 32);
   index->hnsw.efConstruction = ef;
