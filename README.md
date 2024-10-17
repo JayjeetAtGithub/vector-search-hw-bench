@@ -13,8 +13,9 @@ n_list = int64_t(4 * std::sqrt(n_learn))
 
 # System Requirements
 
-* cmake >= 3.29
-* g++ >= 13.1.0
+* Ubuntu 22.04+
+* Cmake >= 3.29
+* G++ >= 13.1.0
 * CUDA >= 12.4
 
 # Building from source
