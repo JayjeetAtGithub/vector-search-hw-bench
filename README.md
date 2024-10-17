@@ -11,14 +11,14 @@ efConstruction = 40
 n_list = int64_t(4 * std::sqrt(n_learn))
 ```
 
-# System Requirements
+## System Requirements
 
 * Ubuntu 22.04+
-* Cmake >= 3.29
-* G++ >= 13.1.0
+* cmake >= 3.29
+* gcc/g++ >= 13.1.0
 * CUDA >= 12.4
 
-# Building from source
+## Building from source
 
 ```bash
 mkdir build/
