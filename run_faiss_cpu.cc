@@ -18,8 +18,10 @@
  * @param ef The number of neighbors to explore
  */
 faiss::Index *CPU_create_hnsw_index(int64_t dim, int64_t ef) {
+  // Use the default value of M in FAISS
   auto index = new faiss::IndexHNSWFlat(dim, 32);
-  index->hnsw.efConstruction = ef;
+  // Use the default value of efConstruction in FAISS
+  index->hnsw.efConstruction = 40;
   index->hnsw.efSearch = ef;
   return index;
 }
