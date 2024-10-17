@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-faiss_dir=$1
+faiss_dir=${1:-thirdparty/faiss}
 
 cd ${faiss_dir}
 
