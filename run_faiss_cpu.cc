@@ -42,13 +42,16 @@ int main(int argc, char **argv) {
   app.add_option("-d,--dataset", dataset, "Path to the dataset");
 
   std::string mode = "train";
-  app.add_option("--mode", mode, "Whether to train an index or search an index");
+  app.add_option("--mode", mode,
+                 "Whether to train an index or search an index");
 
   std::string hnsw_index_path;
-  app.add_option("--hnsw-index", hnsw_index_path, "Path to a hnsw index on disk");
+  app.add_option("--hnsw-index", hnsw_index_path,
+                 "Path to a hnsw index on disk");
 
   std::string bf_index_path;
-  app.add_option("--bf-index", bf_index_path, "Path to a brute-force index on disk");
+  app.add_option("--bf-index", bf_index_path,
+                 "Path to a brute-force index on disk");
 
   int64_t learn_limit = 1000;
   app.add_option("--learn-limit", learn_limit,
@@ -89,9 +92,9 @@ int main(int argc, char **argv) {
     hnsw_idx->add(n_learn, data_learn);
     auto e = std::chrono::high_resolution_clock::now();
     std::cout
-      << "[TIME] Index: "
-      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-      << " ms" << std::endl;
+        << "[TIME] Index: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
 
     bf_idx->add(n_learn, data_learn);
 
@@ -99,7 +102,7 @@ int main(int argc, char **argv) {
     faiss::write_index(hnsw_idx, hnsw_index_path.c_str());
     faiss::write_index(bf_idx, bf_index_path.c_str());
 
-    delete []data_learn;
+    delete[] data_learn;
   } else {
     // Load the hnsw and brute force indexes
     auto hnsw_idx = faiss::read_index(hnsw_index_path.c_str());
