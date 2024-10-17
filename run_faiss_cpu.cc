@@ -53,11 +53,11 @@ int main(int argc, char **argv) {
   app.add_option("--bf-index", bf_index_path,
                  "Path to a brute-force index on disk");
 
-  int64_t learn_limit = 1000;
+  int64_t learn_limit = 10000;
   app.add_option("--learn-limit", learn_limit,
                  "Limit the number of learn vectors");
 
-  int64_t search_limit = 1000;
+  int64_t search_limit = 10000;
   app.add_option("--search-limit", search_limit,
                  "Limit the number of search vectors");
 
