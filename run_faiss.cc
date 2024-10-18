@@ -1,5 +1,6 @@
 #include <chrono>
 #include <cmath>
+#include <filesystem>
 #include <iostream>
 #include <vector>
 
@@ -214,15 +215,23 @@ int main(int argc, char **argv) {
   // Run bruteforce experiments
   std::vector<faiss::idx_t> gt_nns(top_k * n_query);
   std::vector<float> gt_dis(top_k * n_query);
-  auto brute_force_index =
-      GPU_create_flat_index(dim_learn, mem_type, provider, cuda_device);
-  brute_force_index->add(n_learn, data_learn);
-  brute_force_index->search(n_query, data_query, top_k, gt_dis.data(),
-                            gt_nns.data());
 
   if (!gt_file.empty()) {
-    // Write gt to file
-    write_vector(gt_file.c_str(), gt_nns.data(), top_k * n_query);
+    if (std::filesystem::exists(gt_file)) {
+      std::cout << "[INFO] Reading ground truth from file" << std::endl;
+      gt_nns = read_vector(gt_file.c_str(), top_k * n_query);
+    } else {
+      std::cout
+          << "[INFO] Ground truth file not found. Calculating ground truth"
+          << std::endl;
+      auto brute_force_index =
+          GPU_create_flat_index(dim_learn, mem_type, provider, cuda_device);
+      brute_force_index->add(n_learn, data_learn);
+      brute_force_index->search(n_query, data_query, top_k, gt_dis.data(),
+                                gt_nns.data());
+      std::cout << "[INFO] Writing ground truth to file" << std::endl;
+      write_vector(gt_file.c_str(), gt_nns.data(), top_k * n_query);
+    }
   }
 
   // Calculate the recall
