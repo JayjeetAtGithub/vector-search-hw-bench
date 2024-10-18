@@ -62,3 +62,16 @@ void write_vector(const char *filename, int64_t *data, int64_t size) {
   int64_t e = fwrite(data, sizeof(int64_t), size, f);
   fclose(f);
 }
+
+std::vector<int64_t> read_vector(const char *filename, int64_t size) {
+  FILE *f = fopen(filename, "r");
+  if (!f) {
+    fprintf(stderr, "Could not open %s\n", filename);
+    perror("");
+    abort();
+  }
+  std::vector<int64_t> data(size);
+  int64_t e = fread(data.data(), sizeof(int64_t), size, f);
+  fclose(f);
+  return data;
+}

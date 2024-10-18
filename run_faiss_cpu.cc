@@ -33,8 +33,8 @@ int main(int argc, char **argv) {
   std::string dataset;
   app.add_option("-d,--dataset", dataset, "Path to the dataset");
 
-  std::string bf_index_path;
-  app.add_option("--bf-index", bf_index_path, "Path to the bruteforce index");
+  std::string gt_file;
+  app.add_option("--gt-file", gt_file, "Path to the ground truth file");
 
   int64_t learn_limit = 10000;
   app.add_option("--learn-limit", learn_limit,
@@ -109,13 +109,10 @@ int main(int argc, char **argv) {
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
       << " ms" << std::endl;
 
-  if (!bf_index_path.empty()) {
+  if (!gt_file.empty()) {
     // Run bruteforce experiments
-    std::vector<faiss::idx_t> gt_nns(top_k * n_query);
-    std::vector<float> gt_dis(top_k * n_query);
-    auto brute_force_index = faiss::read_index(bf_index_path.c_str());
-    brute_force_index->search(n_query, data_query, top_k, gt_dis.data(),
-                              gt_nns.data());
+    std::vector<faiss::idx_t> gt_nns =
+        read_vector(gt_file.c_str(), n_query * top_k);
 
     // Calculate the recall
     int64_t recalls = 0;
