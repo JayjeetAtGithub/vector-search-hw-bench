@@ -7,8 +7,6 @@
 #include <faiss/IndexFlat.h>
 #include <faiss/IndexHNSW.h>
 #include <faiss/IndexIVFFlat.h>
-#include <faiss/gpu/GpuIndexFlat.h>
-#include <faiss/gpu/StandardGpuResources.h>
 #include <faiss/index_io.h>
 
 #include "utils.h"
@@ -28,28 +26,15 @@ faiss::Index *CPU_create_hnsw_index(int64_t dim, int64_t ef) {
   return index;
 }
 
-/**
- * @brief Create a Flat index using the GPU
- *
- * @param dim The dimension of the vectors
- * @param provider The GPU resources provider
- */
-faiss::Index *GPU_create_flat_index(int64_t dim,
-                                    faiss::gpu::GpuResourcesProvider *provider) {
-  auto config = faiss::gpu::GpuIndexConfig();
-  config.device = 0;
-  config.memorySpace = faiss::gpu::MemorySpace::Unified;
-  auto index = new faiss::gpu::GpuIndexFlatL2(
-      provider, dim, faiss::gpu::GpuIndexFlatConfig{config});
-  return index;
-}
-
 int main(int argc, char **argv) {
   CLI::App app{"Run FAISS Benchmarks"};
   argv = app.ensure_utf8(argv);
 
   std::string dataset;
   app.add_option("-d,--dataset", dataset, "Path to the dataset");
+
+  std::string bf_index_path;
+  app.add_option("--bf-index", bf_index_path, "Path to the bruteforce index");
 
   int64_t learn_limit = 10000;
   app.add_option("--learn-limit", learn_limit,
@@ -72,8 +57,10 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  // Preparing GPU resources
-  auto provider = new faiss::gpu::StandardGpuResources();
+  if (bf_index_path.empty()) {
+    std::cerr << "[ERROR] Please provide a bruteforce index" << std::endl;
+    return 1;
+  }
 
   // Load the learn dataset
   int64_t dim_learn, n_learn;
@@ -130,9 +117,7 @@ int main(int argc, char **argv) {
   // Run bruteforce experiments
   std::vector<faiss::idx_t> gt_nns(top_k * n_query);
   std::vector<float> gt_dis(top_k * n_query);
-  auto brute_force_index =
-      GPU_create_flat_index(dim_learn, provider);
-  brute_force_index->add(n_learn, data_learn);
+  auto brute_force_index = faiss::read_index(bf_index_path.c_str());
   brute_force_index->search(n_query, data_query, top_k, gt_dis.data(),
                             gt_nns.data());
 
