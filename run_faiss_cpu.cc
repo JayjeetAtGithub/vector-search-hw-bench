@@ -57,11 +57,6 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  if (bf_index_path.empty()) {
-    std::cerr << "[ERROR] Please provide a bruteforce index" << std::endl;
-    return 1;
-  }
-
   // Load the learn dataset
   int64_t dim_learn, n_learn;
   float *data_learn;
@@ -114,26 +109,28 @@ int main(int argc, char **argv) {
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
       << " ms" << std::endl;
 
-  // Run bruteforce experiments
-  std::vector<faiss::idx_t> gt_nns(top_k * n_query);
-  std::vector<float> gt_dis(top_k * n_query);
-  auto brute_force_index = faiss::read_index(bf_index_path.c_str());
-  brute_force_index->search(n_query, data_query, top_k, gt_dis.data(),
-                            gt_nns.data());
+  if (!bf_index_path.empty()) {
+    // Run bruteforce experiments
+    std::vector<faiss::idx_t> gt_nns(top_k * n_query);
+    std::vector<float> gt_dis(top_k * n_query);
+    auto brute_force_index = faiss::read_index(bf_index_path.c_str());
+    brute_force_index->search(n_query, data_query, top_k, gt_dis.data(),
+                              gt_nns.data());
 
-  // Calculate the recall
-  int64_t recalls = 0;
-  for (int64_t i = 0; i < n_query; ++i) {
-    for (int64_t n = 0; n < top_k; n++) {
-      for (int64_t m = 0; m < top_k; m++) {
-        if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
-          recalls += 1;
+    // Calculate the recall
+    int64_t recalls = 0;
+    for (int64_t i = 0; i < n_query; ++i) {
+      for (int64_t n = 0; n < top_k; n++) {
+        for (int64_t m = 0; m < top_k; m++) {
+          if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
+            recalls += 1;
+          }
         }
       }
     }
+    float recall = 1.0f * recalls / (top_k * n_query);
+    std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
   }
-  float recall = 1.0f * recalls / (top_k * n_query);
-  std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
 
   // Delete the datasets
   delete[] data_learn;
