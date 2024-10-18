@@ -21,7 +21,7 @@ n_list = int64_t(4 * std::sqrt(n_learn))
 ## Building from Source
 
 ```bash
-git clone --depth 1 https://github.com/JayjeetAtGithub/vector-search-gpu
+git clone --recursive https://github.com/JayjeetAtGithub/vector-search-gpu
 cd vector-search-gpu/
 ./install_faiss.sh
 mkdir build/
