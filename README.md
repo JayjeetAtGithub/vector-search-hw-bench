@@ -18,9 +18,12 @@ n_list = int64_t(4 * std::sqrt(n_learn))
 * gcc/g++ >= 13.1.0
 * CUDA >= 12.4
 
-## Building from source
+## Building from Source
 
 ```bash
+git clone --depth 1 https://github.com/JayjeetAtGithub/vector-search-gpu
+cd vector-search-gpu/
+./install_faiss.sh
 mkdir build/
 cd build/
 cmake ..
@@ -41,6 +44,20 @@ sudo update-alternatives --config gcc
 sudo update-alternatives --config g++
 gcc --version
 g++ --version
+```
+
+### Updating `cmake`
+
+```bash
+wget https://github.com/Kitware/CMake/releases/download/v3.30.5/cmake-3.30.5-linux-x86_64.sh
+chmod +x cmake-3.30.5-linux-x86_64.sh
+./cmake-3.30.5-linux-x86_64.sh
+cd cmake-3.30.5-linux-x86_64
+sudo cp -r bin/* /usr/local/bin/
+sudo cp -r doc/* /usr/local/doc/
+sudo cp -r man/* /usr/local/man/
+sudo cp -r share/* /usr/local/share/
+cmake --version
 ```
 
 ### NVIDIA Drivers and CUDA Toolkit
