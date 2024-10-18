@@ -11,8 +11,7 @@
 #include <thread>
 #include <unistd.h>
 
-template <typename T>
-T *file_read(const char *fname, int64_t *n, int64_t *d, int64_t limit) {
+float *file_read(const char *fname, int64_t *n, int64_t *d, int64_t limit) {
   FILE *f = fopen(fname, "r");
   if (!f) {
     fprintf(stderr, "Could not open %s\n", fname);
@@ -31,15 +30,15 @@ T *file_read(const char *fname, int64_t *n, int64_t *d, int64_t limit) {
   *d = D;
 
   int64_t len = std::min(N, limit) * D;
-  T *v = new T[len];
-  e = fread(v, sizeof(T), len, f);
+  float *v = new float[len];
+  e = fread(v, sizeof(float), len, f);
   std::cout << "Read " << e << " elements" << std::endl;
 
   fclose(f);
   return v;
 }
 
-template <typename T> void preview_dataset(T *xb) {
+void preview_dataset(float *xb) {
   for (int64_t i = 0; i < 5; i++) {
     for (int64_t j = 0; j < 10; j++) {
       std::cout << xb[i * 10 + j] << " ";
@@ -48,8 +47,18 @@ template <typename T> void preview_dataset(T *xb) {
   }
 }
 
-template <typename T>
-void read_dataset(const char *filename, T *&xb, int64_t *d, int64_t *n,
+void read_dataset(const char *filename, float *&xb, int64_t *d, int64_t *n,
                   int64_t limit) {
-  xb = file_read<T>(filename, d, n, limit);
+  xb = file_read(filename, d, n, limit);
+}
+
+void write_vector(const char *filename, int64_t *data, int64_t size) {
+  FILE *f = fopen(filename, "w");
+  if (!f) {
+    fprintf(stderr, "Could not open %s\n", filename);
+    perror("");
+    abort();
+  }
+  int64_t e = fwrite(data, sizeof(int64_t), size, f);
+  fclose(f);
 }

@@ -83,6 +83,9 @@ int main(int argc, char **argv) {
   std::string dataset;
   app.add_option("-d,--dataset", dataset, "Path to the dataset");
 
+  std::string gt_file;
+  app.add_option("--gt-file", gt_file, "Path to the ground truth file");
+
   std::string mode = "cpu";
   app.add_option("--mode", mode, "Mode: cpu or gpu");
 
@@ -126,13 +129,13 @@ int main(int argc, char **argv) {
   int64_t dim_learn, n_learn;
   float *data_learn;
   std::string dataset_path_learn = dataset + "/dataset.bin";
-  read_dataset<float_t>(dataset_path_learn.c_str(), data_learn, &n_learn,
-                        &dim_learn, learn_limit);
+  read_dataset(dataset_path_learn.c_str(), data_learn, &n_learn, &dim_learn,
+               learn_limit);
 
   // Print information about the learn dataset
   std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << n_learn
             << std::endl;
-  preview_dataset<float_t>(data_learn);
+  preview_dataset(data_learn);
 
   // Set parameters
   int64_t n_list = int64_t(4 * std::sqrt(n_learn));
@@ -185,13 +188,13 @@ int main(int argc, char **argv) {
   int64_t dim_query, n_query;
   float *data_query;
   std::string dataset_path_query = dataset + "/query.bin";
-  read_dataset<float_t>(dataset_path_query.c_str(), data_query, &n_query,
-                        &dim_query, search_limit);
+  read_dataset(dataset_path_query.c_str(), data_query, &n_query, &dim_query,
+               search_limit);
 
   // Print information about the search dataset
   std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
             << std::endl;
-  preview_dataset<float_t>(data_query);
+  preview_dataset(data_query);
 
   // Containers to hold the search results
   std::vector<faiss::idx_t> nns(top_k * n_query);
@@ -216,6 +219,11 @@ int main(int argc, char **argv) {
   brute_force_index->add(n_learn, data_learn);
   brute_force_index->search(n_query, data_query, top_k, gt_dis.data(),
                             gt_nns.data());
+
+  if (!gt_file.empty()) {
+    // Write gt to file
+    write_vector(gt_file.c_str(), gt_nns.data(), top_k * n_query);
+  }
 
   // Calculate the recall
   int64_t recalls = 0;
