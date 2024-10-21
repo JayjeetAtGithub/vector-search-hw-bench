@@ -81,8 +81,8 @@ int main(int argc, char **argv) {
   CLI::App app{"Run FAISS Benchmarks"};
   argv = app.ensure_utf8(argv);
 
-  std::string dataset;
-  app.add_option("-d,--dataset", dataset, "Path to the dataset");
+  std::string dataset_dir;
+  app.add_option("-d,--dataset_dir", dataset_dir, "Path to the dataset");
 
   std::string gt_file;
   app.add_option("--gt-file", gt_file, "Path to the ground truth file");
@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
 
   CLI11_PARSE(app, argc, argv);
 
-  if (dataset.empty()) {
+  if (dataset_dir.empty()) {
     std::cerr << "[ERROR] Please provide a dataset" << std::endl;
     return 1;
   }
@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
   // Load the learn dataset
   int64_t dim_learn, n_learn;
   float *data_learn;
-  std::string dataset_path_learn = dataset + "/dataset.bin";
+  std::string dataset_path_learn = dataset_dir + "/dataset.bin";
   read_dataset(dataset_path_learn.c_str(), data_learn, &n_learn, &dim_learn,
                learn_limit);
 
@@ -188,7 +188,7 @@ int main(int argc, char **argv) {
   // Load the search dataset
   int64_t dim_query, n_query;
   float *data_query;
-  std::string dataset_path_query = dataset + "/query.bin";
+  std::string dataset_path_query = dataset_dir + "/query.bin";
   read_dataset(dataset_path_query.c_str(), data_query, &n_query, &dim_query,
                search_limit);
 
