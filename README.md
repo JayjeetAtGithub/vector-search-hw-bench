@@ -17,6 +17,7 @@ n_list = int64_t(4 * std::sqrt(n_learn))
 * cmake >= 3.29
 * gcc/g++ >= 13.1.0
 * CUDA >= 12.4
+* NVIDIA driver >= 550
 
 ## Building from Source
 
@@ -31,6 +32,8 @@ make
 ```
 
 ## Machine Setup
+
+**NOTE**: Update the `gcc`/`g++` first and then install the NVIDIA drivers and CUDA toolkit.
 
 ### Updating `gcc` and `g++`
 
