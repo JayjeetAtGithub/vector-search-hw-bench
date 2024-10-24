@@ -103,6 +103,31 @@ create_memory_resource(std::string const &allocation_mode) {
     return make_system_pool();
   return make_managed();
 }
+
+template <typename T>
+auto calc_recall(const std::vector<T> &expected_idx,
+                 const std::vector<T> &actual_idx, size_t rows, size_t cols) {
+  size_t match_count = 0;
+  size_t total_count = static_cast<size_t>(rows) * static_cast<size_t>(cols);
+  for (size_t i = 0; i < rows; ++i) {
+    for (size_t k = 0; k < cols; ++k) {
+      size_t idx_k = i * cols + k; // row major assumption!
+      auto act_idx = actual_idx[idx_k];
+      for (size_t j = 0; j < cols; ++j) {
+        size_t idx = i * cols + j; // row major assumption!
+        auto exp_idx = expected_idx[idx];
+        if (act_idx == exp_idx) {
+          match_count++;
+          break;
+        }
+      }
+    }
+  }
+  return std::make_tuple(static_cast<double>(match_count) /
+                             static_cast<double>(total_count),
+                         match_count, total_count);
+}
+
 } // namespace
 
 void ivf_search(raft::device_resources const &res,
@@ -121,7 +146,7 @@ void ivf_search(raft::device_resources const &res,
     // Build and search the IVF-FLAT index
     ivf_flat::index_params index_params;
     index_params.n_lists = n_list;
-    index_params.kmeans_trainset_fraction = 1;
+    index_params.kmeans_trainset_fraction = 0.1;
     index_params.kmeans_n_iters = 100;
     index_params.metric = cuvs::distance::DistanceType::L2Expanded;
 
