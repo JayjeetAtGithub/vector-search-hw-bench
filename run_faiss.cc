@@ -127,11 +127,10 @@ int main(int argc, char **argv) {
   auto provider = new faiss::gpu::StandardGpuResources();
 
   // Load the learn dataset
-  int64_t dim_learn, n_learn;
-  float *data_learn;
   std::string dataset_path_learn = dataset_dir + "/dataset.bin";
-  read_dataset(dataset_path_learn.c_str(), data_learn, &n_learn, &dim_learn,
-               learn_limit);
+  int64_t dim_learn, n_learn;
+  auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &n_learn,
+                                     &dim_learn, learn_limit);
 
   // Print information about the learn dataset
   std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << n_learn
@@ -157,7 +156,7 @@ int main(int argc, char **argv) {
   if (algo == "ivf") {
     // Train the index
     auto s = std::chrono::high_resolution_clock::now();
-    idx->train(n_learn, data_learn);
+    idx->train(n_learn, data_learn.data());
     auto e = std::chrono::high_resolution_clock::now();
     std::cout
         << "[TIME] Train [" << id << "]: "
@@ -173,7 +172,7 @@ int main(int argc, char **argv) {
 
   // Add vectors to the index
   auto s = std::chrono::high_resolution_clock::now();
-  idx->add(n_learn, data_learn);
+  idx->add(n_learn, data_learn.data());
   auto e = std::chrono::high_resolution_clock::now();
   std::cout
       << "[TIME] Index [" << id << "]: "
@@ -186,11 +185,10 @@ int main(int argc, char **argv) {
   }
 
   // Load the search dataset
-  int64_t dim_query, n_query;
-  float *data_query;
   std::string dataset_path_query = dataset_dir + "/query.bin";
-  read_dataset(dataset_path_query.c_str(), data_query, &n_query, &dim_query,
-               search_limit);
+  int64_t dim_query, n_query;
+  auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query,
+                                     &dim_query, search_limit);
 
   // Print information about the search dataset
   std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
@@ -204,7 +202,7 @@ int main(int argc, char **argv) {
   cudaProfilerStart();
   // Perform the search
   s = std::chrono::high_resolution_clock::now();
-  idx->search(n_query, data_query, top_k, dis.data(), nns.data());
+  idx->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
   e = std::chrono::high_resolution_clock::now();
   cudaProfilerStop();
   std::cout
@@ -226,9 +224,9 @@ int main(int argc, char **argv) {
           << std::endl;
       auto brute_force_index =
           GPU_create_flat_index(dim_learn, mem_type, provider, cuda_device);
-      brute_force_index->add(n_learn, data_learn);
-      brute_force_index->search(n_query, data_query, top_k, gt_dis.data(),
-                                gt_nns.data());
+      brute_force_index->add(n_learn, data_learn.data());
+      brute_force_index->search(n_query, data_query.data(), top_k,
+                                gt_dis.data(), gt_nns.data());
       std::cout << "[INFO] Writing ground truth to file" << std::endl;
       write_vector(gt_file.c_str(), gt_nns.data(), top_k * n_query);
     }
@@ -247,10 +245,6 @@ int main(int argc, char **argv) {
   }
   float recall = 1.0f * recalls / (top_k * n_query);
   std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
-
-  // Delete the datasets
-  delete[] data_learn;
-  delete[] data_query;
 
   return 0;
 }
