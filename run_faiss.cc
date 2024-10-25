@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
   argv = app.ensure_utf8(argv);
 
   std::string dataset_dir;
-  app.add_option("-d,--dataset_dir", dataset_dir, "Path to the dataset");
+  app.add_option("-d,--dataset-dir", dataset_dir, "Path to the dataset");
 
   std::string gt_file;
   app.add_option("--gt-file", gt_file, "Path to the ground truth file");
