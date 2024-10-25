@@ -203,6 +203,85 @@ void ivf_search(raft::device_resources const &res,
   }
 }
 
+void cagra_search(raft::device_resources const &res,
+                  raft::device_matrix_view<const float, int64_t> dataset,
+                  raft::device_matrix_view<const float, int64_t> queries,
+                  int64_t itopk_size,
+                  int64_t top_k) {
+  using namespace cuvs::neighbors;
+  std::cout << "Performing CAGRA search" << std::endl;
+  int64_t n_queries = queries.extent(0);
+  auto neighbors =
+      raft::make_device_matrix<uint32_t, int64_t>(res, n_queries, top_k);
+  auto distances =
+      raft::make_device_matrix<float, int64_t>(res, n_queries, top_k);
+
+  {
+    // Build and search the CAGRA index
+    cagra::index_params index_params;
+    index_params.metric = cuvs::distance::DistanceType::L2Expanded;
+    index_params.graph_build_params = cagra::graph_build_params::ivf_pq_params(
+      dataset.extents(),
+      index_params.metric
+    );
+
+    auto s = std::chrono::high_resolution_clock::now();
+    auto index = cagra::build(res, index_params, dataset);
+    raft::resource::sync_stream(res);
+    auto e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Train and index: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
+    std::cout << "CAGRA index has " << index.size() << " vectors" << std::endl;
+    std::cout << "CAGRA graph has degree " << index.graph_degree()
+              << ", graph size [" << index.graph().extent(0) << ", "
+              << index.graph().extent(1) << "]" << std::endl;
+
+    // Perform the search operation
+    cagra::search_params search_params;
+    search_params.itopk_size = itopk_size;
+    s = std::chrono::high_resolution_clock::now();
+    cagra::search(res, search_params, index, queries, neighbors.view(),
+                  distances.view());
+    raft::resource::sync_stream(res);
+    e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Search: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
+  }
+
+  {
+    // Brute force search for recall calculation
+    auto reference_neighbors =
+        raft::make_device_matrix<int64_t, int64_t>(res, n_queries, top_k);
+    auto reference_distances =
+        raft::make_device_matrix<float, int64_t>(res, n_queries, top_k);
+    auto brute_force_index = cuvs::neighbors::brute_force::build(res, dataset);
+    cuvs::neighbors::brute_force::search(res, brute_force_index, queries,
+                                         reference_neighbors.view(),
+                                         reference_distances.view());
+    raft::resource::sync_stream(res);
+
+    // Calculate recall
+    size_t size = n_queries * top_k;
+    std::vector<uint32_t> neighbors_h(size);
+    std::vector<int64_t> neighbors_ref_h(size);
+
+    auto stream = raft::resource::get_cuda_stream(res);
+    raft::copy(neighbors_h.data(), neighbors.data_handle(), size, stream);
+    raft::copy(neighbors_ref_h.data(), reference_neighbors.data_handle(), size,
+               stream);
+
+    std::vector<int64_t> neighbors_h_64b(neighbors_h.begin(),
+                                         neighbors_h.end());
+    auto [recall, _, __] = calc_recall<int64_t>(
+        neighbors_ref_h, neighbors_h_64b, n_queries, top_k);
+    std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
+  }
+}
+
 int main(int argc, char **argv) {
   CLI::App app{"Run CUVS Benchmarks"};
   argv = app.ensure_utf8(argv);
@@ -231,6 +310,9 @@ int main(int argc, char **argv) {
 
   int64_t top_k = 10;
   app.add_option("-k,--top-k", top_k, "Number of nearest neighbors");
+
+  int64_t itopk_size = 64;
+  app.add_option("--itop-k", itopk_size, "The value of itopk_size in CAGRA");
 
   int64_t n_probe = 32;
   app.add_option("--n-probe", n_probe, "Number of probes");
@@ -276,6 +358,9 @@ int main(int argc, char **argv) {
     ivf_search(res, raft::make_const_mdspan(dataset_device.view()),
                raft::make_const_mdspan(queries_device.view()), n_list, n_probe,
                top_k);
+  } else if (algo == "cagra") {
+    cagra_search(res, raft::make_const_mdspan(dataset_device.view()),
+                 raft::make_const_mdspan(queries_device.view()), itopk_size, top_k);
   }
 
   raft::resource::sync_stream(res);
