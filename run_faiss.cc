@@ -148,6 +148,8 @@ int main(int argc, char **argv) {
   } else if (algo == "ivf") {
     idx = GPU_create_ivf_flat_index(dim_learn, n_list, n_probe, mem_type,
                                     provider, cuda_device);
+  } else if (algo == "bf") {
+    idx = GPU_create_flat_index(dim_learn, mem_type, provider, cuda_device);
   } else {
     std::cout << "[ERROR] Invalid algorithm" << std::endl;
     return 1;
@@ -225,8 +227,14 @@ int main(int argc, char **argv) {
       auto brute_force_index =
           GPU_create_flat_index(dim_learn, mem_type, provider, cuda_device);
       brute_force_index->add(n_learn, data_learn.data());
+      auto s = std::chrono::high_resolution_clock::now();
       brute_force_index->search(n_query, data_query.data(), top_k,
                                 gt_dis.data(), gt_nns.data());
+      auto e = std::chrono::high_resolution_clock::now();
+      std::cout
+        << "[TIME] Brute force search: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
       std::cout << "[INFO] Writing ground truth to file" << std::endl;
       write_vector(gt_file.c_str(), gt_nns.data(), top_k * n_query);
     }

@@ -39,16 +39,17 @@ std::vector<float> read_bin_dataset(std::string fname, int64_t *n, int64_t *d,
                                     int64_t limit) {
   // Read datafile in
   std::ifstream datafile(fname, std::ifstream::binary);
-  int64_t N;
-  int64_t dim;
-  datafile.read((char *)&N, sizeof(uint32_t));
-  datafile.read((char *)&dim, sizeof(uint32_t));
+  uint32_t N_uint32;
+  uint32_t dim_uint32;
+  datafile.read((char *)&N_uint32, sizeof(uint32_t));
+  datafile.read((char *)&dim_uint32, sizeof(uint32_t));
 
-  *n = std::min(N, limit);
+  int64_t N = (int64_t)std::min((int64_t)N_uint32, limit);
+  int64_t dim = (int64_t)dim_uint32;
+
+  *n = N;
   *d = dim;
 
-  if (N > limit)
-    N = limit;
   printf("Read in file - N:%li, dim:%li\n", N, dim);
   std::vector<float> data;
   data.resize((size_t)N * (size_t)dim);
