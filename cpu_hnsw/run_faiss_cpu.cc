@@ -117,9 +117,9 @@ int main(int argc, char **argv) {
   std::vector<float> dis(top_k * search_limit);
 
   // Perform the search
-  s = std::chrono::high_resolution_clock::now();
+  auto s = std::chrono::high_resolution_clock::now();
   ridx->search(search_limit, data_query.data(), top_k, dis.data(), nns.data());
-  e = std::chrono::high_resolution_clock::now();
+  auto e = std::chrono::high_resolution_clock::now();
   std::cout
       << "[TIME] Search: "
       << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
