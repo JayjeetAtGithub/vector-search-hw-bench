@@ -68,14 +68,14 @@ int main(int argc, char **argv) {
   preview_dataset(data_learn);
 
   // Set parameters
-  int64_t n_list = int64_t(4 * std::sqrt(n_learn));
+  int64_t n_list = int64_t(4 * std::sqrt(learn_limit));
 
   // Create the index
   faiss::Index *idx = CPU_create_hnsw_index(dim_learn, ef);
 
   // Add vectors to the index
   auto s = std::chrono::high_resolution_clock::now();
-  idx->add(n_learn, data_learn.data());
+  idx->add(learn_limit, data_learn.data());
   auto e = std::chrono::high_resolution_clock::now();
   std::cout
       << "[TIME] Index: "
@@ -93,12 +93,12 @@ int main(int argc, char **argv) {
   preview_dataset(data_query);
 
   // Containers to hold the search results
-  std::vector<faiss::idx_t> nns(top_k * n_query);
-  std::vector<float> dis(top_k * n_query);
+  std::vector<faiss::idx_t> nns(top_k * search_limit);
+  std::vector<float> dis(top_k * search_limit);
 
   // Perform the search
   s = std::chrono::high_resolution_clock::now();
-  idx->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
+  idx->search(search_limit, data_query.data(), top_k, dis.data(), nns.data());
   e = std::chrono::high_resolution_clock::now();
   std::cout
       << "[TIME] Search: "
@@ -108,11 +108,11 @@ int main(int argc, char **argv) {
   if (!gt_file.empty()) {
     // Run bruteforce experiments
     std::vector<faiss::idx_t> gt_nns =
-        read_vector(gt_file.c_str(), n_query * top_k);
+        read_vector(gt_file.c_str(), search_limit * top_k);
 
     // Calculate the recall
     int64_t recalls = 0;
-    for (int64_t i = 0; i < n_query; ++i) {
+    for (int64_t i = 0; i < search_limit; ++i) {
       for (int64_t n = 0; n < top_k; n++) {
         for (int64_t m = 0; m < top_k; m++) {
           if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
@@ -121,7 +121,7 @@ int main(int argc, char **argv) {
         }
       }
     }
-    float recall = 1.0f * recalls / (top_k * n_query);
+    float recall = 1.0f * recalls / (top_k * search_limit);
     std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
   }
 
