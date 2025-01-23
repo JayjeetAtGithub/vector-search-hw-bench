@@ -42,7 +42,7 @@ std::vector<float> read_bin_dataset(std::string fname, int64_t *d, int64_t limit
   datafile.read((char *)&dim_uint32, sizeof(uint32_t));
   int64_t dim = (int64_t)dim_uint32;
   *d = dim;
-  printf("Read in file - N:%li, dim:%li\n", N, dim);
+  printf("Read in file - N:%li, dim:%li\n", limit, dim);
   std::vector<float> data;
   data.resize((size_t)limit * (size_t)dim);
   datafile.read(reinterpret_cast<char *>(data.data()),
