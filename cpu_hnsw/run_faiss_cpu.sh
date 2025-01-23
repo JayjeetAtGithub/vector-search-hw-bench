@@ -11,4 +11,5 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
             --learn-limit 1000000 \
             --search-limit 10000 \
             --top-k 10 \
-            --ef 256
+            --ef 256 \
+            --metric 1
