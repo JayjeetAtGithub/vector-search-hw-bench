@@ -59,12 +59,11 @@ int main(int argc, char **argv) {
 
   // Load the learn dataset
   std::string dataset_path_learn = dataset_dir + "/dataset.bin";
-  int64_t dim_learn, n_learn;
-  auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &n_learn,
-                                     &dim_learn, learn_limit);
+  int64_t dim_learn;
+  auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &dim_learn, learn_limit);
 
   // Print information about the learn dataset
-  std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << n_learn
+  std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << learn_limit
             << std::endl;
   preview_dataset(data_learn);
 
@@ -85,12 +84,11 @@ int main(int argc, char **argv) {
 
   // Load the search dataset
   std::string dataset_path_query = dataset_dir + "/query.bin";
-  int64_t dim_query, n_query;
-  auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query,
-                                     &dim_query, search_limit);
+  int64_t dim_query;
+  auto data_query = read_bin_dataset(dataset_path_query.c_str(), &dim_query, search_limit);
 
   // Print information about the search dataset
-  std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
+  std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << search_limit
             << std::endl;
   preview_dataset(data_query);
 
