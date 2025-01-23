@@ -99,51 +99,53 @@ int main(int argc, char **argv) {
     faiss::write_index(widx, index_file.c_str());
   }
 
-  // Read the index from disk
-  faiss::Index *ridx = faiss::read_index(index_file.c_str());
+  if (skip_build) {
+    // Read the index from disk
+    faiss::Index *ridx = faiss::read_index(index_file.c_str());
 
-  // Load the search dataset
-  std::string dataset_path_query = dataset_dir + "/query.bin";
-  int64_t dim_query;
-  auto data_query = read_bin_dataset(dataset_path_query.c_str(), &dim_query, search_limit);
+    // Load the search dataset
+    std::string dataset_path_query = dataset_dir + "/query.bin";
+    int64_t dim_query;
+    auto data_query = read_bin_dataset(dataset_path_query.c_str(), &dim_query, search_limit);
 
-  // Print information about the search dataset
-  std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << search_limit
-            << std::endl;
-  preview_dataset(data_query);
+    // Print information about the search dataset
+    std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << search_limit
+              << std::endl;
+    preview_dataset(data_query);
 
-  // Containers to hold the search results
-  std::vector<faiss::idx_t> nns(top_k * search_limit);
-  std::vector<float> dis(top_k * search_limit);
+    // Containers to hold the search results
+    std::vector<faiss::idx_t> nns(top_k * search_limit);
+    std::vector<float> dis(top_k * search_limit);
 
-  // Perform the search
-  auto s = std::chrono::high_resolution_clock::now();
-  for (int itr = 0; itr < 1000; itr++) {
-    ridx->search(search_limit, data_query.data(), top_k, dis.data(), nns.data());
-  }
-  auto e = std::chrono::high_resolution_clock::now();
-  std::cout
-      << "[TIME] Search: "
-      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-      << " ms" << std::endl;
+    // Perform the search
+    auto s = std::chrono::high_resolution_clock::now();
+    for (int itr = 0; itr < 1000; itr++) {
+      ridx->search(search_limit, data_query.data(), top_k, dis.data(), nns.data());
+    }
+    auto e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Search: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
 
-  if (!gt_file.empty()) {
-    std::vector<faiss::idx_t> gt_nns =
-        read_vector(gt_file.c_str(), search_limit * top_k);
+    if (!gt_file.empty()) {
+      std::vector<faiss::idx_t> gt_nns =
+          read_vector(gt_file.c_str(), search_limit * top_k);
 
-    // Calculate the recall
-    int64_t recalls = 0;
-    for (int64_t i = 0; i < search_limit; ++i) {
-      for (int64_t n = 0; n < top_k; n++) {
-        for (int64_t m = 0; m < top_k; m++) {
-          if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
-            recalls += 1;
+      // Calculate the recall
+      int64_t recalls = 0;
+      for (int64_t i = 0; i < search_limit; ++i) {
+        for (int64_t n = 0; n < top_k; n++) {
+          for (int64_t m = 0; m < top_k; m++) {
+            if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
+              recalls += 1;
+            }
           }
         }
       }
+      float recall = 1.0f * recalls / (top_k * search_limit);
+      std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
     }
-    float recall = 1.0f * recalls / (top_k * search_limit);
-    std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
   }
 
   return 0;
