@@ -118,7 +118,9 @@ int main(int argc, char **argv) {
 
   // Perform the search
   auto s = std::chrono::high_resolution_clock::now();
-  ridx->search(search_limit, data_query.data(), top_k, dis.data(), nns.data());
+  for (int itr = 0; itr < 10; itr++) {
+    ridx->search(search_limit, data_query.data(), top_k, dis.data(), nns.data());
+  }
   auto e = std::chrono::high_resolution_clock::now();
   std::cout
       << "[TIME] Search: "
