@@ -39,6 +39,9 @@ int main(int argc, char **argv) {
   std::string gt_file;
   app.add_option("--gt-file", gt_file, "Path to the ground truth file");
 
+  std::string index_file;
+  app.add_option("--index-file", index_file, "Path to the index file");
+
   int64_t learn_limit = 10000;
   app.add_option("--learn-limit", learn_limit,
                  "Limit the number of learn vectors");
@@ -56,6 +59,9 @@ int main(int argc, char **argv) {
   int64_t dis_metric = 0;
   app.add_option("--metric", dis_metric, "Distance metric (0 = L2, 1 = IP)");
 
+  int64_t skip_build = 0;
+  app.add_option("--skip-build", skip_build, "Skip building the index");
+
   CLI11_PARSE(app, argc, argv);
 
   if (dataset_dir.empty()) {
@@ -63,30 +69,38 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  // Load the learn dataset
-  std::string dataset_path_learn = dataset_dir + "/dataset.bin";
-  int64_t dim_learn;
-  auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &dim_learn, learn_limit);
+  if (!skip_build) {
+    // Load the learn dataset
+    std::string dataset_path_learn = dataset_dir + "/dataset.bin";
+    int64_t dim_learn;
+    auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &dim_learn, learn_limit);
 
-  // Print information about the learn dataset
-  std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << learn_limit
-            << std::endl;
-  preview_dataset(data_learn);
+    // Print information about the learn dataset
+    std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << learn_limit
+              << std::endl;
+    preview_dataset(data_learn);
 
-  // Set parameters
-  int64_t n_list = int64_t(4 * std::sqrt(learn_limit));
+    // Set parameters
+    int64_t n_list = int64_t(4 * std::sqrt(learn_limit));
 
-  // Create the index
-  faiss::Index *idx = CPU_create_hnsw_index(dim_learn, ef, dis_metric);
+    // Create the index
+    faiss::Index *widx = CPU_create_hnsw_index(dim_learn, ef, dis_metric);
 
-  // Add vectors to the index
-  auto s = std::chrono::high_resolution_clock::now();
-  idx->add(learn_limit, data_learn.data());
-  auto e = std::chrono::high_resolution_clock::now();
-  std::cout
-      << "[TIME] Index: "
-      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-      << " ms" << std::endl;
+    // Add vectors to the index
+    auto s = std::chrono::high_resolution_clock::now();
+    widx->add(learn_limit, data_learn.data());
+    auto e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Index: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
+
+    // Save the index to disk
+    faiss::write_index(widx, index_file.c_str());
+  }
+
+  // Read the index from disk
+  faiss::Index *ridx = faiss::read_index(index_file.c_str());
 
   // Load the search dataset
   std::string dataset_path_query = dataset_dir + "/query.bin";
@@ -104,7 +118,7 @@ int main(int argc, char **argv) {
 
   // Perform the search
   s = std::chrono::high_resolution_clock::now();
-  idx->search(search_limit, data_query.data(), top_k, dis.data(), nns.data());
+  ridx->search(search_limit, data_query.data(), top_k, dis.data(), nns.data());
   e = std::chrono::high_resolution_clock::now();
   std::cout
       << "[TIME] Search: "
