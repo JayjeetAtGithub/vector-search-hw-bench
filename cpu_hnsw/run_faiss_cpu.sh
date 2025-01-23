@@ -25,5 +25,5 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
             --top-k 10 \
             --ef 256 \
             --metric 1 \
-            --skip-build \
+            --skip-build 1 \
             --index-file hnsw_idx.faiss
