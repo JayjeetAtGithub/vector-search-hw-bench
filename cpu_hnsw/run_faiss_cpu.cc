@@ -106,7 +106,6 @@ int main(int argc, char **argv) {
       << " ms" << std::endl;
 
   if (!gt_file.empty()) {
-    // Run bruteforce experiments
     std::vector<faiss::idx_t> gt_nns =
         read_vector(gt_file.c_str(), search_limit * top_k);
 
