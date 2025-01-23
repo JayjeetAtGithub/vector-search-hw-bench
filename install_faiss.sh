@@ -15,7 +15,7 @@ sudo apt-get install -y libssl-dev libblas-dev libopenblas-dev liblapack-dev swi
 cmake -DFAISS_ENABLE_GPU=ON \
       -DFAISS_ENABLE_PYTHON=OFF \
       -DBUILD_SHARED_LIBS=ON \
-      -DFAISS_OPT_LEVEL=avx2 \
+      -DFAISS_OPT_LEVEL=avx512f \
       -DBUILD_TESTING=OFF \
       -DCMAKE_BUILD_TYPE=Release \
      ..
