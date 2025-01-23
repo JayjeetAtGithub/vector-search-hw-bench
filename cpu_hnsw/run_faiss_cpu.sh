@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
 ./run_faiss_cpu \
     --dataset-dir /workspace/dataset/gist \
     --query-dir /workspace/dataset/gist \
