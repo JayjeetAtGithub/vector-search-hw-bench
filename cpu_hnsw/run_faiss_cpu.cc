@@ -143,9 +143,9 @@ int main(int argc, char **argv) {
     // Read the index from disk
     faiss::Index *ridx = faiss::read_index(index_file.c_str());
     if (index_type == "ivf") {
-      dynamic_cast<faiss::IndexIVFFlat*>(idx)->nprobe = n_probe;
+      dynamic_cast<faiss::IndexIVFFlat*>(ridx)->nprobe = n_probe;
     } else if (index_type == "hnsw") {
-      dynamic_cast<faiss::IndexHNSWFlat*>(idx)->hnsw.efSearch = ef;
+      dynamic_cast<faiss::IndexHNSWFlat*>(ridx)->hnsw.efSearch = ef;
     }
 
     // Load the search dataset
