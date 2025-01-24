@@ -29,7 +29,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
             --metric ip \
             --skip-build 1 \
             --index-file cpu_hnsw.faiss \
-            --calc-recall
+            --calc-recall true
 
 ./run_faiss_cpu \
     --index-type ivf \
@@ -54,7 +54,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
             --metric ip \
             --skip-build 1 \
             --index-file cpu_ivf.faiss \
-            --calc-recall
+            --calc-recall true
 
 ./run_faiss_cpu \
     --index-type flat \
@@ -79,4 +79,4 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
             --metric ip \
             --skip-build 1 \
             --index-file cpu_flat.faiss \
-            --calc-recall
+            --calc-recall true
