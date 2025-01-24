@@ -18,14 +18,13 @@
  * @param ef The number of neighbors to explore
  * @param dis_metric The distance metric to use
  */
-faiss::Index *CPU_create_hnsw_index(int64_t dim, int64_t ef, std::string dis_metric) {
+faiss::Index *CPU_create_hnsw_index(int64_t dim, std::string dis_metric) {
   // Use the default value of M in FAISS
   auto faiss_metric_type = (dis_metric == "l2") ? faiss::MetricType::METRIC_L2
                                              : faiss::MetricType::METRIC_INNER_PRODUCT;
   auto index = new faiss::IndexHNSWFlat(dim, 32, faiss_metric_type);
   // Use the default value of efConstruction in FAISS
   index->hnsw.efConstruction = 40;
-  index->hnsw.efSearch = ef;
   return index;
 }
 
@@ -82,6 +81,9 @@ int main(int argc, char **argv) {
 
   int64_t ef = 256;
   app.add_option("--ef", ef, "Number of neighbors to explore");
+
+  int64_t n_probe = 32;
+  app.add_option("--n-probe", n_probe, "Number of probes");
 
   std::string dis_metric = "l2";
   app.add_option("--metric", dis_metric, "Distance metric to use (l2, ip)");
