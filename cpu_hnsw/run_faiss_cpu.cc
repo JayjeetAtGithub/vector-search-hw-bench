@@ -99,16 +99,16 @@ int main(int argc, char **argv) {
   if (!skip_build) {
     // Load the learn dataset
     std::string dataset_path_learn = dataset_dir + "/dataset.bin";
-    int64_t dim_learn;
-    auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &dim_learn, learn_limit);
+    int64_t n_learn, dim_learn;
+    auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &n_learn, &dim_learn, learn_limit);
 
     // Print information about the learn dataset
-    std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << learn_limit
+    std::cout << "[INFO] Learn dataset shape: " << dim_learn << " x " << n_learn
               << std::endl;
     preview_dataset(data_learn);
 
     // Set parameters
-    int64_t n_list = int64_t(4 * std::sqrt(learn_limit));
+    int64_t n_list = int64_t(4 * std::sqrt(n_learn));
 
     // Create the index
     faiss::Index *widx;
@@ -116,7 +116,7 @@ int main(int argc, char **argv) {
       widx = CPU_create_hnsw_index(dim_learn, ef, dis_metric);
     } else if (index_type == "ivf") {
       widx = CPU_create_ivf_index(dim_learn, n_list, dis_metric);
-      widx->train(learn_limit, data_learn.data());
+      widx->train(n_learn, data_learn.data());
     } else if (index_type == "flat") {
       widx = CPU_create_flat_index(dim_learn, dis_metric);
     } else {
@@ -126,7 +126,7 @@ int main(int argc, char **argv) {
 
     // Add vectors to the index
     auto s = std::chrono::high_resolution_clock::now();
-    widx->add(learn_limit, data_learn.data());
+    widx->add(n_learn, data_learn.data());
     auto e = std::chrono::high_resolution_clock::now();
     std::cout
         << "[TIME] Index: "
@@ -143,22 +143,22 @@ int main(int argc, char **argv) {
 
     // Load the search dataset
     std::string dataset_path_query = dataset_dir + "/query.bin";
-    int64_t dim_query;
-    auto data_query = read_bin_dataset(dataset_path_query.c_str(), &dim_query, search_limit);
+    int64_t n_query, dim_query;
+    auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query, &dim_query, search_limit);
 
     // Print information about the search dataset
-    std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << search_limit
+    std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
               << std::endl;
     preview_dataset(data_query);
 
     // Containers to hold the search results
-    std::vector<faiss::idx_t> nns(top_k * search_limit);
-    std::vector<float> dis(top_k * search_limit);
+    std::vector<faiss::idx_t> nns(top_k * n_query);
+    std::vector<float> dis(top_k * n_query);
 
     // Perform the search
     auto s = std::chrono::high_resolution_clock::now();
     for (int itr = 0; itr < 100; itr++) {
-      ridx->search(search_limit, data_query.data(), top_k, dis.data(), nns.data());
+      ridx->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
     }
     auto e = std::chrono::high_resolution_clock::now();
     std::cout
@@ -168,11 +168,11 @@ int main(int argc, char **argv) {
 
     if (!gt_file.empty()) {
       std::vector<faiss::idx_t> gt_nns =
-          read_vector(gt_file.c_str(), search_limit * top_k);
+          read_vector(gt_file.c_str(), n_query * top_k);
 
       // Calculate the recall
       int64_t recalls = 0;
-      for (int64_t i = 0; i < search_limit; ++i) {
+      for (int64_t i = 0; i < n_query; ++i) {
         for (int64_t n = 0; n < top_k; n++) {
           for (int64_t m = 0; m < top_k; m++) {
             if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
@@ -181,7 +181,7 @@ int main(int argc, char **argv) {
           }
         }
       }
-      float recall = 1.0f * recalls / (top_k * search_limit);
+      float recall = 1.0f * recalls / (top_k * n_query);
       std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
     }
   }

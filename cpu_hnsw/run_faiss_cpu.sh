@@ -8,7 +8,7 @@ search_limit=1000
 
 ./run_faiss_cpu \
     --index-type hnsw \
-    --dataset-dir /workspace/dataset/gist \
+    --dataset-dir /workspace/dataset/deep1b \
     --learn-limit ${learn_limit} \
     --search-limit ${search_limit} \
     --top-k 10 \
@@ -21,7 +21,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
           -e fp_arith_inst_retired.scalar_single \
           ./run_faiss_cpu \
             --index-type hnsw \
-            --dataset-dir /workspace/dataset/gist \
+            --dataset-dir /workspace/dataset/deep1b \
             --learn-limit ${learn_limit} \
             --search-limit ${search_limit} \
             --top-k 10 \
@@ -32,7 +32,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
 
 ./run_faiss_cpu \
     --index-type ivf \
-    --dataset-dir /workspace/dataset/gist \
+    --dataset-dir /workspace/dataset/deep1b \
     --learn-limit ${learn_limit} \
     --search-limit ${search_limit} \
     --top-k 10 \
@@ -45,7 +45,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
           -e fp_arith_inst_retired.scalar_single \
           ./run_faiss_cpu \
             --index-type ivf \
-            --dataset-dir /workspace/dataset/gist \
+            --dataset-dir /workspace/dataset/deep1b \
             --learn-limit ${learn_limit} \
             --search-limit ${search_limit} \
             --top-k 10 \
@@ -56,7 +56,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
 
 ./run_faiss_cpu \
     --index-type flat \
-    --dataset-dir /workspace/dataset/gist \
+    --dataset-dir /workspace/dataset/deep1b \
     --learn-limit ${learn_limit} \
     --search-limit ${search_limit} \
     --top-k 10 \
@@ -69,7 +69,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
           -e fp_arith_inst_retired.scalar_single \
           ./run_faiss_cpu \
             --index-type flat \
-            --dataset-dir /workspace/dataset/gist \
+            --dataset-dir /workspace/dataset/deep1b \
             --learn-limit ${learn_limit} \
             --search-limit ${search_limit} \
             --top-k 10 \
