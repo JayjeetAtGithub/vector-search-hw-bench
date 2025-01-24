@@ -50,7 +50,7 @@ faiss::Index *CPU_create_ivf_index(int64_t dim, int64_t nlist, std::string dis_m
   */
 faiss::Index *CPU_create_flat_index(int64_t dim, std::string dis_metric) {
   auto faiss_metric_type = (dis_metric == "l2") ? faiss::METRIC_L2 : faiss::METRIC_INNER_PRODUCT;
-  return std::make_shared<faiss::IndexFlat>(dim, faiss_metric_type);
+  return new faiss::IndexFlat(dim, faiss_metric_type);
 }
 
 int main(int argc, char **argv) {
