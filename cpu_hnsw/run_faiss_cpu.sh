@@ -38,6 +38,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
     --search-limit ${search_limit} \
     --top-k 10 \
     --ef 256 \
+    --n-probe 128 \
     --metric ip \
     --index-file cpu_ivf.faiss
 
@@ -51,6 +52,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
             --search-limit ${search_limit} \
             --top-k 10 \
             --ef 256 \
+            --n-probe 128 \
             --metric ip \
             --skip-build 1 \
             --index-file cpu_ivf.faiss \
