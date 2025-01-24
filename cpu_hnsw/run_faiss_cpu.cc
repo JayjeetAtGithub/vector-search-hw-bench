@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
     // Create the index
     faiss::Index *widx;
     if (index_type == "hnsw") {
-      widx = CPU_create_hnsw_index(dim_learn, ef, dis_metric);
+      widx = CPU_create_hnsw_index(dim_learn, dis_metric);
     } else if (index_type == "ivf") {
       widx = CPU_create_ivf_index(dim_learn, n_list, dis_metric);
       widx->train(n_learn, data_learn.data());
