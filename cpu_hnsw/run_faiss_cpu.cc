@@ -178,7 +178,7 @@ int main(int argc, char **argv) {
       int64_t n_learn, dim_learn;
       auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &n_learn, &dim_learn, learn_limit);
 
-      faiss::Index *gt_idx = CPU_create_flat_index(dim_query, dis_metric);
+      faiss::Index *gt_idx = CPU_create_flat_index(dim_learn, dis_metric);
       gt_idx->add(n_learn, data_learn.data());
       std::vector<faiss::idx_t> gt_nns(top_k * n_query);
       std::vector<float> gt_dis(top_k * n_query);
