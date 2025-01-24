@@ -18,9 +18,9 @@
  * @param ef The number of neighbors to explore
  * @param dis_metric The distance metric to use
  */
-faiss::Index *CPU_create_hnsw_index(int64_t dim, int64_t ef, int64_t dis_metric) {
+faiss::Index *CPU_create_hnsw_index(int64_t dim, int64_t ef, std::string dis_metric) {
   // Use the default value of M in FAISS
-  auto faiss_metric_type = (dis_metric == 0) ? faiss::MetricType::METRIC_L2
+  auto faiss_metric_type = (dis_metric == "l2") ? faiss::MetricType::METRIC_L2
                                              : faiss::MetricType::METRIC_INNER_PRODUCT;
   auto index = new faiss::IndexHNSWFlat(dim, 32, faiss_metric_type);
   // Use the default value of efConstruction in FAISS
@@ -29,9 +29,36 @@ faiss::Index *CPU_create_hnsw_index(int64_t dim, int64_t ef, int64_t dis_metric)
   return index;
 }
 
+/**
+  * @brief Create an IVF index using the CPU
+  *
+  * @param dim The dimension of the vectors
+  * @param nlist The number of cells in the inverted file
+  * @param dis_metric The distance metric to use
+  */
+faiss::Index *CPU_create_ivf_index(int64_t dim, int64_t nlist, std::string dis_metric) {
+  auto faiss_metric_type = (dis_metric == "l2") ? faiss::METRIC_L2 : faiss::METRIC_INNER_PRODUCT;
+  auto index = new faiss::IndexIVFFlat(new faiss::IndexFlatL2(dim), dim, nlist, faiss_metric_type);
+  return index;
+}
+
+/**
+  * @brief Create a flat index using the CPU
+  *
+  * @param dim The dimension of the vectors
+  * @param dis_metric The distance metric to use
+  */
+faiss::Index *CPU_create_flat_index(int64_t dim, std::string dis_metric) {
+  auto faiss_metric_type = (dis_metric == "l2") ? faiss::METRIC_L2 : faiss::METRIC_INNER_PRODUCT;
+  return std::make_shared<faiss::IndexFlat>(dim, faiss_metric_type);
+}
+
 int main(int argc, char **argv) {
   CLI::App app{"Run FAISS Benchmarks"};
   argv = app.ensure_utf8(argv);
+
+  std::string index_type = "hnsw";
+  app.add_option("--index-type", index_type, "Type of index to use (hnsw, ivf, flat)");
 
   std::string dataset_dir;
   app.add_option("-d,--dataset-dir", dataset_dir, "Path to the dataset");
@@ -39,7 +66,7 @@ int main(int argc, char **argv) {
   std::string gt_file;
   app.add_option("--gt-file", gt_file, "Path to the ground truth file");
 
-  std::string index_file;
+  std::string index_file = "index.faiss";
   app.add_option("--index-file", index_file, "Path to the index file");
 
   int64_t learn_limit = 10000;
@@ -56,8 +83,8 @@ int main(int argc, char **argv) {
   int64_t ef = 256;
   app.add_option("--ef", ef, "Number of neighbors to explore");
 
-  int64_t dis_metric = 0;
-  app.add_option("--metric", dis_metric, "Distance metric (0 = L2, 1 = IP)");
+  std::string dis_metric = "l2";
+  app.add_option("--metric", dis_metric, "Distance metric to use (l2, ip)");
 
   int64_t skip_build = 0;
   app.add_option("--skip-build", skip_build, "Skip building the index");
@@ -84,7 +111,18 @@ int main(int argc, char **argv) {
     int64_t n_list = int64_t(4 * std::sqrt(learn_limit));
 
     // Create the index
-    faiss::Index *widx = CPU_create_hnsw_index(dim_learn, ef, dis_metric);
+    faiss::Index *widx;
+    if (index_type == "hnsw") {
+      widx = CPU_create_hnsw_index(dim_learn, ef, dis_metric);
+    } else if (index_type == "ivf") {
+      widx = CPU_create_ivf_index(dim_learn, n_list, dis_metric);
+      widx->train(learn_limit, data_learn.data());
+    } else if (index_type == "flat") {
+      widx = CPU_create_flat_index(dim_learn, dis_metric);
+    } else {
+      std::cerr << "[ERROR] Invalid index type" << std::endl;
+      return 1;
+    }
 
     // Add vectors to the index
     auto s = std::chrono::high_resolution_clock::now();
