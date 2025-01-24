@@ -60,11 +60,11 @@ int main(int argc, char **argv) {
   std::string index_type = "hnsw";
   app.add_option("--index-type", index_type, "Type of index to use (hnsw, ivf, flat)");
 
+  std::string calc_recall = "false";
+  app.add_option("--calc-recall", calc_recall, "Calculate recall (true / false)");
+
   std::string dataset_dir;
   app.add_option("-d,--dataset-dir", dataset_dir, "Path to the dataset");
-
-  std::string gt_file;
-  app.add_option("--gt-file", gt_file, "Path to the ground truth file");
 
   std::string index_file = "index.faiss";
   app.add_option("--index-file", index_file, "Path to the index file");
@@ -166,11 +166,12 @@ int main(int argc, char **argv) {
         << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
         << " ms" << std::endl;
 
-    if (!gt_file.empty()) {
-      std::vector<faiss::idx_t> gt_nns =
-          read_vector(gt_file.c_str(), n_query * top_k);
-
-      // Calculate the recall
+    if (calc_recall == "true") {
+      faiss::Index *gt_idx = CPU_create_flat_index(dim_query, dis_metric);
+      gt_idx->add(n_query, data_query.data());
+      std::vector<faiss::idx_t> gt_nns(top_k * n_query);
+      std::vector<float> gt_dis(top_k * n_query);
+      gt_idx->search(n_query, data_query.data(), top_k, gt_dis.data(), gt_nns.data());
       int64_t recalls = 0;
       for (int64_t i = 0; i < n_query; ++i) {
         for (int64_t n = 0; n < top_k; n++) {
