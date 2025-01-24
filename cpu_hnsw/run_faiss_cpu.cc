@@ -168,7 +168,7 @@ int main(int argc, char **argv) {
 
     if (calc_recall == "true") {
       faiss::Index *gt_idx = CPU_create_flat_index(dim_query, dis_metric);
-      gt_idx->add(n_query, data_query.data());
+      gt_idx->add(n_learn, data_learn.data());
       std::vector<faiss::idx_t> gt_nns(top_k * n_query);
       std::vector<float> gt_dis(top_k * n_query);
       gt_idx->search(n_query, data_query.data(), top_k, gt_dis.data(), gt_nns.data());
