@@ -13,7 +13,7 @@ search_limit=10000
     --top-k 10 \
     --ef 256 \
     --metric 1 \
-    --index-file hnsw_idx.faiss
+    --index-file cpu_hnsw.faiss
 
 perf stat -e fp_arith_inst_retired.512b_packed_single \
           -e fp_arith_inst_retired.vector \
@@ -26,4 +26,4 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
             --ef 256 \
             --metric 1 \
             --skip-build 1 \
-            --index-file hnsw_idx.faiss
+            --index-file cpu_hnsw.faiss
