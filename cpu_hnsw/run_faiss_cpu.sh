@@ -5,6 +5,7 @@ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 learn_limit=100000
 search_limit=1000
+calc_recall=${1:-false}
 
 ./run_faiss_cpu \
     --index-type hnsw \
@@ -29,7 +30,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
             --metric ip \
             --skip-build 1 \
             --index-file cpu_hnsw.faiss \
-            --calc-recall true
+            --calc-recall ${calc_recall}
 
 ./run_faiss_cpu \
     --index-type ivf \
@@ -56,7 +57,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
             --metric ip \
             --skip-build 1 \
             --index-file cpu_ivf.faiss \
-            --calc-recall true
+            --calc-recall ${calc_recall}
 
 ./run_faiss_cpu \
     --index-type flat \
@@ -81,4 +82,4 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
             --metric ip \
             --skip-build 1 \
             --index-file cpu_flat.faiss \
-            --calc-recall true
+            --calc-recall ${calc_recall}
