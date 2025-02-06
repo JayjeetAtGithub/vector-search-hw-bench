@@ -7,7 +7,7 @@ learn_limit=1000000
 search_limit=10000
 calc_recall=${1:-false}
 
-./run_faiss_cpu \
+./run_faiss_gpu \
     --index-type ivf \
     --dataset-dir /workspace/dataset/deep1b \
     --learn-limit ${learn_limit} \
@@ -21,7 +21,7 @@ calc_recall=${1:-false}
 # perf stat -e fp_arith_inst_retired.512b_packed_single \
 #           -e fp_arith_inst_retired.vector \
 #           -e fp_arith_inst_retired.scalar_single \
-#           ./run_faiss_cpu \
+#           ./run_faiss_gpu \
 #             --index-type ivf \
 #             --dataset-dir /workspace/dataset/deep1b \
 #             --learn-limit ${learn_limit} \
@@ -31,10 +31,10 @@ calc_recall=${1:-false}
 #             --n-probe 128 \
 #             --metric ip \
 #             --skip-build 1 \
-#             --index-file cpu_ivf.faiss \
+#             --index-file gpu_ivf.faiss \
 #             --calc-recall ${calc_recall}
 
-./run_faiss_cpu \
+./run_faiss_gpu \
     --index-type flat \
     --dataset-dir /workspace/dataset/deep1b \
     --learn-limit ${learn_limit} \
@@ -47,7 +47,7 @@ calc_recall=${1:-false}
 # perf stat -e fp_arith_inst_retired.512b_packed_single \
 #           -e fp_arith_inst_retired.vector \
 #           -e fp_arith_inst_retired.scalar_single \
-#           ./run_faiss_cpu \
+#           ./run_faiss_gpu \
 #             --index-type flat \
 #             --dataset-dir /workspace/dataset/deep1b \
 #             --learn-limit ${learn_limit} \
@@ -56,5 +56,5 @@ calc_recall=${1:-false}
 #             --ef 256 \
 #             --metric ip \
 #             --skip-build 1 \
-#             --index-file cpu_flat.faiss \
+#             --index-file gpu_flat.faiss \
 #             --calc-recall ${calc_recall}
