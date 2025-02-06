@@ -22,7 +22,11 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
           -e fp_arith_inst_retired.128b_packed_single \
           -e fp_arith_inst_retired.vector \
           -e fp_arith_inst_retired.scalar_single \
-          -e mem_load_l3_miss_retired.local_dram \
+          -e LLC-load-misses \
+          -e instructions \
+          -e cpu-cycles \
+          -e branch-instructions \
+          -e branch-misses \
           ./run_faiss_cpu \
             --index-type hnsw \
             --dataset-dir /workspace/dataset/deep1b \
@@ -51,7 +55,11 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
           -e fp_arith_inst_retired.128b_packed_single \
           -e fp_arith_inst_retired.vector \
           -e fp_arith_inst_retired.scalar_single \
-          -e mem_load_l3_miss_retired.local_dram \
+          -e LLC-load-misses \
+          -e instructions \
+          -e cpu-cycles \
+          -e branch-instructions \
+          -e branch-misses \
           ./run_faiss_cpu \
             --index-type ivf \
             --dataset-dir /workspace/dataset/deep1b \
@@ -80,7 +88,11 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
           -e fp_arith_inst_retired.128b_packed_single \
           -e fp_arith_inst_retired.vector \
           -e fp_arith_inst_retired.scalar_single \
-          -e mem_load_l3_miss_retired.local_dram \
+          -e LLC-load-misses \
+          -e instructions \
+          -e cpu-cycles \
+          -e branch-instructions \
+          -e branch-misses \
           ./run_faiss_cpu \
             --index-type flat \
             --dataset-dir /workspace/dataset/deep1b \
