@@ -51,7 +51,7 @@ faiss::Index *GPU_create_ivf_index(
   auto quantizer = new faiss::gpu::GpuIndexFlatIP(
       provider, dim, faiss::gpu::GpuIndexFlatConfig{config});
   auto index = new faiss::gpu::GpuIndexIVFFlat(
-      provider, quantizer, dim, nlist, faiss::METRIC_IP,
+      provider, quantizer, dim, nlist, faiss::METRIC_INNER_PRODUCT,
       faiss::gpu::GpuIndexIVFFlatConfig{config});
   return index;
 }
