@@ -18,21 +18,18 @@ calc_recall=${1:-false}
     --metric ip \
     --index-file gpu_ivf.faiss
 
-# perf stat -e fp_arith_inst_retired.512b_packed_single \
-#           -e fp_arith_inst_retired.vector \
-#           -e fp_arith_inst_retired.scalar_single \
-#           ./run_faiss_gpu \
-#             --index-type ivf \
-#             --dataset-dir /workspace/dataset/deep1b \
-#             --learn-limit ${learn_limit} \
-#             --search-limit ${search_limit} \
-#             --top-k 10 \
-#             --ef 256 \
-#             --n-probe 128 \
-#             --metric ip \
-#             --skip-build 1 \
-#             --index-file gpu_ivf.faiss \
-#             --calc-recall ${calc_recall}
+./run_faiss_gpu \
+    --index-type ivf \
+    --dataset-dir /workspace/dataset/deep1b \
+    --learn-limit ${learn_limit} \
+    --search-limit ${search_limit} \
+    --top-k 10 \
+    --ef 256 \
+    --n-probe 128 \
+    --metric ip \
+    --skip-build 1 \
+    --index-file gpu_ivf.faiss \
+    --calc-recall ${calc_recall}
 
 ./run_faiss_gpu \
     --index-type flat \
@@ -44,17 +41,14 @@ calc_recall=${1:-false}
     --metric ip \
     --index-file gpu_flat.faiss
 
-# perf stat -e fp_arith_inst_retired.512b_packed_single \
-#           -e fp_arith_inst_retired.vector \
-#           -e fp_arith_inst_retired.scalar_single \
-#           ./run_faiss_gpu \
-#             --index-type flat \
-#             --dataset-dir /workspace/dataset/deep1b \
-#             --learn-limit ${learn_limit} \
-#             --search-limit ${search_limit} \
-#             --top-k 10 \
-#             --ef 256 \
-#             --metric ip \
-#             --skip-build 1 \
-#             --index-file gpu_flat.faiss \
-#             --calc-recall ${calc_recall}
+./run_faiss_gpu \
+    --index-type flat \
+    --dataset-dir /workspace/dataset/deep1b \
+    --learn-limit ${learn_limit} \
+    --search-limit ${search_limit} \
+    --top-k 10 \
+    --ef 256 \
+    --metric ip \
+    --skip-build 1 \
+    --index-file gpu_flat.faiss \
+    --calc-recall ${calc_recall}
