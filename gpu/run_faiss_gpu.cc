@@ -63,6 +63,12 @@ int main(int argc, char **argv) {
   std::string index_type = "hnsw";
   app.add_option("--index-type", index_type, "Type of index to use (hnsw, ivf, flat)");
 
+  std::string mem_type = "cuda";
+  app.add_option("--mem-type", mem_type, "Memory type: cuda or managed");
+
+  int64_t cuda_device = 0;
+  app.add_option("--cuda-device", cuda_device, "The CUDA device to use");
+
   std::string calc_recall = "false";
   app.add_option("--calc-recall", calc_recall, "Calculate recall (true / false)");
 
@@ -122,10 +128,10 @@ int main(int argc, char **argv) {
     // Create the index
     faiss::Index *widx;
     if (index_type == "ivf") {
-      widx = GPU_create_ivf_index(dim_learn, n_list, dis_metric);
+      widx = GPU_create_ivf_index(dim_learn, n_list, mem_type, provider, cuda_device);
       widx->train(n_learn, data_learn.data());
     } else if (index_type == "flat") {
-      widx = GPU_create_flat_index(dim_learn, dis_metric);
+      widx = GPU_create_flat_index(dim_learn, mem_type, provider, cuda_device);
     } else {
       std::cerr << "[ERROR] Invalid index type" << std::endl;
       return 1;
@@ -141,7 +147,7 @@ int main(int argc, char **argv) {
         << " ms" << std::endl;
 
     // Save the index to disk
-    cpu_widx = faiss::gpu::index_gpu_to_cpu(widx);
+    auto cpu_widx = faiss::gpu::index_gpu_to_cpu(widx);
     faiss::write_index(cpu_widx, index_file.c_str());
   }
 }
