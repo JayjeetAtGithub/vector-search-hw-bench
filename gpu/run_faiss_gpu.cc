@@ -126,12 +126,12 @@ int main(int argc, char **argv) {
     int64_t n_list = int64_t(4 * std::sqrt(n_learn));
 
     // Create the index
-    faiss::Index *widx;
+    faiss::Index *widx_gpu;
     if (index_type == "ivf") {
-      widx = GPU_create_ivf_index(dim_learn, n_list, mem_type, provider, cuda_device);
-      widx->train(n_learn, data_learn.data());
+      widx_gpu = GPU_create_ivf_index(dim_learn, n_list, mem_type, provider, cuda_device);
+      widx_gpu->train(n_learn, data_learn.data());
     } else if (index_type == "flat") {
-      widx = GPU_create_flat_index(dim_learn, mem_type, provider, cuda_device);
+      widx_gpu = GPU_create_flat_index(dim_learn, mem_type, provider, cuda_device);
     } else {
       std::cerr << "[ERROR] Invalid index type" << std::endl;
       return 1;
@@ -139,7 +139,7 @@ int main(int argc, char **argv) {
 
     // Add vectors to the index
     auto s = std::chrono::high_resolution_clock::now();
-    widx->add(n_learn, data_learn.data());
+    widx_gpu->add(n_learn, data_learn.data());
     auto e = std::chrono::high_resolution_clock::now();
     std::cout
         << "[TIME] Index: "
@@ -147,12 +147,71 @@ int main(int argc, char **argv) {
         << " ms" << std::endl;
 
     // Save the index to disk
-    auto cpu_widx = faiss::gpu::index_gpu_to_cpu(widx);
-    faiss::write_index(cpu_widx, index_file.c_str());
+    auto widx_cpu = faiss::gpu::index_gpu_to_cpu(widx_gpu);
+    faiss::write_index(widx_cpu, index_file.c_str());
   }
+
+  if (skip_build) {
+    // Read the index from disk
+    faiss::Index *ridx_cpu = faiss::read_index(index_file.c_str());
+    auto ridx_gpu = faiss::gpu::index_cpu_to_gpu(provider, cuda_device, ridx_cpu);
+
+    if (index_type == "ivf") {
+      dynamic_cast<faiss::gpu::GpuIndexIVFFlat*>(ridx_gpu)->nprobe = n_probe;
+    }
+
+    // Load the search dataset
+    std::string dataset_path_query = dataset_dir + "/query.bin";
+    int64_t n_query, dim_query;
+    auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query, &dim_query, search_limit);
+
+    // Print information about the search dataset
+    std::cout << "[INFO] Query dataset shape: " << dim_query << " x " << n_query
+              << std::endl;
+    preview_dataset(data_query);
+
+    // Containers to hold the search results
+    std::vector<faiss::idx_t> nns(top_k * n_query);
+    std::vector<float> dis(top_k * n_query);
+
+    // Perform the search
+    auto s = std::chrono::high_resolution_clock::now();
+    for (int itr = 0; itr < 100; itr++) {
+      ridx_gpu->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
+    }
+    auto e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Search: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
+
+    // if (calc_recall == "true") {
+    //   std::string dataset_path_learn = dataset_dir + "/dataset.bin";
+    //   int64_t n_learn, dim_learn;
+    //   auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &n_learn, &dim_learn, learn_limit);
+
+    //   faiss::Index *gt_idx = CPU_create_flat_index(dim_learn, dis_metric);
+    //   gt_idx->add(n_learn, data_learn.data());
+    //   std::vector<faiss::idx_t> gt_nns(top_k * n_query);
+    //   std::vector<float> gt_dis(top_k * n_query);
+    //   gt_idx->search(n_query, data_query.data(), top_k, gt_dis.data(), gt_nns.data());
+    //   int64_t recalls = 0;
+    //   for (int64_t i = 0; i < n_query; ++i) {
+    //     for (int64_t n = 0; n < top_k; n++) {
+    //       for (int64_t m = 0; m < top_k; m++) {
+    //         if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
+    //           recalls += 1;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   float recall = 1.0f * recalls / (top_k * n_query);
+    //   std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
+    // }
+  }
+
+  return 0;
 }
-
-
 
 
 
