@@ -18,6 +18,8 @@ calc_recall=${1:-false}
     --index-file cpu_hnsw.faiss
 
 perf stat -e fp_arith_inst_retired.512b_packed_single \
+          -e fp_arith_inst_retired.256b_packed_single \
+          -e fp_arith_inst_retired.128b_backed_single \
           -e fp_arith_inst_retired.vector \
           -e fp_arith_inst_retired.scalar_single \
           ./run_faiss_cpu \
@@ -44,6 +46,8 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
     --index-file cpu_ivf.faiss
 
 perf stat -e fp_arith_inst_retired.512b_packed_single \
+          -e fp_arith_inst_retired.256b_packed_single \
+          -e fp_arith_inst_retired.128b_backed_single \
           -e fp_arith_inst_retired.vector \
           -e fp_arith_inst_retired.scalar_single \
           ./run_faiss_cpu \
@@ -70,6 +74,8 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
     --index-file cpu_flat.faiss
 
 perf stat -e fp_arith_inst_retired.512b_packed_single \
+          -e fp_arith_inst_retired.256b_packed_single \
+          -e fp_arith_inst_retired.128b_backed_single \
           -e fp_arith_inst_retired.vector \
           -e fp_arith_inst_retired.scalar_single \
           ./run_faiss_cpu \
