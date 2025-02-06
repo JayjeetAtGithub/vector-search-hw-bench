@@ -148,7 +148,7 @@ void ivf_search(raft::device_resources const &res,
     index_params.n_lists = n_list;
     index_params.kmeans_trainset_fraction = 0.1;
     index_params.kmeans_n_iters = 100;
-    index_params.metric = cuvs::distance::DistanceType::L2Expanded;
+    index_params.metric = cuvs::distance::DistanceType::InnerProduct;
 
     auto s = std::chrono::high_resolution_clock::now();
     auto index = ivf_flat::build(res, index_params, dataset);
@@ -219,7 +219,7 @@ void cagra_search(raft::device_resources const &res,
   {
     // Build and search the CAGRA index
     cagra::index_params index_params;
-    index_params.metric = cuvs::distance::DistanceType::L2Expanded;
+    index_params.metric = cuvs::distance::DistanceType::InnerProduct;
     index_params.graph_build_params = cagra::graph_build_params::ivf_pq_params(
       dataset.extents(),
       index_params.metric
