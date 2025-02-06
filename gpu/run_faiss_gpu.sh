@@ -23,6 +23,7 @@ sudo nsys profile \
     --stats=true \
     --cuda-memory-usage=true \
     --cuda-um-cpu-page-faults=true \
+    --cuda-event-trace=false \
     --cuda-um-gpu-page-faults=true \
     --gpu-metrics-devices 0 \
     --env-var CUDA_VISIBLE_DEVICES=0 \
@@ -54,6 +55,7 @@ sudo nsys profile \
     --stats=true \
     --cuda-memory-usage=true \
     --cuda-um-cpu-page-faults=true \
+    --cuda-event-trace=false \
     --cuda-um-gpu-page-faults=true \
     --gpu-metrics-devices 0 \
     --env-var CUDA_VISIBLE_DEVICES=0 \
