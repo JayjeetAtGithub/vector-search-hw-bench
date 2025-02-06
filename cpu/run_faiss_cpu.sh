@@ -23,6 +23,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
           -e fp_arith_inst_retired.vector \
           -e fp_arith_inst_retired.scalar_single \
           -e LLC-load-misses \
+          -e cache-misses \
           -e instructions \
           -e cpu-cycles \
           -e branch-instructions \
@@ -56,6 +57,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
           -e fp_arith_inst_retired.vector \
           -e fp_arith_inst_retired.scalar_single \
           -e LLC-load-misses \
+          -e cache-misses \
           -e instructions \
           -e cpu-cycles \
           -e branch-instructions \
@@ -89,6 +91,7 @@ perf stat -e fp_arith_inst_retired.512b_packed_single \
           -e fp_arith_inst_retired.vector \
           -e fp_arith_inst_retired.scalar_single \
           -e LLC-load-misses \
+          -e cache-misses \
           -e instructions \
           -e cpu-cycles \
           -e branch-instructions \
