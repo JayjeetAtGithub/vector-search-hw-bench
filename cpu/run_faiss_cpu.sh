@@ -3,8 +3,8 @@ set -e
 
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
-learn_limit=1000000
-search_limit=10000
+learn_limit=100000
+search_limit=1000
 calc_recall=${1:-false}
 
 ./run_faiss_cpu \
