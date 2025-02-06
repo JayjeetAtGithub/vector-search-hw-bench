@@ -27,7 +27,7 @@ faiss::Index *GPU_create_flat_index(int64_t dim, std::string mem_type,
   config.device = cuda_device;
   config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
                                             : faiss::gpu::MemorySpace::Unified;
-  auto index = new faiss::gpu::GpuIndexFlatL2(
+  auto index = new faiss::gpu::GpuIndexFlatIP(
       provider, dim, faiss::gpu::GpuIndexFlatConfig{config});
   return index;
 }
@@ -48,10 +48,10 @@ faiss::Index *GPU_create_ivf_index(
   config.device = cuda_device;
   config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
                                             : faiss::gpu::MemorySpace::Unified;
-  auto quantizer = new faiss::gpu::GpuIndexFlatL2(
+  auto quantizer = new faiss::gpu::GpuIndexFlatIP(
       provider, dim, faiss::gpu::GpuIndexFlatConfig{config});
   auto index = new faiss::gpu::GpuIndexIVFFlat(
-      provider, quantizer, dim, nlist, faiss::METRIC_L2,
+      provider, quantizer, dim, nlist, faiss::METRIC_IP,
       faiss::gpu::GpuIndexIVFFlatConfig{config});
   return index;
 }
