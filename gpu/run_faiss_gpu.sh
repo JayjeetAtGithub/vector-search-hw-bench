@@ -24,7 +24,7 @@ sudo nsys profile \
     --cuda-memory-usage=true \
     --cuda-um-cpu-page-faults=true \
     --cuda-um-gpu-page-faults=true \
-    --gpu-metrics-device=0 \
+    --gpu-metrics-devices 0 \
     --env-var CUDA_VISIBLE_DEVICES=0 \
     --output gpu_ivf_faiss \    
     ./run_faiss_gpu \
@@ -55,7 +55,7 @@ sudo nsys profile \
     --cuda-memory-usage=true \
     --cuda-um-cpu-page-faults=true \
     --cuda-um-gpu-page-faults=true \
-    --gpu-metrics-device=0 \
+    --gpu-metrics-devices 0 \
     --env-var CUDA_VISIBLE_DEVICES=0 \
     --output gpu_flat_faiss \    
     ./run_faiss_gpu \
