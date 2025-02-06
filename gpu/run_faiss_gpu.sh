@@ -13,7 +13,6 @@ calc_recall=${1:-false}
     --learn-limit ${learn_limit} \
     --search-limit ${search_limit} \
     --top-k 10 \
-    --ef 256 \
     --n-probe 128 \
     --metric ip \
     --index-file gpu_ivf.faiss
@@ -24,7 +23,6 @@ calc_recall=${1:-false}
     --learn-limit ${learn_limit} \
     --search-limit ${search_limit} \
     --top-k 10 \
-    --ef 256 \
     --n-probe 128 \
     --metric ip \
     --skip-build 1 \
@@ -37,7 +35,6 @@ calc_recall=${1:-false}
     --learn-limit ${learn_limit} \
     --search-limit ${search_limit} \
     --top-k 10 \
-    --ef 256 \
     --metric ip \
     --index-file gpu_flat.faiss
 
@@ -47,7 +44,6 @@ calc_recall=${1:-false}
     --learn-limit ${learn_limit} \
     --search-limit ${search_limit} \
     --top-k 10 \
-    --ef 256 \
     --metric ip \
     --skip-build 1 \
     --index-file gpu_flat.faiss \
