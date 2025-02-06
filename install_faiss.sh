@@ -1,6 +1,8 @@
 #!/bin/bash
 set -ex
 
+# Tested on `banana` in UC Santa Cruz
+
 faiss_dir=${1:-thirdparty/faiss}
 
 cd ${faiss_dir}
