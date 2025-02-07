@@ -176,7 +176,7 @@ int main(int argc, char **argv) {
 
     // Perform the search
     auto s = std::chrono::high_resolution_clock::now();
-    for (int itr = 0; itr < 100; itr++) {
+    for (int itr = 0; itr < 10; itr++) {
       ridx_gpu->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
     }
     auto e = std::chrono::high_resolution_clock::now();
@@ -212,21 +212,3 @@ int main(int argc, char **argv) {
 
   return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
