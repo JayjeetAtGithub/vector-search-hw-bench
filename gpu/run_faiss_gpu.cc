@@ -60,8 +60,8 @@ int main(int argc, char **argv) {
   CLI::App app{"Run FAISS Benchmarks"};
   argv = app.ensure_utf8(argv);
 
-  std::string index_type = "hnsw";
-  app.add_option("--index-type", index_type, "Type of index to use (hnsw, ivf, flat)");
+  std::string index_type = "ivf";
+  app.add_option("--index-type", index_type, "Type of index to use (ivf, flat)");
 
   std::string mem_type = "cuda";
   app.add_option("--mem-type", mem_type, "Memory type: cuda or managed");
