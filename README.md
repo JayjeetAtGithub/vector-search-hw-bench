@@ -1,15 +1,8 @@
-# Vector Search on GPU
+# Vector Search on CPUs, GPUs, and On-Chip Accelerators
 
-**NOTE**: In HNSW and IVF implementations, the default construction parameters are used. Only the search parameters can be changed. The default construction parameters are as follows:
-
-```bash
-# HNSW
-M = 32
-efConstruction = 40
-
-# IVF-Flat
-n_list = int64_t(4 * std::sqrt(n_learn))
-```
+We study the performance of vector search algorithms such as IVF, HNSW, and Flat on 
+different hardware architectures such as Sapphire Rapids CPU, A100 GPUs, and Intel AMX
+accelerators. 
 
 ## System Requirements
 
