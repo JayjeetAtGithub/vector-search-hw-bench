@@ -95,6 +95,7 @@ int main(int argc, char **argv) {
   int64_t n_probe = 32;
   app.add_option("--n-probe", n_probe, "Number of probes");
 
+  // This option is not used in the GPU version
   std::string dis_metric = "l2";
   app.add_option("--metric", dis_metric, "Distance metric to use (l2, ip)");
 
