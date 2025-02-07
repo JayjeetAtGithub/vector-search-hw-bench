@@ -12,16 +12,14 @@ accelerators.
 * CUDA >= 12.4
 * NVIDIA driver >= 550
 
-## Building from Source
+## Installing FAISS on CPU & GPU
 
 ```bash
-git clone --recursive https://github.com/JayjeetAtGithub/vector-search-gpu
-cd vector-search-gpu/
-./install_faiss.sh
-mkdir build/
-cd build/
-cmake ..
-make
+# for Sapphire Rapids CPU
+./install_faiss_cpu.sh
+
+# for NVIDIA GPU
+./install_faiss_gpu.sh
 ```
 
 ## Machine Setup
