@@ -4,13 +4,10 @@ We study the performance of vector search algorithms such as IVF, HNSW, and Flat
 different hardware architectures such as Sapphire Rapids CPU, A100 GPUs, and Intel AMX
 accelerators. 
 
-## System Requirements
+# Tested Hardware
 
-* Ubuntu 22.04+
-* cmake >= 3.29
-* gcc/g++ >= 13.1.0
-* CUDA >= 12.4
-* NVIDIA driver >= 550
+For CPU/AMX experiments, we have tested on UC Santa Cruz's Sapphire Rapids machine.
+For GPU experiments, we have tested the code on Lambda clouds `gpu_1x_a100_sxm4` machine.
 
 ## Installing FAISS on CPU & GPU
 
@@ -23,8 +20,6 @@ accelerators.
 ```
 
 ## Machine Setup
-
-**NOTE**: Update the `gcc`/`g++` first and then install the NVIDIA drivers and CUDA toolkit.
 
 ### Updating `gcc` and `g++`
 
