@@ -49,20 +49,8 @@ run_ivf() {
         --calc-recall true
 }
 
-# run flat on 100k learn vectors and 1k search vectors
-run_flat 100000 1000
-
-# run ivf on 100k learn vectors and 1k search vectors
-run_ivf 100000 1000 128
-
 # run flat on 1M learn vectors and 10k search vectors
 run_flat 1000000 10000
 
 # run ivf on 1M learn vectors and 10k search vectors
 run_ivf 1000000 10000 256
-
-# run flat on 10M learn vectors and 100k search vectors
-run_flat 10000000 100000
-
-# run ivf on 10M learn vectors and 100k search vectors
-run_ivf 10000000 100000 512
