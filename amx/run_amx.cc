@@ -10,7 +10,7 @@ int main() {
     int64_t n_learn, dim_learn;
     auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &n_learn, &dim_learn, learn_limit);
     
-    std::string dataset_path_query = dataset_dir + "/query.bin";
+    std::string dataset_path_query =  "/workspace/dataset/deep1b/query.bin";
     int64_t n_query, dim_query;
     auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query, &dim_query, search_limit);
 
