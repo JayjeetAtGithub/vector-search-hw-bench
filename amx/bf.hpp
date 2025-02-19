@@ -61,6 +61,8 @@ public:
       mat_b.data(), results.data(), engine, stream
     );
 
+    std::cout << "calculated" << std::endl;
+
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < _dim; j++) {
         m[i].push({j, results[i * _dim + j]});
