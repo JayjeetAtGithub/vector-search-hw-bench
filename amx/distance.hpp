@@ -47,7 +47,7 @@ static void write_to_dnnl_memory(void const *handle, dnnl::memory &mem) {
 
 static void amx_inner_product(int32_t const &n, int32_t const &oc,
                               int32_t const &ic, const bf16 *s, const bf16 *w,
-                              const bf16 *res, dnnl::engine &engine, 
+                              bf16 *res, dnnl::engine &engine, 
                               dnnl::stream &stream) {
   dnnl::memory::dims s_dims = {n, ic};
   dnnl::memory::dims w_dims = {oc, ic};
