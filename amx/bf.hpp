@@ -5,7 +5,7 @@
 
 class BruteForceSearch {
   int32_t _dim;
-  std::vector<std::vector<float>> _dataset;
+  std::vector<float> _dataset;
 
   dnnl::engine engine;
   dnnl::stream stream;
@@ -23,7 +23,7 @@ public:
     }
   }
 
-  void add(std::vector<float> point) { _dataset.push_back(point); }
+  void add(std::vector<float> dataset) { _dataset = dataset; }
 
   std::pair<int32_t, int32_t> shape() {
     return std::make_pair(_dataset.size(), _dataset[0].size());
@@ -36,24 +36,19 @@ public:
                                                     std::greater<float>>>
         map;
 
-    std::vector<bf16> mat_a(queries.size() * _dim);
-    std::vector<bf16> mat_b(_dataset.size() * _dim);
+    std::vector<bf16> mat_a(queries.size());
+    std::vector<bf16> mat_b(_dataset.size());
 
     for (int32_t i = 0; i < queries.size(); i++) {
-      for (int32_t j = 0; j < _dim; j++) {
-        mat_a[i * M + j] = bf16(queries[i][j]);
-      }
+        mat_a[i] = bf16(queries[i]);
     }
-
+    
     for (int32_t i = 0; i < _dataset.size(); i++) {
-      for (int32_t j = 0; j < _dim; j++) {
-        mat_b[i * M + j] = bf16(_dataset[i][j]);
-      }
+        mat_b[i] = bf16(_dataset[i]);
     }
 
     amx_inner_product(
         queries.size(), _dataset.size(), _dim, mat_a.data(), mat_b.data(), engine, stream, debug);
-
 
     for (int32_t i = 0; i < distances.size(); i++) {
         for (int32_t j = 0; j < distances[0].size(); j++) {
