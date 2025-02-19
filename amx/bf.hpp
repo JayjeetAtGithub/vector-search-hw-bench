@@ -56,6 +56,8 @@ public:
       mat_b[i] = bf16(dataset[i]);
     }
 
+    std::cout << "preapred to calculate" << std::endl;
+
     amx_inner_product(
       queries.size(), dataset.size(), _dim, mat_a.data(), 
       mat_b.data(), results.data(), engine, stream
