@@ -42,7 +42,7 @@ public:
         std::pair<int, float>, 
         std::vector<std::pair<int, float>>, 
         Comp
-      >
+      >>
     m;
 
     std::vector<bf16> mat_a(queries.size());
