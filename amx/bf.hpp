@@ -28,7 +28,7 @@ public:
 
   void add(std::vector<float> dataset) { _dataset = dataset; }
 
-  std::vector<std::vector<float>> search_ip_amx(std::vector<std::vector<float>> queries, int32_t top_k) {
+  void search_ip_amx(std::vector<float> queries, int32_t top_k) {
     // std::vector<std::vector<float>> results(queries.size(),
     //                                         std::vector<float>(top_k, 0.0f));
     // std::unordered_map<int32_t, std::priority_queue<float, std::vector<float>,
