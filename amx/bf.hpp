@@ -43,7 +43,7 @@ public:
         std::vector<std::pair<int, float>>, 
         Comp
       >
-    map;
+    m;
 
     std::vector<bf16> mat_a(queries.size());
     std::vector<bf16> mat_b(dataset.size());
@@ -63,7 +63,7 @@ public:
 
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < _dim; j++) {
-        map[i].push({j, results[i * _dim + j]});
+        m[i].push({j, results[i * _dim + j]});
       }
     }
 
