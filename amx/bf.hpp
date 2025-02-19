@@ -6,6 +6,12 @@
 
 #include "distance.hpp"
 
+struct Comp {
+  static bool operator()(const std::pair<int, float> &a, const std::pair<int, float> &b) {
+    return a.second < b.second;
+  }
+};
+
 class BruteForceSearch {
   int32_t _dim;
   std::vector<float> _dataset;
@@ -30,19 +36,24 @@ public:
 
   void search_ip_amx(std::vector<float> queries, int32_t top_k) {
     std::vector<bf16> results(queries.size() * top_k);
-    // std::unordered_map<int32_t, std::priority_queue<float, std::vector<float>,
-    //                                                 std::greater<float>>>
-    //     map;
+    std::unordered_map<
+      int32_t, 
+      std::priority_queue<
+        std::pair<int, float>, 
+        std::vector<std::pair<int, float>>, 
+        Comp
+      >
+    map;
 
     std::vector<bf16> mat_a(queries.size());
     std::vector<bf16> mat_b(_dataset.size());
 
     for (int32_t i = 0; i < queries.size(); i++) {
-        mat_a[i] = bf16(queries[i]);
+      mat_a[i] = bf16(queries[i]);
     }
     
     for (int32_t i = 0; i < _dataset.size(); i++) {
-        mat_b[i] = bf16(_dataset[i]);
+      mat_b[i] = bf16(_dataset[i]);
     }
 
     amx_inner_product(
@@ -50,11 +61,11 @@ public:
       mat_b.data(), results.data(), engine, stream
     );
 
-    // for (int32_t i = 0; i < distances.size(); i++) {
-    //     for (int32_t j = 0; j < distances[0].size(); j++) {
-    //         map[i].push(distances[i][j]);
-    //     }
-    // }
+    for (int32_t i = 0; i < results.size(); i++) {
+      for (int32_t j = 0; j < results[0].size(); j++) {
+        map[i].push({j, distances[i][j]});
+      }
+    }
 
     // for (int i = 0; i < queries.size(); i++) {
     //   int32_t k_idx = 0;
