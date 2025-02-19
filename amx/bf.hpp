@@ -57,8 +57,7 @@ public:
     }
 
     amx_inner_product(
-      queries.size(), dataset.size(), _dim, mat_a.data(), 
-      mat_b.data(), results.data(), engine, stream
+      nq, nl, _dim, mat_a, mat_b, results, engine, stream
     );
 
     std::cout << "calculated" << std::endl;
