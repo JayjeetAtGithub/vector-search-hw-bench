@@ -15,7 +15,7 @@ int main() {
     auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query, &dim_query, search_limit);
 
 
-    auto bf_search = std::shared_ptr<BruteForceSearch>(dim);
+    auto bf_search = std::make_shared<BruteForceSearch>(dim);
     bf_search->add(data_learn);
 
     return 0;
