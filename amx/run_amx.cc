@@ -1,4 +1,5 @@
 #include "bf.hpp"
+#include "utils.h"
 
 int main() {
 
