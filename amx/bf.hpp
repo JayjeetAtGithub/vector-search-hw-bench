@@ -36,7 +36,7 @@ public:
     std::vector<float> &queries, int32_t nq,
     std::vector<float> &dataset, int32_t nl, int32_t top_k) {
 
-    std::vector<bf16> distances(queries.size() * top_k);
+    std::vector<bf16> distances(nq * top_k);
     std::unordered_map<
       int32_t, 
       std::priority_queue<
@@ -71,7 +71,7 @@ public:
       nq, std::vector<int>(top_k)
     );
 
-    for (int i = 0; i < queries.size(); i++) {
+    for (int i = 0; i < nq; i++) {
       int32_t k_idx = 0;
       while (k_idx < top_k) {
         results[i][k_idx++] = m[i].top().first;
