@@ -3,6 +3,7 @@
 #include <queue>
 #include <vector>
 #include <iostream>
+#include <map>
 
 #include "distance.hpp"
 
@@ -14,7 +15,6 @@ struct Comp {
 
 class BruteForceSearch {
   int32_t _dim;
-  std::vector<float> _dataset;
 
   dnnl::engine engine;
   dnnl::stream stream;
@@ -32,9 +32,9 @@ public:
     }
   }
 
-  void add(std::vector<float> dataset) { _dataset = dataset; }
-
-  void search_ip_amx(std::vector<float> queries, int32_t top_k) {
+  void search_ip_amx(
+    std::vector<float> queries, int32_t nq,
+    std::vector<float> dataset, int32_t nl, int32_t top_k) {
     std::vector<bf16> results(queries.size() * top_k);
     std::unordered_map<
       int32_t, 
@@ -46,24 +46,24 @@ public:
     map;
 
     std::vector<bf16> mat_a(queries.size());
-    std::vector<bf16> mat_b(_dataset.size());
+    std::vector<bf16> mat_b(dataset.size());
 
     for (int32_t i = 0; i < queries.size(); i++) {
       mat_a[i] = bf16(queries[i]);
     }
     
-    for (int32_t i = 0; i < _dataset.size(); i++) {
-      mat_b[i] = bf16(_dataset[i]);
+    for (int32_t i = 0; i < dataset.size(); i++) {
+      mat_b[i] = bf16(dataset[i]);
     }
 
     amx_inner_product(
-      queries.size(), _dataset.size(), _dim, mat_a.data(), 
+      queries.size(), dataset.size(), _dim, mat_a.data(), 
       mat_b.data(), results.data(), engine, stream
     );
 
-    for (int32_t i = 0; i < results.size(); i++) {
-      for (int32_t j = 0; j < results[0].size(); j++) {
-        map[i].push({j, distances[i][j]});
+    for (int32_t i = 0; i < nq; i++) {
+      for (int32_t j = 0; j < dim; j++) {
+        map[i].push({j, results[i * dim + j]});
       }
     }
 
