@@ -74,8 +74,8 @@ public:
     for (int i = 0; i < queries.size(); i++) {
       int32_t k_idx = 0;
       while (k_idx < top_k) {
-        results[i][k_idx++] = map[i].top().first;
-        map[i].pop();
+        results[i][k_idx++] = m[i].top().first;
+        m[i].pop();
       }
     }
     // return results;
