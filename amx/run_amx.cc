@@ -14,6 +14,9 @@ int main() {
     int64_t n_query, dim_query;
     auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query, &dim_query, search_limit);
 
+    preview_dataset(data_learn);
+    preview_dataset(data_query);
+
     auto bf_search = std::make_shared<BruteForceSearch>(dim);
     bf_search->search_ip_amx(data_query, n_query, data_learn, n_learn, 10);
     return 0;
