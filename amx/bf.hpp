@@ -29,8 +29,7 @@ public:
   void add(std::vector<float> dataset) { _dataset = dataset; }
 
   void search_ip_amx(std::vector<float> queries, int32_t top_k) {
-    // std::vector<std::vector<float>> results(queries.size(),
-    //                                         std::vector<float>(top_k, 0.0f));
+    std::vector<float> results(queries.size() * top_k, 0.0f);
     // std::unordered_map<int32_t, std::priority_queue<float, std::vector<float>,
     //                                                 std::greater<float>>>
     //     map;
@@ -47,7 +46,9 @@ public:
     }
 
     amx_inner_product(
-        queries.size(), _dataset.size(), _dim, mat_a.data(), mat_b.data(), engine, stream);
+      queries.size(), _dataset.size(), _dim, mat_a.data(), 
+      mat_b.data(), results.data(), engine, stream
+    );
 
     // for (int32_t i = 0; i < distances.size(); i++) {
     //     for (int32_t j = 0; j < distances[0].size(); j++) {
