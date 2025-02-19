@@ -16,7 +16,6 @@ int main() {
 
 
     auto bf_search = std::make_shared<BruteForceSearch>(dim);
-    bf_search->add(data_learn);
-
+    bf_search->search_ip_amx(data_query, n_query, data_learn, n_learn, 10);
     return 0;
 }

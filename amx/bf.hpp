@@ -62,8 +62,8 @@ public:
     );
 
     for (int32_t i = 0; i < nq; i++) {
-      for (int32_t j = 0; j < dim; j++) {
-        map[i].push({j, results[i * dim + j]});
+      for (int32_t j = 0; j < _dim; j++) {
+        map[i].push({j, results[i * _dim + j]});
       }
     }
 
