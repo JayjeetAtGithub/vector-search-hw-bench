@@ -1,3 +1,5 @@
+#pragma once
+
 #include <queue>
 #include <vector>
 #include <iostream>
@@ -45,7 +47,7 @@ public:
     }
 
     amx_inner_product(
-        queries.size(), _dataset.size(), _dim, mat_a.data(), mat_b.data(), engine, stream, debug);
+        queries.size(), _dataset.size(), _dim, mat_a.data(), mat_b.data(), engine, stream);
 
     // for (int32_t i = 0; i < distances.size(); i++) {
     //     for (int32_t j = 0; j < distances[0].size(); j++) {

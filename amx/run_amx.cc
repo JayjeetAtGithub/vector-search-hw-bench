@@ -16,5 +16,7 @@ int main() {
 
     auto bf_search = std::shared_ptr<BruteForceSearch>(200);
     bf_search->add(data_learn);
+
+    return 0;
 }
 
