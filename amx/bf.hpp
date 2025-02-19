@@ -61,6 +61,14 @@ public:
       nq, nl, _dim, mat_a, mat_b, distances, engine, stream
     );
 
+    // preview distances
+    for (int32_t i = 0; i < 5; i++) {
+      for (int32_t j = 0; j < top_k; j++) {
+        std::cout << distances[i * top_k + j] << " ";
+      }
+      std::cout << std::endl;
+    }
+
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < _dim; j++) {
         m[i].push({j, distances[i * _dim + j]});
