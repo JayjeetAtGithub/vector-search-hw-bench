@@ -78,6 +78,14 @@ public:
         m[i].pop();
       }
     }
-    // return results;
+
+    // Print results
+    for (int i = 0; i < 5; i++) {
+      for (int j = 0; j < top_k; j++) {
+        std::cout << results[i][j] << " ";
+      }
+      std::cout << std::endl;
+    }
+
   }
 };
