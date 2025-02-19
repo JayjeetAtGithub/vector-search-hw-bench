@@ -33,8 +33,8 @@ public:
   }
 
   void search_ip_amx(
-    std::vector<float> queries, int32_t nq,
-    std::vector<float> dataset, int32_t nl, int32_t top_k) {
+    std::vector<float> &queries, int32_t nq,
+    std::vector<float> &dataset, int32_t nl, int32_t top_k) {
     std::vector<bf16> results(queries.size() * top_k);
     std::unordered_map<
       int32_t, 
@@ -55,8 +55,6 @@ public:
     for (int32_t i = 0; i < dataset.size(); i++) {
       mat_b[i] = bf16(dataset[i]);
     }
-
-    std::cout << "preapred to calculate" << std::endl;
 
     amx_inner_product(
       queries.size(), dataset.size(), _dim, mat_a.data(), 
