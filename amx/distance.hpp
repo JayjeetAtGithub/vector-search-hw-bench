@@ -67,7 +67,7 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
   write_to_dnnl_memory(w.data(), w_mem);
   
   std::cout << "s_mem.get_desc().get_size(): " << s_mem.get_desc().get_size() << std::endl;
-  
+
   auto pd = dnnl::inner_product_forward::primitive_desc(
       engine, dnnl::prop_kind::forward_training, s_md, w_md, dst_md);
   auto dst_mem = dnnl::memory(pd.dst_desc(), engine);
@@ -79,6 +79,8 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
   args.insert({DNNL_ARG_DST, dst_mem});
   prim.execute(stream, args);
   stream.wait();
+
+  std::cout << "dst_mem.get_desc().get_size(): " << dst_mem.get_desc().get_size() << std::endl;
 
   read_from_dnnl_memory(res.data(), dst_mem);
 }
