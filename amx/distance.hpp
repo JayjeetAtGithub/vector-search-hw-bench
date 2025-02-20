@@ -60,12 +60,14 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
   
   auto s_mem = dnnl::memory(s_md, engine);
   auto w_mem = dnnl::memory(w_md, engine);
+
+  std::cout << "s.size(): " << s.size() << std::endl;
+
   write_to_dnnl_memory(s.data(), s_mem);
   write_to_dnnl_memory(w.data(), w_mem);
-
-
-  std::cout << "Written to dnnl memory\n";
-
+  
+  std::cout << "s_mem.get_desc().get_size(): " << s_mem.get_desc().get_size() << std::endl;
+  
   auto pd = dnnl::inner_product_forward::primitive_desc(
       engine, dnnl::prop_kind::forward_training, s_md, w_md, dst_md);
   auto dst_mem = dnnl::memory(pd.dst_desc(), engine);
