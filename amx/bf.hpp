@@ -53,8 +53,8 @@ public:
     );
 
     for (int32_t i = 0; i < nq; i++) {
-      for (int32_t j = 0; j < _dim; j++) {
-        m[i].push({j, distances[i * _dim + j]});
+      for (int32_t j = 0; j < nl; j++) {
+        m[i].push({j, distances[i * nl + j]});
       }
     }
 
