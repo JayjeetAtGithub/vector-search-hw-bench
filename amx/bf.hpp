@@ -36,7 +36,9 @@ public:
     std::vector<bf16> &queries, int32_t nq,
     std::vector<bf16> &dataset, int32_t nl, int32_t top_k) {
 
-    std::vector<bf16> distances(nq * nl);
+    std::vector<bf16> distances;
+    distances.resize(nq * nl);
+
     std::unordered_map<
       int32_t, 
       std::priority_queue<
