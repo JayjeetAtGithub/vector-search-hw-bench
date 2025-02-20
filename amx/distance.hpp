@@ -37,7 +37,7 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
 
   std::cout << "s.size(): " << s.size() << std::endl;
   std::cout << "w.size(): " << w.size() << std::endl;
-  std::cout << "res.size()" << res.size() << std::endl;
+  std::cout << "res.size(): " << res.size() << std::endl;
 
   write_to_dnnl_memory(s.data(), s_mem);
   write_to_dnnl_memory(w.data(), w_mem);
