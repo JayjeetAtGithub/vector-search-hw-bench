@@ -41,6 +41,7 @@ public:
 
     std::cout << "nq: " << nq << std::endl;
     std::cout << "nl: " << nl << std::endl;
+    std::cout << "distances.max_size(): " << distances.max_size() << std::endl;
     std::cout << "distances.size(): " << distances.size() << std::endl;
 
     std::unordered_map<
