@@ -15,6 +15,7 @@ int main() {
     auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query, &dim_query, search_limit);
 
     preview_dataset(data_learn);
+    std::cout << std::endl;
     preview_dataset(data_query);
 
     auto bf_search = std::make_shared<BruteForceSearch>(dim);
