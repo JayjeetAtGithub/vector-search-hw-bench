@@ -37,7 +37,7 @@ public:
     std::vector<bf16> &dataset, int32_t nl, int32_t top_k) {
 
     std::vector<bf16> distances;
-    distances.resize(nq * nl);
+    distances.resize((int64_t)nq * (int64_t)nl);
 
     std::cout << "nq: " << nq << std::endl;
     std::cout << "nl: " << nl << std::endl;
