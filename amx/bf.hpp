@@ -52,31 +52,31 @@ public:
       nq, nl, _dim, queries, dataset, distances, engine, stream
     );
 
-    for (int32_t i = 0; i < nq; i++) {
-      for (int32_t j = 0; j < nl; j++) {
-        m[i].push({j, distances[i * nl + j]});
-      }
-    }
-
-    std::vector<std::vector<int>> results(
-      nq, std::vector<int>(top_k)
-    );
-
-    for (int i = 0; i < nq; i++) {
-      int32_t k_idx = 0;
-      while (k_idx < top_k) {
-        results[i][k_idx++] = m[i].top().first;
-        m[i].pop();
-      }
-    }
-
-    // Print results
-    for (int i = 0; i < 5; i++) {
-      for (int j = 0; j < top_k; j++) {
-        std::cout << results[i][j] << " ";
+    // preview distances
+    for (int32_t i = 0; i < 5; i++) {
+      for (int32_t j = 0; j < 10; j++) {
+        std::cout << distances[i * nl + j] << " ";
       }
       std::cout << std::endl;
     }
+
+    // for (int32_t i = 0; i < nq; i++) {
+    //   for (int32_t j = 0; j < nl; j++) {
+    //     m[i].push({j, distances[i * nl + j]});
+    //   }
+    // }
+
+    // std::vector<std::vector<int>> results(
+    //   nq, std::vector<int>(top_k)
+    // );
+
+    // for (int i = 0; i < nq; i++) {
+    //   int32_t k_idx = 0;
+    //   while (k_idx < top_k) {
+    //     results[i][k_idx++] = m[i].top().first;
+    //     m[i].pop();
+    //   }
+    // }
 
   }
 };
