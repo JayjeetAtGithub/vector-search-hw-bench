@@ -39,11 +39,6 @@ public:
     std::vector<bf16> distances;
     distances.resize((int64_t)nq * (int64_t)nl);
 
-    std::cout << "nq: " << nq << std::endl;
-    std::cout << "nl: " << nl << std::endl;
-    std::cout << "distances.max_size(): " << distances.max_size() << std::endl;
-    std::cout << "distances.size(): " << distances.size() << std::endl;
-
     std::unordered_map<
       int32_t, 
       std::priority_queue<
@@ -53,32 +48,9 @@ public:
       >>
     m;
 
-    // preview queries and dataset
-    for (int32_t i = 0; i < 5; i++) {
-      for (int32_t j = 0; j < 10; j++) {
-        std::cout << queries[i * 10 + j] << " ";
-      }
-      std::cout << std::endl;
-    }
-
-    for (int32_t i = 0; i < 5; i++) {
-      for (int32_t j = 0; j < 10; j++) {
-        std::cout << dataset[i * 10 + j] << " ";
-      }
-      std::cout << std::endl;
-    }
-
     amx_inner_product(
       nq, nl, _dim, queries, dataset, distances, engine, stream
     );
-
-    // preview distances
-    for (int32_t i = 0; i < 5; i++) {
-      for (int32_t j = 0; j < 10; j++) {
-        std::cout << distances[i * top_k + j] << " ";
-      }
-      std::cout << std::endl;
-    }
 
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < _dim; j++) {

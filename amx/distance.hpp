@@ -35,16 +35,9 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
   auto s_mem = dnnl::memory(s_md, engine);
   auto w_mem = dnnl::memory(w_md, engine);
 
-  std::cout << "s.size(): " << s.size() << std::endl;
-  std::cout << "w.size(): " << w.size() << std::endl;
-  std::cout << "res.size(): " << res.size() << std::endl;
-
   write_to_dnnl_memory(s.data(), s_mem);
   write_to_dnnl_memory(w.data(), w_mem);
   
-  std::cout << "s_mem.get_desc().get_size(): " << s_mem.get_desc().get_size() << " Bytes" << std::endl;
-  std::cout << "w_mem.get_desc().get_size(): " << w_mem.get_desc().get_size() << " Bytes" << std::endl;
-
   auto pd = dnnl::inner_product_forward::primitive_desc(
       engine, dnnl::prop_kind::forward_training, s_md, w_md, dst_md);
   auto dst_mem = dnnl::memory(pd.dst_desc(), engine);
@@ -57,9 +50,5 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
   prim.execute(stream, args);
   stream.wait();
 
-  std::cout << "dst_mem.get_desc().get_size(): " << dst_mem.get_desc().get_size() << std::endl;
-
   read_from_dnnl_memory(res.data(), dst_mem);
-
-  std::cout << "Can read from dnnl memory" << std::endl;
 }
