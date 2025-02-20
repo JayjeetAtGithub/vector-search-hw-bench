@@ -36,7 +36,7 @@ public:
     std::vector<bf16> &queries, int32_t nq,
     std::vector<bf16> &dataset, int32_t nl, int32_t top_k) {
 
-    std::vector<bf16> distances(nq * top_k);
+    std::vector<bf16> distances(nq * nl);
     std::unordered_map<
       int32_t, 
       std::priority_queue<
@@ -61,6 +61,10 @@ public:
       std::cout << std::endl;
     }
 
+    amx_inner_product(
+      nq, nl, _dim, queries, dataset, distances, engine, stream
+    );
+
     // preview distances
     for (int32_t i = 0; i < 5; i++) {
       for (int32_t j = 0; j < 10; j++) {
@@ -68,14 +72,6 @@ public:
       }
       std::cout << std::endl;
     }
-
-    std::cout << "nq: " << nq << std::endl;
-    std::cout << "nl: " << nl << std::endl;
-    std::cout << "dim: " << _dim << std::endl;
-
-    amx_inner_product(
-      nq, nl, _dim, queries, dataset, distances, engine, stream
-    );
 
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < _dim; j++) {
