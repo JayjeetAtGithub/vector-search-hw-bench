@@ -61,17 +61,21 @@ public:
       std::cout << std::endl;
     }
 
-    amx_inner_product(
-      nq, nl, _dim, queries, dataset, distances, engine, stream
-    );
-
     // preview distances
     for (int32_t i = 0; i < 5; i++) {
-      for (int32_t j = 0; j < top_k; j++) {
+      for (int32_t j = 0; j < 10; j++) {
         std::cout << distances[i * top_k + j] << " ";
       }
       std::cout << std::endl;
     }
+
+    std::cout << "nq: " << nq << std::endl;
+    std::cout << "nl: " << nl << std::endl;
+    std::cout << "dim: " << _dim << std::endl;
+
+    amx_inner_product(
+      nq, nl, _dim, queries, dataset, distances, engine, stream
+    );
 
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < _dim; j++) {
