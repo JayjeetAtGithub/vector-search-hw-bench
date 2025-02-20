@@ -56,7 +56,9 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
 
   std::cout << "dst_mem.get_desc().get_size(): " << dst_mem.get_desc().get_size() << std::endl;
 
+  std::cout << "res.size(): " << res.size() << std::endl;
+
   read_from_dnnl_memory(res.data(), dst_mem);
 
-  std::cout << "res.size(): " << res.size() << std::endl;
+  std::cout << "Can read from dnnl memory" << std::endl;
 }
