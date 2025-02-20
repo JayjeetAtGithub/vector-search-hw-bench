@@ -46,6 +46,21 @@ public:
       >>
     m;
 
+    // preview queries and dataset
+    for (int32_t i = 0; i < 5; i++) {
+      for (int32_t j = 0; j < 10; j++) {
+        std::cout << queries[i * 10 + j] << " ";
+      }
+      std::cout << std::endl;
+    }
+
+    for (int32_t i = 0; i < 5; i++) {
+      for (int32_t j = 0; j < 10; j++) {
+        std::cout << dataset[i * 10 + j] << " ";
+      }
+      std::cout << std::endl;
+    }
+
     amx_inner_product(
       nq, nl, _dim, queries, dataset, distances, engine, stream
     );
