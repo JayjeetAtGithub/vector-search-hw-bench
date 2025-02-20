@@ -39,6 +39,8 @@ public:
     std::vector<bf16> distances;
     distances.resize(nq * nl);
 
+    std::cout << "nq: " << nq << std::endl;
+    std::cout << "nl: " << nl << std::endl;
     std::cout << "distances.size(): " << distances.size() << std::endl;
 
     std::unordered_map<
