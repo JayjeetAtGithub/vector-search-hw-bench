@@ -60,23 +60,32 @@ public:
       std::cout << std::endl;
     }
 
-    // for (int32_t i = 0; i < nq; i++) {
-    //   for (int32_t j = 0; j < nl; j++) {
-    //     m[i].push({j, distances[i * nl + j]});
-    //   }
-    // }
+    for (int32_t i = 0; i < nq; i++) {
+      for (int32_t j = 0; j < nl; j++) {
+        int32_t idx = j;
+        int32_t dist = distances[i * nl + j];
+        if (m[i].size() < top_k) {
+          m[i].push({idx, dist});
+        } else {
+          if (m[i].top().second > dist) {
+            m[i].pop();
+            m[i].push({idx, dist});
+          }
+        }
+      }
+    }
 
-    // std::vector<std::vector<int>> results(
-    //   nq, std::vector<int>(top_k)
-    // );
+    std::vector<std::vector<int>> results(
+      nq, std::vector<int>(top_k)
+    );
 
-    // for (int i = 0; i < nq; i++) {
-    //   int32_t k_idx = 0;
-    //   while (k_idx < top_k) {
-    //     results[i][k_idx++] = m[i].top().first;
-    //     m[i].pop();
-    //   }
-    // }
+    for (int i = 0; i < nq; i++) {
+      int32_t k_idx = 0;
+      while (k_idx < top_k) {
+        results[i][k_idx++] = m[i].top().first;
+        m[i].pop();
+      }
+    }
 
   }
 };
