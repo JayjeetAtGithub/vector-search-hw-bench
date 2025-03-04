@@ -77,6 +77,9 @@ public:
       }
     }
 
+
+    std::cout << "Results" << std::endl;
+
     std::vector<std::vector<int>> results(
       nq, std::vector<int>(top_k)
     );
