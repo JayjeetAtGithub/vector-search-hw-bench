@@ -62,8 +62,9 @@ public:
 
     for (int32_t i = 2147; i < nq; i++) {
       for (int32_t j = 999900; j < nl; j++) {
-        std::cout << "i: " << i << " j: " << j << " dist: " << distances[i * nl + j] << std::endl;
-        float dist = distances[i * nl + j];
+        int64_t offset = (int64_t)i * (int64_t)nl + (int64_t)j;
+        std::cout << "i: " << i << " j: " << j << " dist: " << distances[offset] << std::endl;
+        float dist = distances[offset];
         if (m[i].size() < top_k) {
           m[i].push({j, dist});
         } else {
