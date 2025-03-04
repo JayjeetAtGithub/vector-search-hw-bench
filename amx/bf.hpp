@@ -54,7 +54,7 @@ public:
 
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < nl; j++) {
-        double temp = distances[i * nl + j];
+        float temp = distances[i * nl + j];
       }
     }
 
@@ -62,16 +62,13 @@ public:
 
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < nl; j++) {
-        int32_t idx = j;
-        int64_t offset = (int64_t)(i * nl + j);
-        float dist = distances[offset];
-        
+        float dist = distances[i * nl + j];
         if (m[i].size() < top_k) {
-          m[i].push({idx, dist});
+          m[i].push({j, dist});
         } else {
           if (m[i].top().second > dist) {
             m[i].pop();
-            m[i].push({idx, dist});
+            m[i].push({j, dist});
           }
         }
       }
