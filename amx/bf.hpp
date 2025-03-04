@@ -71,7 +71,7 @@ public:
       nq, std::vector<int>(top_k)
     );
 
-    for (int i = 0; i < nq; i++) {
+    for (int32_t i = 0; i < nq; i++) {
       int32_t k_idx = 0;
       while (k_idx < top_k) {
         results[i][k_idx++] = m[i].top().first;
