@@ -54,14 +54,6 @@ public:
 
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < nl; j++) {
-        float temp = distances[i * nl + j];
-      }
-    }
-
-    std::cout << "Calculating topk" << std::endl;
-
-    for (int32_t i = 2147; i < nq; i++) {
-      for (int32_t j = 999900; j < nl; j++) {
         int64_t offset = (int64_t)i * (int64_t)nl + (int64_t)j;
         float dist = distances[offset];
         if (m[i].size() < top_k) {
@@ -74,9 +66,6 @@ public:
         }
       }
     }
-
-
-    std::cout << "Results" << std::endl;
 
     std::vector<std::vector<int>> results(
       nq, std::vector<int>(top_k)
