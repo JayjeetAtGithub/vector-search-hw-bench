@@ -60,8 +60,8 @@ public:
 
     std::cout << "Calculating topk" << std::endl;
 
-    for (int32_t i = 0; i < nq; i++) {
-      for (int32_t j = 0; j < nl; j++) {
+    for (int32_t i = 2147; i < nq; i++) {
+      for (int32_t j = 990000; j < nl; j++) {
         std::cout << "i: " << i << " j: " << j << " dist: " << distances[i * nl + j] << std::endl;
         float dist = distances[i * nl + j];
         if (m[i].size() < top_k) {
