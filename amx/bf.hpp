@@ -65,7 +65,8 @@ public:
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < nl; j++) {
         int32_t idx = j;
-        int32_t dist = distances[i * nl + j];
+        int64_t offset = (int64_t)(i * nl + j);
+        float dist = distances[offset];
         if (m[i].size() < top_k) {
           m[i].push({idx, dist});
         } else {

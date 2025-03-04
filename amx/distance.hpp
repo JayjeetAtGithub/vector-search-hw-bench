@@ -42,11 +42,6 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
       engine, dnnl::prop_kind::forward_training, s_md, w_md, dst_md);
   auto dst_mem = dnnl::memory(pd.dst_desc(), engine);
 
-  std::cout << "debug dst mem" << std::endl;
-  std::cout << dst_mem.get_desc().data.ndims << std::endl;
-  std::cout << dst_mem.get_desc().data.dims[0] << std::endl;
-  std::cout << dst_mem.get_desc().data.dims[1] << std::endl;  
-
   auto prim = dnnl::inner_product_forward(pd);
   std::unordered_map<int32_t, dnnl::memory> args;
   args.insert({DNNL_ARG_SRC, s_mem});
