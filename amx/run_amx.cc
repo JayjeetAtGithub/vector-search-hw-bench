@@ -16,7 +16,7 @@ int main() {
 
     auto bf_search = std::make_shared<BruteForceSearch>(dim);
     auto results = bf_search->search_ip_amx(data_query, n_query, data_learn, n_learn, 10);
-    std::cout << "Results: " << std::endl;
+    std::cout << "Results preview: " << std::endl;
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 10; j++) {
             std::cout << results[i][j] << " ";
