@@ -58,23 +58,24 @@ public:
       }
     }
 
-    // std::cout << "Calculating topk" << std::endl;
+    std::cout << "Calculating topk" << std::endl;
 
-    // for (int32_t i = 0; i < nq; i++) {
-    //   for (int32_t j = 0; j < nl; j++) {
-    //     int32_t idx = j;
-    //     int64_t offset = (int64_t)(i * nl + j);
-    //     float dist = distances[offset];
-    //     if (m[i].size() < top_k) {
-    //       m[i].push({idx, dist});
-    //     } else {
-    //       if (m[i].top().second > dist) {
-    //         m[i].pop();
-    //         m[i].push({idx, dist});
-    //       }
-    //     }
-    //   }
-    // }
+    for (int32_t i = 0; i < nq; i++) {
+      for (int32_t j = 0; j < nl; j++) {
+        int32_t idx = j;
+        int64_t offset = (int64_t)(i * nl + j);
+        float dist = distances[offset];
+        
+        if (m[i].size() < top_k) {
+          m[i].push({idx, dist});
+        } else {
+          if (m[i].top().second > dist) {
+            m[i].pop();
+            m[i].push({idx, dist});
+          }
+        }
+      }
+    }
 
 
     // std::cout << "Results" << std::endl;
