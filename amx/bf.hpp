@@ -54,9 +54,8 @@ public:
 
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < nl; j++) {
-        std::cout << distances[i * nl + j] << " ";
+        double temp = distances[i * nl + j];
       }
-      std::cout << std::endl;
     }
 
     // std::cout << "Calculating topk" << std::endl;
