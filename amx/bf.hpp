@@ -32,7 +32,7 @@ public:
     }
   }
 
-  void search_ip_amx(
+  std::vector<std::vector<int>> search_ip_amx(
     std::vector<bf16> &queries, int32_t nq,
     std::vector<bf16> &dataset, int32_t nl, int32_t top_k) {
 
@@ -78,6 +78,6 @@ public:
         m[i].pop();
       }
     }
-
+    return results;
   }
 };
