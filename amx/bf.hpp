@@ -42,8 +42,8 @@ public:
     std::unordered_map<
       int32_t, 
       std::priority_queue<
-        std::pair<int, float>, 
-        std::vector<std::pair<int, float>>, 
+        std::pair<int32_t, float>, 
+        std::vector<std::pair<int32_t, float>>, 
         Comp
       >>
     m;
@@ -62,6 +62,7 @@ public:
 
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < nl; j++) {
+        std::cout << "i: " << i << " j: " << j << " dist: " << distances[i * nl + j] << std::endl;
         float dist = distances[i * nl + j];
         if (m[i].size() < top_k) {
           m[i].push({j, dist});
