@@ -60,6 +60,8 @@ public:
       std::cout << std::endl;
     }
 
+    std::cout << "Calculating topk" << std::endl;
+
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < nl; j++) {
         int32_t idx = j;
