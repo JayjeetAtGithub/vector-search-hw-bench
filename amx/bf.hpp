@@ -52,46 +52,45 @@ public:
       nq, nl, _dim, queries, dataset, distances, engine, stream
     );
 
-    // preview distances
-    for (int32_t i = 0; i < 5; i++) {
-      for (int32_t j = 0; j < 10; j++) {
+    for (int32_t i = 0; i < nq; i++) {
+      for (int32_t j = 0; j < nl; j++) {
         std::cout << distances[i * nl + j] << " ";
       }
       std::cout << std::endl;
     }
 
-    std::cout << "Calculating topk" << std::endl;
+    // std::cout << "Calculating topk" << std::endl;
 
-    for (int32_t i = 0; i < nq; i++) {
-      for (int32_t j = 0; j < nl; j++) {
-        int32_t idx = j;
-        int64_t offset = (int64_t)(i * nl + j);
-        float dist = distances[offset];
-        if (m[i].size() < top_k) {
-          m[i].push({idx, dist});
-        } else {
-          if (m[i].top().second > dist) {
-            m[i].pop();
-            m[i].push({idx, dist});
-          }
-        }
-      }
-    }
+    // for (int32_t i = 0; i < nq; i++) {
+    //   for (int32_t j = 0; j < nl; j++) {
+    //     int32_t idx = j;
+    //     int64_t offset = (int64_t)(i * nl + j);
+    //     float dist = distances[offset];
+    //     if (m[i].size() < top_k) {
+    //       m[i].push({idx, dist});
+    //     } else {
+    //       if (m[i].top().second > dist) {
+    //         m[i].pop();
+    //         m[i].push({idx, dist});
+    //       }
+    //     }
+    //   }
+    // }
 
 
-    std::cout << "Results" << std::endl;
+    // std::cout << "Results" << std::endl;
 
-    std::vector<std::vector<int>> results(
-      nq, std::vector<int>(top_k)
-    );
+    // std::vector<std::vector<int>> results(
+    //   nq, std::vector<int>(top_k)
+    // );
 
-    for (int i = 0; i < nq; i++) {
-      int32_t k_idx = 0;
-      while (k_idx < top_k) {
-        results[i][k_idx++] = m[i].top().first;
-        m[i].pop();
-      }
-    }
+    // for (int i = 0; i < nq; i++) {
+    //   int32_t k_idx = 0;
+    //   while (k_idx < top_k) {
+    //     results[i][k_idx++] = m[i].top().first;
+    //     m[i].pop();
+    //   }
+    // }
 
   }
 };
