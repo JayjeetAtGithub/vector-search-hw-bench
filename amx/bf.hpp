@@ -43,6 +43,7 @@ public:
       _nq, _nl, _dim, queries, dataset, _distances, engine, stream
     );
     
+    // The heap here is a max heap
     std::unordered_map<
       int32_t, 
       std::priority_queue<
