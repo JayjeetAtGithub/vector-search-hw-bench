@@ -16,8 +16,18 @@ int main() {
     auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query, &dim_query, search_limit);
 
     auto bf_search = std::make_shared<BruteForceSearch>(dim);
-    auto results = bf_search->search_ip_amx(data_query, n_query, data_learn, n_learn, top_k);
-    std::cout << "Results preview: " << std::endl;
+
+
+    auto s = std::chrono::high_resolution_clock::now();
+    for (int itr = 0; itr < 100; itr++) {
+      auto results = bf_search->search_ip_amx(data_query, n_query, data_learn, n_learn, top_k);
+    }
+    auto e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Search: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
+
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < top_k; j++) {
             std::cout << results[i][j] << " ";
