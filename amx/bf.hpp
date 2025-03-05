@@ -52,29 +52,47 @@ public:
       >>
     m;
     
-    #pragma omp parallel for
-    for (int32_t i = 0; i < _nq; i++) {
-        std::priority_queue<std::pair<int32_t, float>> local_queue;
-        for (int32_t j = 0; j < _nl; j++) {
-            int64_t offset = (int64_t)i * (int64_t)_nl + (int64_t)j;
-            float dist = _distances[offset];
+    // #pragma omp parallel for
+    // for (int32_t i = 0; i < _nq; i++) {
+    //     std::priority_queue<std::pair<int32_t, float>> local_queue;
+    //     for (int32_t j = 0; j < _nl; j++) {
+    //         int64_t offset = (int64_t)i * (int64_t)_nl + (int64_t)j;
+    //         float dist = _distances[offset];
 
-            if (local_queue.size() < top_k) {
-                local_queue.push({j, dist});
-            } else {
-                if (local_queue.top().second > dist) {
-                    local_queue.pop();
-                    local_queue.push({j, dist});
-                }
-            }
+    //         if (local_queue.size() < top_k) {
+    //             local_queue.push({j, dist});
+    //         } else {
+    //             if (local_queue.top().second > dist) {
+    //                 local_queue.pop();
+    //                 local_queue.push({j, dist});
+    //             }
+    //         }
+    //     }
+    //     #pragma omp critical
+    //     {
+    //         while (!local_queue.empty()) {
+    //             m[i].push(local_queue.top());
+    //             local_queue.pop();
+    //         }
+    //     }
+    // }
+
+    // serial version
+
+    for (int32_t i = 0; i < _nq; i++) {
+      for (int32_t j = 0; j < _nl; j++) {
+        int64_t offset = (int64_t)i * (int64_t)_nl + (int64_t)j;
+        float dist = _distances[offset];
+
+        if (m[i].size() < top_k) {
+          m[i].push({j, dist});
+        } else {
+          if (m[i].top().second > dist) {
+            m[i].pop();
+            m[i].push({j, dist});
+          }
         }
-        #pragma omp critical
-        {
-            while (!local_queue.empty()) {
-                m[i].push(local_queue.top());
-                local_queue.pop();
-            }
-        }
+      }
     }
 
     std::vector<std::vector<int>> results(
