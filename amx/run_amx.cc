@@ -15,12 +15,11 @@ int main() {
     int64_t n_query, dim_query;
     auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query, &dim_query, search_limit);
 
-    auto bf_search = std::make_shared<BruteForceSearch>(dim);
-
+    auto bf_search = std::make_shared<BruteForceSearch>(dim, n_query, n_learn);
 
     auto s = std::chrono::high_resolution_clock::now();
     for (int itr = 0; itr < 1; itr++) {
-      auto results = bf_search->search_ip_amx(data_query, n_query, data_learn, n_learn, top_k);
+      auto results = bf_search->search_ip_amx(data_query, data_learn, top_k);
     }
     auto e = std::chrono::high_resolution_clock::now();
     std::cout

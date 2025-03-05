@@ -15,9 +15,12 @@ struct Comp {
 
 class BruteForceSearch {
   int32_t _dim;
+  int32_t _nq;
+  int32_t _nl;
 
   dnnl::engine engine;
   dnnl::stream stream;
+  std::vector<bf16> _distances;
 
 public:
   void init_onednn() {
@@ -25,21 +28,16 @@ public:
     stream = dnnl::stream(engine);
   }
 
-  BruteForceSearch(int32_t dim) : _dim(dim) {
+  BruteForceSearch(int32_t dim, int32_t nq, int32_t nl) : _dim(dim), _nq(nq) * _nl(nl) {
     init_onednn();
     if (!is_amxbf16_supported()) {
       std::cout << "Intel AMX unavailable" << std::endl;
     }
+    _distances.resize((int64_t)_nq * (int64_t)_nl);
   }
 
   std::vector<std::vector<int>> search_ip_amx(
-    std::vector<bf16> &queries, int32_t nq,
-    std::vector<bf16> &dataset, int32_t nl, int32_t top_k) {
-    
-    auto s = std::chrono::high_resolution_clock::now();
-    std::vector<bf16> distances;
-    distances.resize((int64_t)nq * (int64_t)nl);
-    auto e = std::chrono::high_resolution_clock::now();
+    std::vector<bf16> &queries, std::vector<bf16> &dataset, int32_t top_k) {
     std::cout
         << "[TIME] Allocating Distances: "
         << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
@@ -47,7 +45,7 @@ public:
 
     s = std::chrono::high_resolution_clock::now();
     amx_inner_product(
-      nq, nl, _dim, queries, dataset, distances, engine, stream
+      _nq, _nl, _dim, queries, dataset, _distances, engine, stream
     );
     e = std::chrono::high_resolution_clock::now();
     std::cout
@@ -65,11 +63,11 @@ public:
       >>
     m;
     #pragma omp parallel for
-    for (int32_t i = 0; i < nq; i++) {
+    for (int32_t i = 0; i < _nq; i++) {
         std::priority_queue<std::pair<int32_t, float>> local_queue;
-        for (int32_t j = 0; j < nl; j++) {
-            int64_t offset = (int64_t)i * (int64_t)nl + (int64_t)j;
-            float dist = distances[offset];
+        for (int32_t j = 0; j < _nl; j++) {
+            int64_t offset = (int64_t)i * (int64_t)_nl + (int64_t)j;
+            float dist = _distances[offset];
 
             if (local_queue.size() < top_k) {
                 local_queue.push({j, dist});
@@ -94,23 +92,17 @@ public:
         << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
         << " ms" << std::endl;
 
-    s = std::chrono::high_resolution_clock::now();
     std::vector<std::vector<int>> results(
-      nq, std::vector<int>(top_k)
+      _nq, std::vector<int>(top_k)
     );
 
-    for (int32_t i = 0; i < nq; i++) {
+    for (int32_t i = 0; i < _nq; i++) {
       int32_t k_idx = top_k - 1;
       while (k_idx >= 0) {
         results[i][k_idx--] = m[i].top().first;
         m[i].pop();
       }
     }
-    e = std::chrono::high_resolution_clock::now();
-    std::cout
-        << "[TIME] Assembling Results: "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-        << " ms" << std::endl;
 
     return results;
   }
