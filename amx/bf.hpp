@@ -62,6 +62,7 @@ public:
         Comp
       >>
     m;
+    
     #pragma omp parallel for
     for (int32_t i = 0; i < _nq; i++) {
         std::priority_queue<std::pair<int32_t, float>> local_queue;
@@ -86,11 +87,6 @@ public:
             }
         }
     }
-    e = std::chrono::high_resolution_clock::now();
-    std::cout
-        << "[TIME] Finding TopK: "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-        << " ms" << std::endl;
 
     std::vector<std::vector<int>> results(
       _nq, std::vector<int>(top_k)
