@@ -58,6 +58,7 @@ public:
         << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
         << " ms" << std::endl;
 
+    s = std::chrono::high_resolution_clock::now();
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < nl; j++) {
         int64_t offset = (int64_t)i * (int64_t)nl + (int64_t)j;
@@ -72,6 +73,11 @@ public:
         }
       }
     }
+    e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Finding TopK: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
 
     s = std::chrono::high_resolution_clock::now();
     std::vector<std::vector<int>> results(
