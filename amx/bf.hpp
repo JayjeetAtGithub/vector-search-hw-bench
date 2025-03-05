@@ -81,22 +81,6 @@ public:
         }
     }
 
-    // for (int32_t i = 0; i < _nq; i++) {
-    //   for (int32_t j = 0; j < _nl; j++) {
-    //     int64_t offset = (int64_t)i * (int64_t)_nl + (int64_t)j;
-    //     float dist = _distances[offset];
-
-    //     if (m[i].size() < top_k) {
-    //       m[i].push({j, dist});
-    //     } else {
-    //       if (m[i].top().second > dist) {
-    //         m[i].pop();
-    //         m[i].push({j, dist});
-    //       }
-    //     }
-    //   }
-    // }
-
     std::vector<std::vector<int>> results(
       _nq, std::vector<int>(top_k)
     );
