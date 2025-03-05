@@ -43,7 +43,6 @@ public:
       _nq, _nl, _dim, queries, dataset, _distances, engine, stream
     );
     
-    // The heap here is a max heap
     std::unordered_map<
       int32_t, 
       std::priority_queue<
@@ -53,48 +52,50 @@ public:
       >>
     m;
     
-    // #pragma omp parallel for
-    // for (int32_t i = 0; i < _nq; i++) {
-    //     std::priority_queue<std::pair<int32_t, float>> local_queue;
-    //     for (int32_t j = 0; j < _nl; j++) {
-    //         int64_t offset = (int64_t)i * (int64_t)_nl + (int64_t)j;
-    //         float dist = _distances[offset];
-
-    //         if (local_queue.size() < top_k) {
-    //             local_queue.push({j, dist});
-    //         } else {
-    //             if (local_queue.top().second > dist) {
-    //                 local_queue.pop();
-    //                 local_queue.push({j, dist});
-    //             }
-    //         }
-    //     }
-    //     #pragma omp critical
-    //     {
-    //         while (!local_queue.empty()) {
-    //             m[i].push(local_queue.top());
-    //             local_queue.pop();
-    //         }
-    //     }
-    // }
-
-    // serial version
-
+    #pragma omp parallel for
     for (int32_t i = 0; i < _nq; i++) {
-      for (int32_t j = 0; j < _nl; j++) {
-        int64_t offset = (int64_t)i * (int64_t)_nl + (int64_t)j;
-        float dist = _distances[offset];
+        std::priority_queue<
+          std::pair<int32_t, float>, 
+          std::vector<std::pair<int32_t, float>>, 
+          Comp
+        > local_queue;
+        for (int32_t j = 0; j < _nl; j++) {
+            int64_t offset = (int64_t)i * (int64_t)_nl + (int64_t)j;
+            float dist = _distances[offset];
 
-        if (m[i].size() < top_k) {
-          m[i].push({j, dist});
-        } else {
-          if (m[i].top().second > dist) {
-            m[i].pop();
-            m[i].push({j, dist});
-          }
+            if (local_queue.size() < top_k) {
+                local_queue.push({j, dist});
+            } else {
+                if (local_queue.top().second > dist) {
+                    local_queue.pop();
+                    local_queue.push({j, dist});
+                }
+            }
         }
-      }
+        #pragma omp critical
+        {
+            while (!local_queue.empty()) {
+                m[i].push(local_queue.top());
+                local_queue.pop();
+            }
+        }
     }
+
+    // for (int32_t i = 0; i < _nq; i++) {
+    //   for (int32_t j = 0; j < _nl; j++) {
+    //     int64_t offset = (int64_t)i * (int64_t)_nl + (int64_t)j;
+    //     float dist = _distances[offset];
+
+    //     if (m[i].size() < top_k) {
+    //       m[i].push({j, dist});
+    //     } else {
+    //       if (m[i].top().second > dist) {
+    //         m[i].pop();
+    //         m[i].push({j, dist});
+    //       }
+    //     }
+    //   }
+    // }
 
     std::vector<std::vector<int>> results(
       _nq, std::vector<int>(top_k)
