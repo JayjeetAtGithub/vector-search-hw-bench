@@ -73,6 +73,7 @@ public:
       }
     }
 
+    s = std::chrono::high_resolution_clock::now();
     std::vector<std::vector<int>> results(
       nq, std::vector<int>(top_k)
     );
@@ -84,6 +85,12 @@ public:
         m[i].pop();
       }
     }
+    e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Assembling Results: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
+
     return results;
   }
 };
