@@ -48,9 +48,15 @@ public:
       >>
     m;
 
+    auto s = std::chrono::high_resolution_clock::now();
     amx_inner_product(
       nq, nl, _dim, queries, dataset, distances, engine, stream
     );
+    auto e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] AMX Inner Product: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
 
     for (int32_t i = 0; i < nq; i++) {
       for (int32_t j = 0; j < nl; j++) {
