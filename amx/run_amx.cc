@@ -18,15 +18,21 @@ int main() {
     auto bf_search = std::make_shared<BruteForceSearch>(dim, n_query, n_learn);
 
     auto s = std::chrono::high_resolution_clock::now();
-    for (int itr = 0; itr < 1; itr++) {
-      auto results = bf_search->search_ip_amx(data_query, data_learn, top_k);
-    }
+    auto results = bf_search->search_ip_amx(data_query, data_learn, top_k);
     auto e = std::chrono::high_resolution_clock::now();
     std::cout
         << "[TIME] Search: "
         << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
         << " ms" << std::endl;
-
+    
+    std::cout << "Previewing search results" << std::endl;
+    for (int i = 0; i < 10; i++) {
+        std::cout << "Query " << i << std::endl;
+        for (int j = 0; j < top_k; j++) {
+            std::cout << results[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }  
     
     return 0;
 }
