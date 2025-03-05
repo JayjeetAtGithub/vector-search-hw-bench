@@ -35,10 +35,27 @@ public:
   std::vector<std::vector<int>> search_ip_amx(
     std::vector<bf16> &queries, int32_t nq,
     std::vector<bf16> &dataset, int32_t nl, int32_t top_k) {
-
+    
+    auto s = std::chrono::high_resolution_clock::now();
     std::vector<bf16> distances;
     distances.resize((int64_t)nq * (int64_t)nl);
+    auto e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Allocating Distances: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
 
+    s = std::chrono::high_resolution_clock::now();
+    amx_inner_product(
+      nq, nl, _dim, queries, dataset, distances, engine, stream
+    );
+    e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] AMX Inner Product: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
+
+    s = std::chrono::high_resolution_clock::now();
     std::unordered_map<
       int32_t, 
       std::priority_queue<
@@ -47,18 +64,6 @@ public:
         Comp
       >>
     m;
-
-    auto s = std::chrono::high_resolution_clock::now();
-    amx_inner_product(
-      nq, nl, _dim, queries, dataset, distances, engine, stream
-    );
-    auto e = std::chrono::high_resolution_clock::now();
-    std::cout
-        << "[TIME] AMX Inner Product: "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-        << " ms" << std::endl;
-
-    s = std::chrono::high_resolution_clock::now();
     #pragma omp parallel for
     for (int32_t i = 0; i < nq; i++) {
         std::priority_queue<std::pair<int32_t, float>> local_queue;
