@@ -73,7 +73,7 @@ public:
 
     for (int32_t i = 0; i < nq; i++) {
       int32_t k_idx = top_k - 1;
-      while (k_idx < top_k) {
+      while (k_idx >= 0) {
         results[i][k_idx--] = m[i].top().first;
         m[i].pop();
       }
