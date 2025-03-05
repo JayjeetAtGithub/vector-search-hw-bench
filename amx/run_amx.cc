@@ -28,11 +28,5 @@ int main() {
         << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
         << " ms" << std::endl;
 
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < top_k; j++) {
-            std::cout << results[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
     return 0;
 }
