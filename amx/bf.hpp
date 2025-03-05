@@ -28,7 +28,7 @@ public:
     stream = dnnl::stream(engine);
   }
 
-  BruteForceSearch(int32_t dim, int32_t nq, int32_t nl) : _dim(dim), _nq(nq) * _nl(nl) {
+  BruteForceSearch(int32_t dim, int32_t nq, int32_t nl) : _dim(dim), _nq(nq), _nl(nl) {
     init_onednn();
     if (!is_amxbf16_supported()) {
       std::cout << "Intel AMX unavailable" << std::endl;
@@ -38,22 +38,11 @@ public:
 
   std::vector<std::vector<int>> search_ip_amx(
     std::vector<bf16> &queries, std::vector<bf16> &dataset, int32_t top_k) {
-    std::cout
-        << "[TIME] Allocating Distances: "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-        << " ms" << std::endl;
-
-    s = std::chrono::high_resolution_clock::now();
+    
     amx_inner_product(
       _nq, _nl, _dim, queries, dataset, _distances, engine, stream
     );
-    e = std::chrono::high_resolution_clock::now();
-    std::cout
-        << "[TIME] AMX Inner Product: "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-        << " ms" << std::endl;
-
-    s = std::chrono::high_resolution_clock::now();
+    
     std::unordered_map<
       int32_t, 
       std::priority_queue<
