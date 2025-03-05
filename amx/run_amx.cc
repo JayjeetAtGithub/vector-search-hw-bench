@@ -19,7 +19,7 @@ int main() {
 
 
     auto s = std::chrono::high_resolution_clock::now();
-    for (int itr = 0; itr < 100; itr++) {
+    for (int itr = 0; itr < 1; itr++) {
       auto results = bf_search->search_ip_amx(data_query, n_query, data_learn, n_learn, top_k);
     }
     auto e = std::chrono::high_resolution_clock::now();
