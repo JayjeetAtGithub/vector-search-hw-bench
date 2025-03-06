@@ -15,7 +15,6 @@ int main() {
     int64_t n_query, dim_query;
     auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query, &dim_query, search_limit);
 
-    
     uint64_t total_flop = (n_learn * n_query) * (2 * dim - 1);
     std::cout << "Total FLOP: " << total_flop << std::endl;
 
