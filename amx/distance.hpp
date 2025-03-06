@@ -19,7 +19,7 @@ static bool is_amxbf16_supported() {
 }
 
 static void amx_inner_product(int32_t const &n, int32_t const &oc,
-                              int32_t const &ic, std::vector<float> &s, std::vector<float> &w,
+                              int32_t const &ic, std::vector<float> &src, std::vector<float> &w,
                               std::vector<float> &res, dnnl::engine &engine, 
                               dnnl::stream &stream) {
   dnnl::memory::dims s_dims = {n, ic};
@@ -33,7 +33,7 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
   auto w_in_mem = dnnl::memory(w_in_md, engine);
 
   auto s = std::chrono::high_resolution_clock::now();
-  write_to_dnnl_memory(s.data(), s_in_mem);
+  write_to_dnnl_memory(src.data(), s_in_mem);
   write_to_dnnl_memory(w.data(), w_in_mem);
   auto e = std::chrono::high_resolution_clock::now();
   std::cout
