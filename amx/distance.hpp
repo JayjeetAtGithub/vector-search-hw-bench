@@ -53,6 +53,12 @@ static dnnl::memory amx_inner_product(int32_t const &n, int32_t const &oc,
   args.insert({DNNL_ARG_WEIGHTS, w_mem});
   args.insert({DNNL_ARG_DST, dst_mem});
 
+  // Warmup runs
+  for (int i = 0; i < 3; i++) {
+    prim.execute(stream, args);
+    stream.wait();
+  }
+
   prim.execute(stream, args);
   stream.wait();
   return dst_mem;
