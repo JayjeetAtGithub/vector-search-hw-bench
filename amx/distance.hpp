@@ -31,8 +31,15 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
   auto dst_out_md = dnnl::memory::desc(dst_dims, dt::f32, tag::ab);
   auto s_in_mem = dnnl::memory(s_in_md, engine);
   auto w_in_mem = dnnl::memory(w_in_md, engine);
+
+  auto s = std::chrono::high_resolution_clock::now();
   write_to_dnnl_memory(s.data(), s_in_mem);
   write_to_dnnl_memory(w.data(), w_in_mem);
+  auto e = std::chrono::high_resolution_clock::now();
+  std::cout
+      << "[TIME] Write to DNNL Memory: "
+      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+      << " ms" << std::endl;
 
   auto s_md = dnnl::memory::desc(s_dims, dt::bf16, tag::any);
   auto w_md = dnnl::memory::desc(w_dims, dt::bf16, tag::any);
@@ -41,18 +48,38 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
       engine, dnnl::prop_kind::forward_training, s_md, w_md, dst_out_md);
   
   auto s_mem = dnnl::memory(pd.src_desc(), engine);
-  dnnl::reorder(s_in_mem, s_mem).execute(stream, s_in_mem, s_mem);
   auto w_mem = dnnl::memory(pd.weights_desc(), engine);
-  dnnl::reorder(w_in_mem, w_mem).execute(stream, w_in_mem, w_mem);
   auto dst_mem = dnnl::memory(pd.dst_desc(), engine);
-  
+
+  s = std::chrono::high_resolution_clock::now();
+  dnnl::reorder(s_in_mem, s_mem).execute(stream, s_in_mem, s_mem);
+  dnnl::reorder(w_in_mem, w_mem).execute(stream, w_in_mem, w_mem);
+  e = std::chrono::high_resolution_clock::now();
+  std::cout
+      << "[TIME] Reorder: "
+      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+      << " ms" << std::endl;
+
   auto prim = dnnl::inner_product_forward(pd);
   std::unordered_map<int32_t, dnnl::memory> args;
   args.insert({DNNL_ARG_SRC, s_mem});
   args.insert({DNNL_ARG_WEIGHTS, w_mem});
   args.insert({DNNL_ARG_DST, dst_mem});
+
+  s = std::chrono::high_resolution_clock::now();
   prim.execute(stream, args);
   stream.wait();
+  e = std::chrono::high_resolution_clock::now();
+  std::cout
+      << "[TIME] Execute: "
+      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+      << " ms" << std::endl;
 
+  s = std::chrono::high_resolution_clock::now();
   read_from_dnnl_memory(res.data(), dst_mem);
+  e = std::chrono::high_resolution_clock::now();
+  std::cout
+      << "[TIME] Read from DNNL Memory: "
+      << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+      << " ms" << std::endl;
 }
