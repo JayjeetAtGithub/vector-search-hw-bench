@@ -18,10 +18,9 @@ static bool is_amxbf16_supported() {
   return edx & (1 << 22);
 }
 
-static void amx_inner_product(int32_t const &n, int32_t const &oc,
+static dnnl::memory amx_inner_product(int32_t const &n, int32_t const &oc,
                               int32_t const &ic, std::vector<float> &src, std::vector<float> &w,
-                              std::vector<float> &res, dnnl::engine &engine, 
-                              dnnl::stream &stream) {
+                              dnnl::engine &engine, dnnl::stream &stream) {
   dnnl::memory::dims s_dims = {n, ic};
   dnnl::memory::dims w_dims = {oc, ic};
   dnnl::memory::dims dst_dims = {n, oc};
@@ -58,5 +57,5 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
   stream.wait();
 
   std::cout << " Result desc size: " << dst_mem.get_desc().get_size() << std::endl;
-  read_from_dnnl_memory(res.data(), dst_mem);
+  return dst_mem;
 }

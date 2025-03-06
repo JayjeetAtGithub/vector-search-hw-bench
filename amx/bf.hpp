@@ -20,7 +20,6 @@ class BruteForceSearch {
 
   dnnl::engine engine;
   dnnl::stream stream;
-  std::vector<float> _distances;
 
 public:
   void init_onednn() {
@@ -33,15 +32,14 @@ public:
     if (!is_amxbf16_supported()) {
       std::cout << "Intel AMX unavailable" << std::endl;
     }
-    _distances.resize((int64_t)_nq * (int64_t)_nl);
   }
 
   std::vector<std::vector<int>> search_ip_amx(
     std::vector<float> &queries, std::vector<float> &dataset, int32_t top_k) {
     
     auto s = std::chrono::high_resolution_clock::now();
-    amx_inner_product(
-      _nq, _nl, _dim, queries, dataset, _distances, engine, stream
+    auto dst_mem =  amx_inner_product(
+      _nq, _nl, _dim, queries, dataset, engine, stream
     );
     auto e = std::chrono::high_resolution_clock::now();
     std::cout
@@ -67,7 +65,8 @@ public:
         > local_queue;
         for (int32_t j = 0; j < _nl; j++) {
             int64_t offset = (int64_t)i * (int64_t)_nl + (int64_t)j;
-            float dist = _distances[offset];
+            uint8_t *dst_mem_buffer = static_cast<uint8_t *>dst_mem.get_data_handle();
+            float dist = dst_mem_buffer[offset];
 
             if (local_queue.size() < top_k) {
                 local_queue.push({j, dist});
