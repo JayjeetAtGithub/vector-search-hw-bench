@@ -37,16 +37,11 @@ public:
   std::vector<std::vector<int>> search_ip_amx(
     std::vector<float> &queries, std::vector<float> &dataset, int32_t top_k) {
     
-    auto s = std::chrono::high_resolution_clock::now();
     auto dst_mem =  amx_inner_product(
       _nq, _nl, _dim, queries, dataset, engine, stream
     );
-    auto e = std::chrono::high_resolution_clock::now();
-    std::cout
-        << "[TIME] Inner Product: "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-        << " ms" << std::endl;
-    
+    float *dst_mem_buffer = static_cast<float*>(dst_mem.get_data_handle());
+
     std::unordered_map<
       int32_t, 
       std::priority_queue<
@@ -65,9 +60,7 @@ public:
         > local_queue;
         for (int32_t j = 0; j < _nl; j++) {
             int64_t offset = (int64_t)i * (int64_t)_nl + (int64_t)j;
-            float *dst_mem_buffer = static_cast<float *>(dst_mem.get_data_handle());
             float dist = dst_mem_buffer[offset];
-
             if (local_queue.size() < top_k) {
                 local_queue.push({j, dist});
             } else {
