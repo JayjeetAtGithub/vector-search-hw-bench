@@ -50,10 +50,10 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
   prim.execute(stream, args);
   stream.wait();
 
-  auto s = std::chrono::high_resolution_clock::now();
+  auto st = std::chrono::high_resolution_clock::now();
   read_from_dnnl_memory(res.data(), dst_mem);
-  auto e = std::chrono::high_resolution_clock::now();
+  auto en = std::chrono::high_resolution_clock::now();
   std::cout << "[TIME] AMX: "
-            << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+            << std::chrono::duration_cast<std::chrono::milliseconds>(en - st).count()
             << " ms" << std::endl;
 }
