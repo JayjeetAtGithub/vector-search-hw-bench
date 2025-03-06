@@ -54,5 +54,5 @@ static void amx_inner_product(int32_t const &n, int32_t const &oc,
   prim.execute(stream, args);
   stream.wait();
 
-  read_from_dnnl_memory(res.data(), res_mem);
+  read_from_dnnl_memory(res.data(), dst_mem);
 }
