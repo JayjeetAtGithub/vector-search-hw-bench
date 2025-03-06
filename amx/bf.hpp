@@ -39,9 +39,15 @@ public:
   std::vector<std::vector<int>> search_ip_amx(
     std::vector<float> &queries, std::vector<float> &dataset, int32_t top_k) {
     
+    auto s = std::chrono::high_resolution_clock::now();
     amx_inner_product(
       _nq, _nl, _dim, queries, dataset, _distances, engine, stream
     );
+    auto e = std::chrono::high_resolution_clock::now();
+    std::cout
+        << "[TIME] Inner Product: "
+        << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
+        << " ms" << std::endl;
     
     std::unordered_map<
       int32_t, 
