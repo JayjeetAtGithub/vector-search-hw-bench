@@ -55,7 +55,5 @@ static dnnl::memory amx_inner_product(int32_t const &n, int32_t const &oc,
 
   prim.execute(stream, args);
   stream.wait();
-
-  std::cout << " Result desc size: " << dst_mem.get_desc().get_size() << std::endl;
   return dst_mem;
 }
