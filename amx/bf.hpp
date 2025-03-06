@@ -20,7 +20,7 @@ class BruteForceSearch {
 
   dnnl::engine engine;
   dnnl::stream stream;
-  std::vector<bf16> _distances;
+  std::vector<float> _distances;
 
 public:
   void init_onednn() {
@@ -37,7 +37,7 @@ public:
   }
 
   std::vector<std::vector<int>> search_ip_amx(
-    std::vector<bf16> &queries, std::vector<bf16> &dataset, int32_t top_k) {
+    std::vector<float> &queries, std::vector<float> &dataset, int32_t top_k) {
     
     amx_inner_product(
       _nq, _nl, _dim, queries, dataset, _distances, engine, stream

@@ -1,11 +1,8 @@
 #include <fstream>
 #include <iostream>
 #include <thread>
-#include <stdfloat>
 
-using bf16 = std::bfloat16_t;
-
-void preview_dataset(std::vector<bf16> xb) {
+void preview_dataset(std::vector<float> xb) {
   for (int64_t i = 0; i < 5; i++) {
     for (int64_t j = 0; j < 10; j++) {
       std::cout << xb[i * 10 + j] << " ";
@@ -38,7 +35,7 @@ std::vector<int64_t> read_vector(const char *filename, int64_t size) {
   return data;
 }
 
-std::vector<bf16> read_bin_dataset(std::string fname, int64_t *n, int64_t *d,
+std::vector<float> read_bin_dataset(std::string fname, int64_t *n, int64_t *d,
                                     int64_t limit) {
   // Read datafile in
   std::ifstream datafile(fname, std::ifstream::binary);
@@ -60,12 +57,5 @@ std::vector<bf16> read_bin_dataset(std::string fname, int64_t *n, int64_t *d,
                 (size_t)N * (size_t)dim * sizeof(float));
   datafile.close();
 
-  // cast to std::bfloat16_t
-  std::vector<bf16> data_bf16;
-  data_bf16.resize((size_t)N * (size_t)dim);
-  for (int64_t i = 0; i < N * dim; i++) {
-    data_bf16[i] = bf16(data[i]);
-  }
-
-  return data_bf16;
+  return data;
 }

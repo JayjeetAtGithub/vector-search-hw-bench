@@ -3,14 +3,12 @@
 #include <chrono>
 #include <immintrin.h>
 #include <unordered_map>
-#include <stdfloat>
 
 #include "oneapi/dnnl/dnnl.hpp"
 #include "example_utils.hpp"
 
 using tag = dnnl::memory::format_tag;
 using dt = dnnl::memory::data_type;
-using bf16 = std::bfloat16_t;
 
 static bool is_amxbf16_supported() {
   unsigned int eax, ebx, ecx, edx;
@@ -21,37 +19,45 @@ static bool is_amxbf16_supported() {
 }
 
 static void amx_inner_product(int32_t const &n, int32_t const &oc,
-                              int32_t const &ic, std::vector<bf16> &s, std::vector<bf16> &w,
-                              std::vector<bf16> &res, dnnl::engine &engine, 
+                              int32_t const &ic, std::vector<float> &s, std::vector<float> &w,
+                              std::vector<float> &res, dnnl::engine &engine, 
                               dnnl::stream &stream) {
   dnnl::memory::dims s_dims = {n, ic};
   dnnl::memory::dims w_dims = {oc, ic};
   dnnl::memory::dims dst_dims = {n, oc};
 
-  auto s_md = dnnl::memory::desc(s_dims, dt::bf16, tag::ab);
-  auto w_md = dnnl::memory::desc(w_dims, dt::bf16, tag::ab);
-  auto dst_md = dnnl::memory::desc(dst_dims, dt::bf16, tag::ab);
+  auto s_in_md = dnnl::memory::desc(s_dims, dt::f32, tag::ab);
+  auto w_in_md = dnnl::memory::desc(w_dims, dt::f32, tag::ab);
+  auto res_out_md = dnnl::memory::desc(dst_dims, dt::f32, tag::ab);
+
+  auto s_in_mem = dnnl::memory(s_in_md, engine);
+  auto w_in_mem = dnnl::memory(w_in_md, engine);
+
+  write_to_dnnl_memory(s.data(), s_in_mem);
+  write_to_dnnl_memory(w.data(), w_in_mem);
+
+  auto s_md = dnnl::memory::desc(s_dims, dt::bf16, tag::any);
+  auto w_md = dnnl::memory::desc(w_dims, dt::bf16, tag::any);
   
   auto s_mem = dnnl::memory(s_md, engine);
+  dnnl::reorder(s_in_mem, s_mem).execute(stream, s_in_mem, s_mem);
   auto w_mem = dnnl::memory(w_md, engine);
-
-  write_to_dnnl_memory(s.data(), s_mem);
-  write_to_dnnl_memory(w.data(), w_mem);
+  dnnl::reorder(w_in_mem, w_mem).execute(stream, w_in_mem, w_mem);
+  auto res_mem = dnnl::memory(res_out_md, engine);
   
   auto pd = dnnl::inner_product_forward::primitive_desc(
-      engine, dnnl::prop_kind::forward_training, s_md, w_md, dst_md);
-  auto dst_mem = dnnl::memory(pd.dst_desc(), engine);
+      engine, dnnl::prop_kind::forward_training, s_md, w_md, res_out_md);
 
   auto prim = dnnl::inner_product_forward(pd);
   std::unordered_map<int32_t, dnnl::memory> args;
   args.insert({DNNL_ARG_SRC, s_mem});
   args.insert({DNNL_ARG_WEIGHTS, w_mem});
-  args.insert({DNNL_ARG_DST, dst_mem});
+  args.insert({DNNL_ARG_DST, res_mem});
   prim.execute(stream, args);
   stream.wait();
 
   auto st = std::chrono::high_resolution_clock::now();
-  read_from_dnnl_memory(res.data(), dst_mem);
+  read_from_dnnl_memory(res.data(), res_mem);
   auto en = std::chrono::high_resolution_clock::now();
   std::cout << "[TIME] AMX: "
             << std::chrono::duration_cast<std::chrono::milliseconds>(en - st).count()
