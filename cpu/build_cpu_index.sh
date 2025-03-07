@@ -20,7 +20,6 @@ build_ivf() {
       --dataset-dir /workspace/dataset/t2i \
       --learn-limit ${1} \
       --search-limit ${2} \
-      --top-k 10 \
       --metric ip \
       --index-file cpu_ivf_${1}l_${2}q.faiss
 }
@@ -31,7 +30,6 @@ build_hnsw() {
       --dataset-dir /workspace/dataset/t2i \
       --learn-limit ${1} \
       --search-limit ${2} \
-      --top-k 10 \
       --metric ip \
       --index-file cpu_hnsw_${1}l_${2}q.faiss
 }
