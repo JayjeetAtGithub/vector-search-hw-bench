@@ -15,7 +15,6 @@
  * @brief Create a HNSW index using the CPU
  *
  * @param dim The dimension of the vectors
- * @param ef The number of neighbors to explore
  * @param dis_metric The distance metric to use
  */
 faiss::Index *CPU_create_hnsw_index(int64_t dim, std::string dis_metric) {
@@ -23,8 +22,6 @@ faiss::Index *CPU_create_hnsw_index(int64_t dim, std::string dis_metric) {
   auto faiss_metric_type = (dis_metric == "l2") ? faiss::MetricType::METRIC_L2
                                              : faiss::MetricType::METRIC_INNER_PRODUCT;
   auto index = new faiss::IndexHNSWFlat(dim, 32, faiss_metric_type);
-  // Use the default value of efConstruction in FAISS
-  index->hnsw.efConstruction = 40;
   return index;
 }
 
