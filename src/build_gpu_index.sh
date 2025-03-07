@@ -26,7 +26,9 @@ build_ivf() {
 build_flat 100000   10000 
 build_flat 1000000  10000
 build_flat 10000000 10000
+build_flat 50000000 10000
 
 build_ivf  100000   10000
 build_ivf  1000000  10000
 build_ivf  10000000 10000
+build_ivf  50000000 10000
