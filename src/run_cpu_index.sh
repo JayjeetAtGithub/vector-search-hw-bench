@@ -12,7 +12,7 @@ run_flat() {
         --top-k 10 \
         --metric ip \
         --skip-build 1 \
-        --index-file cpu_flat_${1}l_${2}q.faiss \
+        --index-file cpu_flat_${1}l.faiss \
         --calc-recall true
 }
 
@@ -26,7 +26,7 @@ run_ivf() {
         --n-probe ${3} \
         --metric ip \
         --skip-build 1 \
-        --index-file cpu_ivf_${1}l_${2}q.faiss \
+        --index-file cpu_ivf_${1}l.faiss \
         --calc-recall true
 }
 
@@ -40,18 +40,18 @@ run_hnsw() {
         --ef ${3} \
         --metric ip \
         --skip-build 1 \
-        --index-file cpu_hnsw_${1}l_${2}q.faiss \
+        --index-file cpu_hnsw_${1}l.faiss \
         --calc-recall true
 }
 
-run_flat 100000   10000
-run_flat 1000000  10000
-run_flat 10000000 10000
+run_flat 20000000 1000 
+run_flat 20000000 10000
+run_flat 20000000 100000
 
-run_ivf  100000   10000 256
-run_ivf  1000000  10000 256
-run_ivf  10000000 10000 256
+run_ivf  20000000 1000  512
+run_ivf  20000000 10000 512
+run_ivf  20000000 100000 512
 
-run_hnsw 100000   10000 256
-run_hnsw 1000000  10000 256
-run_hnsw 10000000 10000 256
+run_hnsw 20000000 1000  512
+run_hnsw 20000000 10000 512
+run_hnsw 20000000 100000 512
