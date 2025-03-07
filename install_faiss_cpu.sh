@@ -11,6 +11,7 @@ rm -rf build/
 mkdir -p build/
 cd build/
 
+sudo apt-get update
 sudo apt-get install -y libssl-dev libblas-dev libopenblas-dev liblapack-dev swig python3-numpy
 
 ## turn off -DFAISS_OPT_LEVEL=avx2 on grace hopper systems
