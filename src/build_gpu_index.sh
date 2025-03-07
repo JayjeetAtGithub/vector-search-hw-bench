@@ -23,9 +23,5 @@ build_ivf() {
 
 build_flat 20000000
 build_ivf  20000000
-
 build_flat 40000000
 build_ivf  40000000
-
-build_flat 50000000
-build_ivf  50000000
