@@ -50,7 +50,7 @@ std::vector<float> read_bin_dataset(std::string fname, int64_t *n, int64_t *d,
   *n = N;
   *d = dim;
 
-  printf("Read in file - N:%li, dim:%li\n", N, dim);
+  printf("[INFO] Read in file - N:%li, dim:%li\n", N, dim);
   std::vector<float> data;
   data.resize((size_t)N * (size_t)dim);
   datafile.read(reinterpret_cast<char *>(data.data()),
