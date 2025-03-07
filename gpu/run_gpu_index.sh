@@ -4,16 +4,7 @@ set -e
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 run_flat() {
-    ./run_faiss_gpu \
-        --index-type flat \
-        --dataset-dir /workspace/dataset/deep1b \
-        --learn-limit ${1} \
-        --search-limit ${2} \
-        --top-k 10 \
-        --metric ip \
-        --index-file gpu_flat_${1}l_${2}q.faiss
-
-    ./run_faiss_gpu \
+    ./run_gpu \
         --index-type flat \
         --dataset-dir /workspace/dataset/deep1b \
         --learn-limit ${1} \
@@ -26,17 +17,7 @@ run_flat() {
 }
 
 run_ivf() {
-    ./run_faiss_gpu \
-        --index-type ivf \
-        --dataset-dir /workspace/dataset/deep1b \
-        --learn-limit ${1} \
-        --search-limit ${2} \
-        --top-k 10 \
-        --n-probe ${3} \
-        --metric ip \
-        --index-file gpu_ivf_${1}l_${2}q.faiss
-
-    ./run_faiss_gpu \
+    ./run_gpu \
         --index-type ivf \
         --dataset-dir /workspace/dataset/deep1b \
         --learn-limit ${1} \
@@ -49,5 +30,10 @@ run_ivf() {
         --calc-recall true
 }
 
-run_flat 1000000 10000
-run_ivf 1000000 10000 256
+run_flat 100000   10000
+run_flat 1000000  10000
+run_flat 10000000 10000
+
+run_ivf  100000   10000 256
+run_ivf  1000000  10000 256
+run_ivf  10000000 10000 256
