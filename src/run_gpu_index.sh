@@ -7,6 +7,7 @@ run_flat() {
     ./run_gpu \
         --index-type flat \
         --dataset-dir /workspace/dataset/t2i \
+        --learn-limit ${1} \
         --search-limit ${2} \
         --top-k 10 \
         --metric ip \
@@ -19,6 +20,7 @@ run_ivf() {
     ./run_gpu \
         --index-type ivf \
         --dataset-dir /workspace/dataset/t2i \
+        --learn-limit ${1} \
         --search-limit ${2} \
         --top-k 10 \
         --n-probe ${3} \
