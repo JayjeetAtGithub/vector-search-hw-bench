@@ -182,7 +182,7 @@ int main(int argc, char **argv) {
     }
     auto e = std::chrono::high_resolution_clock::now();
     std::cout
-        << "[TIME] Search: "
+        << "[TIME] Search: " << n_query << " queries: "
         << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
         << " ms" << std::endl;
 
