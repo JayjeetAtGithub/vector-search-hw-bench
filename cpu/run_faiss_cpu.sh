@@ -3,11 +3,6 @@ set -e
 
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
-learn_limit=100000
-search_limit=1000
-calc_recall=${1:-false}
-
-
 run_flat() {
   ./run_faiss_cpu \
     --index-type flat \
@@ -83,8 +78,8 @@ run_hnsw() {
   ./run_faiss_cpu \
       --index-type hnsw \
       --dataset-dir /workspace/dataset/deep1b \
-      --learn-limit ${learn_limit} \
-      --search-limit ${search_limit} \
+      --learn-limit ${1} \
+      --search-limit ${2} \
       --top-k 10 \
       --ef 256 \
       --metric ip \
