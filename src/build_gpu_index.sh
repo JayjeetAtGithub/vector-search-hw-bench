@@ -8,9 +8,8 @@ build_flat() {
         --index-type flat \
         --dataset-dir /workspace/dataset/t2i \
         --learn-limit ${1} \
-        --search-limit ${2} \
         --metric ip \
-        --index-file gpu_flat_${1}l_${2}q.faiss
+        --index-file gpu_flat_${1}l.faiss
 }
 
 build_ivf() {
@@ -18,15 +17,14 @@ build_ivf() {
         --index-type ivf \
         --dataset-dir /workspace/dataset/t2i \
         --learn-limit ${1} \
-        --search-limit ${2} \
         --metric ip \
-        --index-file gpu_ivf_${1}l_${2}q.faiss
+        --index-file gpu_ivf_${1}l.faiss
 }
 
-build_flat 100000   10000 
-build_flat 1000000  10000
-build_flat 10000000 10000
+build_flat 100000
+build_flat 1000000
+build_flat 10000000
 
-build_ivf  100000   10000
-build_ivf  1000000  10000
-build_ivf  10000000 10000
+build_ivf  100000
+build_ivf  1000000
+build_ivf  10000000
