@@ -9,6 +9,15 @@ accelerators.
 For CPU/AMX experiments, we have tested on UC Santa Cruz's Sapphire Rapids machine.
 For GPU experiments, we have tested the code on Lambda clouds `gpu_1x_a100_sxm4` machine.
 
+# Dataset
+
+We use the Yandex Text-to-Image dataset from [here](https://big-ann-benchmarks.com/neurips21.html).
+It has float32 elements in vectors of 200 dimensions and built using IP as the distance metric.
+
+Learn dataset: https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/query.learn.50M.fbin
+Query dataset: https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/query.public.100K.fbin
+Groundtruth: https://storage.yandexcloud.net/yandex-research/ann-datasets/t2i_new_groundtruth.public.100K.bin
+
 ## Installing FAISS on CPU & GPU
 
 ```bash
