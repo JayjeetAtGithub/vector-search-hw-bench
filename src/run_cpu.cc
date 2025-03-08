@@ -160,16 +160,16 @@ int main(int argc, char **argv) {
     std::vector<float> dis(top_k * n_query);
 
     // Perform the search
-    auto s = std::chrono::high_resolution_clock::now();
     for (int itr = 0; itr < 100; itr++) {
+      auto s = std::chrono::high_resolution_clock::now();
       ridx->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
-    }
-    auto e = std::chrono::high_resolution_clock::now();
-    std::cout
-        << "[TIME] Search: "
+      auto e = std::chrono::high_resolution_clock::now();
+      std::cout
+        << "[TIME] Search: [ index: " << index_file.c_str() << " ][ # queries: " << n_query << " ]: "
         << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
         << " ms" << std::endl;
-
+    }
+    
     if (calc_recall == "true") {
       std::string dataset_path_learn = dataset_dir + "/dataset.bin";
       int64_t n_learn, dim_learn;

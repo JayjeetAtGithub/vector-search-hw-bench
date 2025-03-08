@@ -30,6 +30,15 @@ build_hnsw() {
       --index-file cpu_hnsw_${1}l.faiss
 }
 
-build_flat  20000000
-build_ivf   20000000
-build_hnsw  20000000
+
+build_flat 100000
+build_flat 1000000
+build_flat 10000000
+
+build_ivf  100000
+build_ivf  1000000
+build_ivf  10000000
+
+build_hnsw 100000
+build_hnsw 1000000
+build_hnsw 10000000
