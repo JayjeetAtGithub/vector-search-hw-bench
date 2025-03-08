@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
     std::vector<float> dis(top_k * n_query);
 
     // Perform the search
-    for (int itr = 0; itr < 100; itr++) {
+    for (int itr = 0; itr < 10; itr++) {
       auto s = std::chrono::high_resolution_clock::now();
       ridx->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
       auto e = std::chrono::high_resolution_clock::now();
