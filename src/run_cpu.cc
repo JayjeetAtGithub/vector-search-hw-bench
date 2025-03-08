@@ -170,6 +170,8 @@ int main(int argc, char **argv) {
         << " ms" << std::endl;
     }
     
+    delete ridx;
+
     if (calc_recall == "true") {
       std::string dataset_path_learn = dataset_dir + "/dataset.bin";
       int64_t n_learn, dim_learn;
