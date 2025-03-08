@@ -21,7 +21,11 @@ build_ivf() {
         --index-file gpu_ivf_${1}l.faiss
 }
 
-build_flat 20000000
-build_ivf  20000000
-build_flat 40000000
-build_ivf  40000000
+build_flat 100000
+build_ivf  100000
+
+build_flat 1000000
+build_ivf  1000000
+
+build_flat 10000000
+build_ivf  10000000
