@@ -4,6 +4,12 @@ We study the performance of vector search algorithms such as IVF, HNSW, and Flat
 different hardware architectures such as Sapphire Rapids CPU, A100 GPUs, and Intel AMX
 accelerators. 
 
+## Cloning the Repository
+
+```bash
+git clone --recursive https://github.com/JayjeetAtGithub/vector-search-gpu
+```
+
 ## Downloading Dataset
 
 We use the Yandex Text-to-Image dataset from [here](https://big-ann-benchmarks.com/neurips21.html).
