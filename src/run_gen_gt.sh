@@ -4,7 +4,7 @@ set -e
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 run_gen_gt() {
-    ./gen_gt \
+    ./run_gen_gt \
         --dataset-dir /workspace/dataset/t2i \
         --learn-limit ${1} \
         --search-limit ${2} \
