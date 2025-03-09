@@ -7,6 +7,9 @@
 #include <faiss/IndexFlat.h>
 #include <faiss/IndexHNSW.h>
 #include <faiss/IndexIVFFlat.h>
+#include <faiss/gpu/GpuIndexFlat.h>
+#include <faiss/gpu/GpuIndexIVFFlat.h>
+#include <faiss/gpu/StandardGpuResources.h>
 #include <faiss/index_io.h>
 
 #include "utils.h"
@@ -22,6 +25,26 @@ faiss::Index *CPU_create_hnsw_index(int64_t dim, std::string dis_metric) {
   auto faiss_metric_type = (dis_metric == "l2") ? faiss::MetricType::METRIC_L2
                                              : faiss::MetricType::METRIC_INNER_PRODUCT;
   auto index = new faiss::IndexHNSWFlat(dim, 32, faiss_metric_type);
+  return index;
+}
+
+/**
+ * @brief Create a Flat index using the GPU
+ *
+ * @param dim The dimension of the vectors
+ * @param mem_type The memory type to use
+ * @param provider The GPU resources provider
+ * @param cuda_device The CUDA device to use
+ */
+faiss::Index *GPU_create_flat_index(int64_t dim, std::string mem_type,
+                                    faiss::gpu::GpuResourcesProvider *provider,
+                                    int64_t cuda_device) {
+  auto config = faiss::gpu::GpuIndexConfig();
+  config.device = cuda_device;
+  config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
+                                            : faiss::gpu::MemorySpace::Unified;
+  auto index = new faiss::gpu::GpuIndexFlatIP(
+      provider, dim, faiss::gpu::GpuIndexFlatConfig{config});
   return index;
 }
 
@@ -177,7 +200,9 @@ int main(int argc, char **argv) {
       int64_t n_learn, dim_learn;
       auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &n_learn, &dim_learn, learn_limit);
 
-      faiss::Index *gt_idx = CPU_create_flat_index(dim_learn, dis_metric);
+      std::string mem_type = "cuda";
+      auto provider = new faiss::gpu::StandardGpuResources();
+      faiss::Index *gt_idx = GPU_create_flat_index(dim_learn, mem_type, provider, 0);
       gt_idx->add(n_learn, data_learn.data());
       std::vector<faiss::idx_t> gt_nns(top_k * n_query);
       std::vector<float> gt_dis(top_k * n_query);
