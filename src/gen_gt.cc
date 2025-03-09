@@ -78,5 +78,14 @@ int main(int argc, char **argv) {
       
   gt_idx_gpu->search(n_query, data_query.data(), top_k, gt_dis.data(), gt_nns.data());
 
+  // Preview ground truth
+  for (int i = 0; i < 10; i++) {
+    std::cout << "Query " << i << ": ";
+    for (int j = 0; j < top_k; j++) {
+      std::cout << gt_nns[i * top_k + j] << " ";
+    }
+    std::cout << std::endl;
+  }
+
   return 0;
 }
