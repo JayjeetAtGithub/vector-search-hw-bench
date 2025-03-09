@@ -8,8 +8,7 @@ run_gen_gt() {
         --dataset-dir /workspace/dataset/t2i \
         --learn-limit ${1} \
         --search-limit ${2} \
-        --top-k 10 \
-        --metric ip
+        --top-k 10
 }
 
 run_gen_gt 100000 1000
