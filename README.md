@@ -20,6 +20,13 @@ Query dataset: https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/
 
 Groundtruth: https://storage.yandexcloud.net/yandex-research/ann-datasets/t2i_new_groundtruth.public.100K.bin
 
+# Downloading Indexes
+
+```bash
+cd src/
+aws s3 cp --recursive s3://cpu-faiss-indexes .
+```
+
 ## Installing FAISS on CPU & GPU
 
 ```bash
