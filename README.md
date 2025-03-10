@@ -18,8 +18,8 @@ It has `float32` elements in vectors of 200 dimensions and built using IP as the
 ```bash
 mkdir -p /workspace/dataset/t2i
 cd /workspace/dataset/t2i
-wget -O dataset.bin https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/query.learn.50M.fbin
-wget -O query.bin https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/query.public.100K.fbin
+axel -o dataset.bin https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/query.learn.50M.fbin
+axel -o query.bin https://storage.yandexcloud.net/yandex-research/ann-datasets/T2I/query.public.100K.fbin
 ```
 
 ## Downloading Indexes
