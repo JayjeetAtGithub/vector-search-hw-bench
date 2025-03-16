@@ -182,8 +182,8 @@ int main(int argc, char **argv) {
       auto e = std::chrono::high_resolution_clock::now();
       std::cout
           << "[TIME] Search: [ index: " << index_file.c_str() << " ][ # queries: " << n_query << " ]: "
-          << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-          << " ms" << std::endl; 
+          << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count()
+          << " us" << std::endl; 
     }
 
     delete ridx_cpu;
