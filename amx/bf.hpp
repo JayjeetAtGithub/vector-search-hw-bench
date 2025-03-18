@@ -92,6 +92,7 @@ public:
     for (int32_t i = 0; i < top_k; i++) {
       std::cout << m[0].top().second << " ";
       m[0].pop();
+      std::cout << std::endl;
     }
 
     // debug // top of q has least nearest and last of q has most nearest
