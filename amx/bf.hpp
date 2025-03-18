@@ -8,8 +8,10 @@
 #include "distance.hpp"
 
 struct Comp {
+  // >: top is minimum / min heap
+  // <: top is maximum / max heap
   static bool operator()(const std::pair<int, float> &a, const std::pair<int, float> &b) {
-    return a.second > b.second;
+    return a.second < b.second;
   }
 };
 
