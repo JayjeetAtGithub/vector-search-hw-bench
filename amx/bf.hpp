@@ -91,6 +91,7 @@ public:
     }
 
     // debug
+    std::cout << m[0].size() << std::endl;
     for (int32_t i = 0; i < _nl; i++) {
       std::cout << "Query 0 - Nearest " << i << ": " << m[0].top().second << std::endl;
       m[0].pop();
