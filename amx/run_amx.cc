@@ -28,15 +28,6 @@ int main() {
             << "[TIME] Search: [ index: " << "flat" << " ][ # queries: " << n_query << " ]: "
             << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count()
             << " us" << std::endl;
-
-        std::cout << "Previewing search results" << std::endl;
-        for (int i = 0; i < std::min(n_query, (int64_t)10); i++) {
-            std::cout << "Query " << i << std::endl;
-            for (int j = 0; j < top_k; j++) {
-                std::cout << results[i][j] << " ";
-            }
-            std::cout << std::endl;
-        }
     }
 
     return 0;
