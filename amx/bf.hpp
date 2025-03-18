@@ -84,7 +84,7 @@ public:
         std::cout << "Query " << i << std::endl;
         int k = 10;
         while (!m[i].empty() && k > 0) {
-            std::cout << m[i].top().first << " ";
+            std::cout << m[i].top().second << " ";
             m[i].pop();
             k--;
         }
