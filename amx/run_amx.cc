@@ -30,7 +30,7 @@ int main() {
             << " us" << std::endl;
 
         std::cout << "Previewing search results" << std::endl;
-        for (int i = 0; i < min(n_query, 10); i++) {
+        for (int i = 0; i < std::min(n_query, (int64_t)10); i++) {
             std::cout << "Query " << i << std::endl;
             for (int j = 0; j < top_k; j++) {
                 std::cout << results[i][j] << " ";
