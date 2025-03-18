@@ -20,7 +20,7 @@ int main() {
 
     auto bf_search = std::make_shared<BruteForceSearch>(dim, n_query, n_learn);
 
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 10; i++) {
         auto s = std::chrono::high_resolution_clock::now();
         auto results = bf_search->search_ip_amx(data_query, data_learn, top_k);
         auto e = std::chrono::high_resolution_clock::now();
