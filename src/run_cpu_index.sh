@@ -44,32 +44,32 @@ run_hnsw() {
         --calc-recall true
 }
 
-run_flat 100000 100
+run_flat 100000 10
 
-run_ivf  100000 100   32
+run_ivf  100000 10       32
 # run_ivf  100000 10000  32
 # run_ivf  100000 100000 32
-
-run_hnsw 100000 100      32
+ 
+run_hnsw 100000 10       32
 # run_hnsw 100000 10000  32
 # run_hnsw 100000 100000 32
 
-run_flat 1000000 100
+run_flat 1000000 10
 
-run_ivf  1000000 100      48
+run_ivf  1000000 10       48
 # run_ivf  1000000 10000  48
 # run_ivf  1000000 100000 48
 
-run_hnsw 1000000 100      96
+run_hnsw 1000000 10       96
 # run_hnsw 1000000 10000  96
 # run_hnsw 1000000 100000 96
 
-run_flat 10000000 100
+run_flat 10000000 10
 
-run_ivf  10000000 100      64
+run_ivf  10000000 10       64
 # run_ivf  10000000 10000  64
 # run_ivf  10000000 100000 64
 
-run_hnsw 10000000 100      512
+run_hnsw 10000000 10       512
 # run_hnsw 10000000 10000  512
 # run_hnsw 10000000 100000 512
