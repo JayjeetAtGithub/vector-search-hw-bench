@@ -9,7 +9,7 @@
 
 struct Comp {
   static bool operator()(const std::pair<int, float> &a, const std::pair<int, float> &b) {
-    return a.second < b.second;
+    return a.second > b.second;
   }
 };
 
@@ -86,7 +86,7 @@ public:
             }
         }
     }
-    
+
     // debug // top of q has least nearest and last of q has most nearest
     std::vector<std::vector<int>> results(
       _nq, std::vector<int>(top_k)
