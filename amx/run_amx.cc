@@ -36,11 +36,11 @@ int main(int argc, char **argv) {
       return 1;
     }
 
-    std::string dataset_path_learn = "/workspace/dataset/t2i/dataset.bin";
+    std::string dataset_path_learn = dataset_dir + "/dataset.bin";
     int64_t n_learn, dim_learn;
     auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &n_learn, &dim_learn, learn_limit);
     
-    std::string dataset_path_query =  "/workspace/dataset/t2i/query.bin";
+    std::string dataset_path_query = dataset_dir + "/query.bin";
     int64_t n_query, dim_query;
     auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query, &dim_query, search_limit);
 
