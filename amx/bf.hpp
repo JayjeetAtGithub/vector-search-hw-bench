@@ -80,12 +80,12 @@ public:
     }
 
     // debug m
-    for (auto &i : m) {
-        std::cout << "Query " << i.first << std::endl;
+    for (int i = 0; i < 10; i++) {
+        std::cout << "Query " << m[i].first << std::endl;
         int k = 10;
-        while (!i.second.empty() && k > 0) {
-            std::cout << i.second.top().first << " ";
-            i.second.pop();
+        while (!m[i].second.empty() && k > 0) {
+            std::cout << m[i].second.top().first << " ";
+            m[i].second.pop();
             k--;
         }
         std::cout << std::endl;
