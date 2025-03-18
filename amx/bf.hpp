@@ -87,6 +87,12 @@ public:
         }
     }
 
+    // debug
+    for (int32_t i = 0; i < top_k; i++) {
+      std::cout << "Query 0 - Nearest " << i << ": " << m[0].top().second << std::endl;
+      m[0].pop();
+    }
+
     // debug // top of q has least nearest and last of q has most nearest
     std::vector<std::vector<int>> results(
       _nq, std::vector<int>(top_k)
