@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
     int64_t n_query, dim_query;
     auto data_query = read_bin_dataset(dataset_path_query.c_str(), &n_query, &dim_query, search_limit);
 
-    auto bf_search = std::make_shared<BruteForceSearch>(dim, n_query, n_learn);
+    auto bf_search = std::make_shared<BruteForceSearch>(dim_learn, n_query, n_learn);
 
     for (int i = 0; i < 10; i++) {
         auto s = std::chrono::high_resolution_clock::now();
