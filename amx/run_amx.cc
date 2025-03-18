@@ -6,7 +6,7 @@ int main(int argc, char **argv) {
     CLI::App app{"Run FAISS Benchmarks"};
     argv = app.ensure_utf8(argv);
   
-    std::string index_type = "ivf";
+    std::string index_type = "flat";
     app.add_option("--index-type", index_type, "Type of index to use (ivf, flat)");
 
     std::string calc_recall = "false";
@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
         auto results = bf_search->search_ip_amx(data_query, data_learn, top_k);
         auto e = std::chrono::high_resolution_clock::now();
         std::cout
-            << "[TIME] Search: [ index: " << "flat" << " ][ # queries: " << n_query << " ]: "
+            << "[TIME] Search: [ index: " << index_type << " ][ # queries: " << n_query << " ]: "
             << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count()
             << " us" << std::endl;
     }
