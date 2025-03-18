@@ -93,7 +93,7 @@ public:
     std::cout << m[qnn].size() << std::endl;
     while (!m[qnn].empty()) {
       if (idd == 0) std::cout << "top of q: " << m[qnn].top().second << " ";
-      if (idd == 9) std::cout << "last of q: " << m[qnn].top().second << std::endl;
+      if (idd == 4) std::cout << "last of q: " << m[qnn].top().second << std::endl;
       m[qnn].pop();
       idd++;
     }
