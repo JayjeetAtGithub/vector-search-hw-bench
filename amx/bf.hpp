@@ -79,6 +79,18 @@ public:
         }
     }
 
+    // debug m
+    int k = 10;
+    for (auto &i : m) {
+        std::cout << "Query " << i.first << std::endl;
+        while (!i.second.empty() && k > 0) {
+            std::cout << i.second.top().first << " ";
+            i.second.pop();
+            k--;
+        }
+        std::cout << std::endl;
+      }
+
     std::vector<std::vector<int>> results(
       _nq, std::vector<int>(top_k)
     );
