@@ -81,7 +81,7 @@ public:
         }
     }
 
-    delete[] dst_mem_buffer;
+    delete dst_mem_buffer;
 
     std::vector<std::vector<int>> results(
       _nq, std::vector<int>(top_k)
