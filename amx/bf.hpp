@@ -44,7 +44,7 @@ public:
 
     // debug ()
     std::cout << dst_mem_buffer[0 * _nl + 0] << std::endl;
-    std::cout << dst_mem_buffer[0 * _nl + 10] << std::endl;
+    std::cout << dst_mem_buffer[0 * _nl + 9] << std::endl;
 
     // debug
 
