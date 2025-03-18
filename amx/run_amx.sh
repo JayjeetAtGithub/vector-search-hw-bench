@@ -14,7 +14,6 @@ run_flat() {
 }
 
 run_flat 100000 1000
-run_flat 100000 10000
 
 run_flat 1000000 1000
 
