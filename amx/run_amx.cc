@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
         auto results = bf_search->search_ip_amx(data_query, data_learn, top_k);
         auto e = std::chrono::high_resolution_clock::now();
         std::cout
-            << "[TIME] Search: [ index: amx_ << " << index_type << "_" << n_learn << "l.faiss ][ # queries: " << n_query << " ]: "
+            << "[TIME] Search: [ index: amx_ " << index_type << "_" << n_learn << "l.faiss ][ # queries: " << n_query << " ]: "
             << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count()
             << " us" << std::endl;
     }
