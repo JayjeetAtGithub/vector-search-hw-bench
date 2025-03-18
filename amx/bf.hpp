@@ -82,6 +82,7 @@ public:
         }
         #pragma omp critical
         {
+          std::cout << local_queue.size() << std::endl;
             while (!local_queue.empty()) {
                 m[i].push(local_queue.top());
                 local_queue.pop();
