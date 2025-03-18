@@ -25,9 +25,9 @@ int main() {
         auto results = bf_search->search_ip_amx(data_query, data_learn, top_k);
         auto e = std::chrono::high_resolution_clock::now();
         std::cout
-            << "[TIME] Search: "
-            << std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count()
-            << " ms" << std::endl;
+            << "[TIME] Search: [ index: " << "flat" << " ][ # queries: " << n_query << " ]: "
+            << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count()
+            << " us" << std::endl;
 
         std::cout << "Previewing search results" << std::endl;
         for (int i = 0; i < 10; i++) {
