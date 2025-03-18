@@ -14,6 +14,13 @@ run_flat() {
 }
 
 run_flat 100000 10
-run_flat 1000000 10
-run_flat 10000000 10
+run_flat 100000 100
+run_flat 100000 1000
 
+run_flat 1000000 10
+run_flat 1000000 100
+run_flat 1000000 1000
+
+run_flat 10000000 10
+run_flat 10000000 100
+run_flat 10000000 1000
