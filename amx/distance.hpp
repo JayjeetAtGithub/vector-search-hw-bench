@@ -60,8 +60,8 @@ static dnnl::memory amx_inner_product(int32_t const &n, int32_t const &oc,
     stream.wait();
   }
   auto e = std::chrono::high_resolution_clock::now();
-  auto warmup = std::chrono::duration_cast<std::chrono::milliseconds>(e - s).count();
-  std::cout << "Warmup: " << warmup << " ms" << std::endl;
+  auto warmup = std::chrono::duration_cast<std::chrono::microseconds>(e - s).count();
+  std::cout << "Warmup: " << warmup << " us" << std::endl;
 
   prim.execute(stream, args);
   stream.wait();
