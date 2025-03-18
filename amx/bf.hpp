@@ -73,13 +73,12 @@ public:
             float dist = dst_mem_buffer[offset];
             if (local_queue.size() < top_k) {
                 local_queue.push({j, dist});
+            } else {
+                if (local_queue.top().second > dist) {
+                    local_queue.pop();
+                    local_queue.push({j, dist});
+                }
             }
-            // } else {
-            //     if (local_queue.top().second < dist) {
-            //         local_queue.pop();
-            //         local_queue.push({j, dist});
-            //     }
-            // }
         }
         #pragma omp critical
         {
