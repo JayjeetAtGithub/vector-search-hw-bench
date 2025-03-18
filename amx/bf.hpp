@@ -43,8 +43,10 @@ public:
     float *dst_mem_buffer = static_cast<float*>(dst_mem.get_data_handle());
 
     // debug ()
-    std::cout << dst_mem_buffer[0 * _nl + 0] << std::endl;
-    std::cout << dst_mem_buffer[0 * _nl + 9] << std::endl;
+    for (int i = 0; i < 10; i++) {
+      std::cout << "Query 0 - Data " << i << ": " <<  dst_mem_buffer[0 * _nl + i] << std::endl;
+    }
+    std::cout << << std::endl;
 
     // debug
 
