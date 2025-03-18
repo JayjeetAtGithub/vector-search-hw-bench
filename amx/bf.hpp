@@ -83,7 +83,7 @@ public:
     int qnn = 0;
     int idd = 0;
     while (!m[qnn].empty()) {
-      if (idd == 0) std::cout << "top of q: " m[qnn].top().first << " ";
+      if (idd == 0) std::cout << "top of q: " << m[qnn].top().first << " ";
       if (idd == 99999) std::cout << "last of q: " << m[qnn].top().first << std::endl;
       m[qnn].pop();
       idd++;
