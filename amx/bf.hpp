@@ -42,7 +42,7 @@ public:
     );
     float *dst_mem_buffer = static_cast<float*>(dst_mem.get_data_handle());
 
-    // debug
+    // debug ()
     std::cout << dst_mem_buffer[0 * _nl + 0] << std::endl;
     std::cout << dst_mem_buffer[0 * _nl + 99999] << std::endl;
 
