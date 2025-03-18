@@ -87,17 +87,7 @@ public:
         }
     }
 
-    // debug m
-    int qnn = 0;
-    int idd = 0;
-    std::cout << m[qnn].size() << std::endl;
-    while (!m[qnn].empty()) {
-      if (idd == 0) std::cout << "top of q: " << m[qnn].top().second << " ";
-      if (idd == 4) std::cout << "last of q: " << m[qnn].top().second << std::endl;
-      m[qnn].pop();
-      idd++;
-    }
-
+    // debug // top of q has least nearest and last of q has most nearest
     std::vector<std::vector<int>> results(
       _nq, std::vector<int>(top_k)
     );
