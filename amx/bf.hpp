@@ -49,7 +49,6 @@ public:
       std::cout << "Query 0 - Data " << i << ": " <<  dst_mem_buffer[0 * _nl + i] << std::endl;
     }
     std::cout << std::endl;
-
     // debug
 
     std::unordered_map<
@@ -97,7 +96,7 @@ public:
       m[0].pop();
     }
 
-    // debug // top of q has least nearest and last of q has most nearest
+    // debug // top of q has farthest and last of q has nearest
     std::vector<std::vector<int>> results(
       _nq, std::vector<int>(top_k)
     );
@@ -105,6 +104,7 @@ public:
     for (int32_t i = 0; i < _nq; i++) {
       int32_t k_idx = top_k - 1;
       while (k_idx >= 0) {
+        std::cout << "Query " << i << " - Nearest " << k_idx  << " : " << m[i].top().first <<  " , " << m[i].top().second << std::endl;
         results[i][k_idx--] = m[i].top().first;
         m[i].pop();
       }
