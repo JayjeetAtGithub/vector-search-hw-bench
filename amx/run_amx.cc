@@ -2,8 +2,8 @@
 #include "utils.h"
 
 int main() {
-    int64_t learn_limit = 10;
-    int64_t search_limit = 1;
+    int64_t learn_limit = 100000;
+    int64_t search_limit = 1000;
     int32_t dim = 200;
     int32_t top_k = 5;
 
