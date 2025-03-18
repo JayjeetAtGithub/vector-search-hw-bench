@@ -80,16 +80,14 @@ public:
     }
 
     // debug m
-    for (int i = 0; i < 10; i++) {
-        std::cout << "Query " << i << std::endl;
-        int k = 10;
-        while (!m[i].empty() && k > 0) {
-            std::cout << m[i].top().second << " ";
-            m[i].pop();
-            k--;
-        }
-        std::cout << std::endl;
-      }
+    int qnn = 0;
+    int idd = 0;
+    while (!m[qnn].empty()) {
+      if (idd == 0) std::cout << m[qnn].top().first << " ";
+      if (idd == 99999) std::cout << m[qnn].top().first << std::endl;
+      m[qnn].pop();
+      idd++;
+    }
 
     std::vector<std::vector<int>> results(
       _nq, std::vector<int>(top_k)
