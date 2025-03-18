@@ -90,11 +90,11 @@ public:
     }
 
     // debug
-    std::cout << m[0].size() << std::endl;
-    for (int32_t i = 0; i < _nl; i++) {
-      std::cout << "Query 0 - Nearest " << i  << " : " << m[0].top().first <<  " , " << m[0].top().second << std::endl;
-      m[0].pop();
-    }
+    // std::cout << m[0].size() << std::endl;
+    // for (int32_t i = 0; i < _nl; i++) {
+    //   std::cout << "Query 0 - Nearest " << i  << " : " << m[0].top().first <<  " , " << m[0].top().second << std::endl;
+    //   m[0].pop();
+    // }
 
     // debug // top of q has farthest and last of q has nearest
     std::vector<std::vector<int>> results(
