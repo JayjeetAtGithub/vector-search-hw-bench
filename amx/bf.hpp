@@ -81,11 +81,11 @@ public:
 
     // debug m
     for (int i = 0; i < 10; i++) {
-        std::cout << "Query " << m[i].first << std::endl;
+        std::cout << "Query " << i << std::endl;
         int k = 10;
-        while (!m[i].second.empty() && k > 0) {
-            std::cout << m[i].second.top().first << " ";
-            m[i].second.pop();
+        while (!m[i].empty() && k > 0) {
+            std::cout << m[i].top().first << " ";
+            m[i].pop();
             k--;
         }
         std::cout << std::endl;
