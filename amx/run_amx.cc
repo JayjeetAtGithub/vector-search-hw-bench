@@ -2,10 +2,10 @@
 #include "utils.h"
 
 int main() {
-    int64_t learn_limit = 10;
-    int64_t search_limit = 1;
+    int64_t learn_limit = 100000;
+    int64_t search_limit = 1000;
     int32_t dim = 200;
-    int32_t top_k = 5;
+    int32_t top_k = 10;
 
     std::string dataset_path_learn = "/workspace/dataset/t2i/dataset.bin";
     int64_t n_learn, dim_learn;
