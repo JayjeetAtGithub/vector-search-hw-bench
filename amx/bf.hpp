@@ -44,13 +44,6 @@ public:
     );
     float *dst_mem_buffer = static_cast<float*>(dst_mem.get_data_handle());
 
-    // debug ()
-    for (int i = 0; i < _nl; i++) {
-      std::cout << "Query 0 - Data " << i << ": " <<  dst_mem_buffer[0 * _nl + i] << std::endl;
-    }
-    std::cout << std::endl;
-    // debug
-
     std::unordered_map<
       int32_t, 
       std::priority_queue<
@@ -88,14 +81,6 @@ public:
         }
     }
 
-    // debug
-    // std::cout << m[0].size() << std::endl;
-    // for (int32_t i = 0; i < _nl; i++) {
-    //   std::cout << "Query 0 - Nearest " << i  << " : " << m[0].top().first <<  " , " << m[0].top().second << std::endl;
-    //   m[0].pop();
-    // }
-
-    // debug // top of q has farthest and last of q has nearest
     std::vector<std::vector<int>> results(
       _nq, std::vector<int>(top_k)
     );
@@ -103,7 +88,6 @@ public:
     for (int32_t i = 0; i < _nq; i++) {
       int32_t k_idx = top_k - 1;
       while (k_idx >= 0) {
-        std::cout << "Query " << i << " - Nearest " << k_idx  << " : " << m[i].top().first <<  " , " << m[i].top().second << std::endl;
         results[i][k_idx--] = m[i].top().first;
         m[i].pop();
       }
