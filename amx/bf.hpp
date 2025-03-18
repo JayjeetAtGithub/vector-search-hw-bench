@@ -46,7 +46,7 @@ public:
     for (int i = 0; i < 10; i++) {
       std::cout << "Query 0 - Data " << i << ": " <<  dst_mem_buffer[0 * _nl + i] << std::endl;
     }
-    std::cout << << std::endl;
+    std::cout << std::endl;
 
     // debug
 
