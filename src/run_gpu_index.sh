@@ -30,26 +30,32 @@ run_ivf() {
         --calc-recall true
 }
 
+run_flat 100000 10
+run_flat 100000 100
 run_flat 100000 1000
 run_flat 100000 10000
-run_flat 100000 100000
 
+run_ivf  100000 10     32
+run_ivf  100000 100    32
 run_ivf  100000 1000   32
 run_ivf  100000 10000  32
-run_ivf  100000 100000 32
 
+run_flat 1000000 10
+run_flat 1000000 100
 run_flat 1000000 1000
 run_flat 1000000 10000
-run_flat 1000000 100000
 
-run_ivf  1000000 1000   48
-run_ivf  1000000 10000  48
-run_ivf  1000000 100000 48
+run_ivf  1000000 10    48
+run_ivf  1000000 100   48
+run_ivf  1000000 1000  48
+run_ivf  1000000 10000 48
 
+run_flat 10000000 10
+run_flat 10000000 100
 run_flat 10000000 1000
 run_flat 10000000 10000
-run_flat 10000000 100000
 
-run_ivf  10000000 1000   64
-run_ivf  10000000 10000  64
-run_ivf  10000000 100000 64
+run_ivf  10000000 10    64
+run_ivf  10000000 100   64
+run_ivf  10000000 1000  64
+run_ivf  10000000 10000 64
