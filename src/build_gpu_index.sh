@@ -29,12 +29,3 @@ build_ivf  1000000
 
 build_flat 10000000
 build_ivf  10000000
-
-build_flat 20000000
-build_ivf  20000000
-
-build_flat 40000000
-build_ivf  40000000
-
-build_flat 50000000
-build_ivf  50000000
