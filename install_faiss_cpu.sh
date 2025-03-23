@@ -12,7 +12,7 @@ mkdir -p build/
 cd build/
 
 sudo apt-get update
-sudo apt-get install -y libssl-dev libblas-dev libopenblas-dev liblapack-dev swig python3-numpy
+sudo apt-get install -y build-essential libssl-dev libblas-dev libopenblas-dev liblapack-dev swig python3-numpy
 
 cmake -DFAISS_ENABLE_GPU=OFF \
       -DFAISS_ENABLE_PYTHON=OFF \
