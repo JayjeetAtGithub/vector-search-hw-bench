@@ -27,7 +27,8 @@ run_ivf() {
         --metric ip \
         --skip-build 1 \
         --index-file cpu_ivf_${1}l.faiss \
-        --calc-recall true
+        --calc-recall true \
+        --gt-file gt_${1}l_${2}s.bin
 }
 
 run_hnsw() {
@@ -41,7 +42,8 @@ run_hnsw() {
         --metric ip \
         --skip-build 1 \
         --index-file cpu_hnsw_${1}l.faiss \
-        --calc-recall true
+        --calc-recall true \
+        --gt-file gt_${1}l_${2}s.bin
 }
 
 run_flat 100000 10

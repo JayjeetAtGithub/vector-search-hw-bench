@@ -88,6 +88,9 @@ int main(int argc, char **argv) {
   int64_t skip_build = 0;
   app.add_option("--skip-build", skip_build, "Skip building the index");
 
+  std::string gt_file = "gt_nns.bin";
+  app.add_option("--gt-file", gt_file, "Ground truth file");
+
   CLI11_PARSE(app, argc, argv);
 
   if (dataset_dir.empty()) {
@@ -172,31 +175,21 @@ int main(int argc, char **argv) {
     
     delete ridx;
 
-    // if (calc_recall == "true") {
-    //   std::string dataset_path_learn = dataset_dir + "/dataset.bin";
-    //   int64_t n_learn, dim_learn;
-    //   auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &n_learn, &dim_learn, learn_limit);
-
-    //   std::string mem_type = "cuda";
-    //   auto provider = new faiss::gpu::StandardGpuResources();
-    //   faiss::Index *gt_idx = GPU_create_flat_index(dim_learn, mem_type, provider, 0);
-    //   gt_idx->add(n_learn, data_learn.data());
-    //   std::vector<faiss::idx_t> gt_nns(top_k * n_query);
-    //   std::vector<float> gt_dis(top_k * n_query);
-    //   gt_idx->search(n_query, data_query.data(), top_k, gt_dis.data(), gt_nns.data());
-    //   int64_t recalls = 0;
-    //   for (int64_t i = 0; i < n_query; ++i) {
-    //     for (int64_t n = 0; n < top_k; n++) {
-    //       for (int64_t m = 0; m < top_k; m++) {
-    //         if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
-    //           recalls += 1;
-    //         }
-    //       }
-    //     }
-    //   }
-    //   float recall = 1.0f * recalls / (top_k * n_query);
-    //   std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
-    // }
+    if (calc_recall == "true") {
+      auto gt_nns_read = read_vector(gt_file.c_str(), n_query * top_k);
+      int64_t recalls = 0;
+      for (int64_t i = 0; i < n_query; ++i) {
+        for (int64_t n = 0; n < top_k; n++) {
+          for (int64_t m = 0; m < top_k; m++) {
+            if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
+              recalls += 1;
+            }
+          }
+        }
+      }
+      float recall = 1.0f * recalls / (top_k * n_query);
+      std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
+    }
   }
 
   return 0;
