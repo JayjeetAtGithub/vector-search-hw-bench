@@ -87,5 +87,23 @@ int main(int argc, char **argv) {
     std::cout << std::endl;
   }
 
+  // Write gt_nns and gt_dis to disk
+  std::string gt_nns_path = dataset_dir + "/gt_nns.bin";
+  write_vector(gt_nns_path.c_str(), gt_nns.data(), n_query * top_k);
+
+  // Read back gt_nns
+  auto gt_nns_read = read_vector(gt_nns_path.c_str(), n_query * top_k);
+
+  // Compare gt_nns
+  for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < top_k; j++) {
+      if (gt_nns[i * top_k + j] != gt_nns_read[i * top_k + j]) {
+        std::cerr << "[ERROR] gt_nns mismatch" << std::endl;
+        return 1;
+      }
+    }
+  }
+
+
   return 0;
 }
