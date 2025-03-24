@@ -13,7 +13,8 @@ run_flat() {
         --metric ip \
         --skip-build 1 \
         --index-file cpu_flat_${1}l.faiss \
-        --calc-recall true
+        --calc-recall true \
+        --gt-file gt_${1}l_${2}s.bin
 }
 
 run_ivf() {
