@@ -90,7 +90,7 @@ int main(int argc, char **argv) {
     std::cout << std::endl;
   }
 
-  // Write gt_nns and gt_dis to disk
+  // Write gt_nns to disk
   write_vector(gt_file.c_str(), gt_nns.data(), n_query * top_k);
 
   // Read back gt_nns
@@ -105,7 +105,6 @@ int main(int argc, char **argv) {
       }
     }
   }
-
 
   return 0;
 }
