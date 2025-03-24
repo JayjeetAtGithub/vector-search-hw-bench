@@ -53,6 +53,9 @@ int main(int argc, char **argv) {
   int64_t top_k = 10;
   app.add_option("-k,--top-k", top_k, "Number of nearest neighbors");
 
+  std::string gt_file = "gt_nns.bin";
+  app.add_option("--gt-file", gt_file, "Ground truth file");
+
   CLI11_PARSE(app, argc, argv);
 
   if (dataset_dir.empty()) {
@@ -88,11 +91,10 @@ int main(int argc, char **argv) {
   }
 
   // Write gt_nns and gt_dis to disk
-  std::string gt_nns_path = dataset_dir + "/gt_nns.bin";
-  write_vector(gt_nns_path.c_str(), gt_nns.data(), n_query * top_k);
+  write_vector(gt_file.c_str(), gt_nns.data(), n_query * top_k);
 
   // Read back gt_nns
-  auto gt_nns_read = read_vector(gt_nns_path.c_str(), n_query * top_k);
+  auto gt_nns_read = read_vector(gt_file.c_str(), n_query * top_k);
 
   // Compare gt_nns
   for (int i = 0; i < 10; i++) {
