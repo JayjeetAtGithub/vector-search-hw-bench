@@ -198,7 +198,7 @@ int main(int argc, char **argv) {
       for (int64_t i = 0; i < n_query; ++i) {
         for (int64_t n = 0; n < top_k; n++) {
           for (int64_t m = 0; m < top_k; m++) {
-            if (nns[i * top_k + n] == gt_nns[i * top_k + m]) {
+            if (nns[i * top_k + n] == gt_nns_read[i * top_k + m]) {
               recalls += 1;
             }
           }
