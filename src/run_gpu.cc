@@ -102,6 +102,9 @@ int main(int argc, char **argv) {
   int64_t skip_build = 0;
   app.add_option("--skip-build", skip_build, "Skip building the index");
 
+  std::string gt_file = "gt_nns.bin";
+  app.add_option("--gt-file", gt_file, "Ground truth file");
+
   CLI11_PARSE(app, argc, argv);
 
   if (dataset_dir.empty()) {
@@ -190,15 +193,7 @@ int main(int argc, char **argv) {
     delete ridx_gpu;
 
     if (calc_recall == "true") {
-      std::string dataset_path_learn = dataset_dir + "/dataset.bin";
-      int64_t n_learn, dim_learn;
-      auto data_learn = read_bin_dataset(dataset_path_learn.c_str(), &n_learn, &dim_learn, learn_limit);
-
-      faiss::Index *gt_idx_gpu = GPU_create_flat_index(dim_learn, mem_type, provider, cuda_device);
-      gt_idx_gpu->add(n_learn, data_learn.data());
-      std::vector<faiss::idx_t> gt_nns(top_k * n_query);
-      std::vector<float> gt_dis(top_k * n_query);
-      gt_idx_gpu->search(n_query, data_query.data(), top_k, gt_dis.data(), gt_nns.data());
+      auto gt_nns_read = read_vector(gt_file.c_str(), n_query * top_k);
       int64_t recalls = 0;
       for (int64_t i = 0; i < n_query; ++i) {
         for (int64_t n = 0; n < top_k; n++) {
