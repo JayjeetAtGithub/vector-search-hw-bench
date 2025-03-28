@@ -10,9 +10,17 @@ echo "Experiment time: $datetime"
 
 cpu=$(lscpu | sed -nr '/Model name/ s/.*:\s*(.*) @ .*/\1/p')
 cores=$(lscpu | sed -nr '/^CPU\(s\)/ s/.*:\s*(.*)/\1/p')
+arch=$(lscpu | sed -nr '/Architecture/ s/.*:\s*(.*)/\1/p')
+threads_per_core=$(lscpu | sed -nr '/Thread\(s\) per core/ s/.*:\s*(.*)/\1/p')
+cores_per_socket=$(lscpu | sed -nr '/Core\(s\) per socket/ s/.*:\s*(.*)/\1/p')
+sockets=$(lscpu | sed -nr '/Socket\(s\)/ s/.*:\s*(.*)/\1/p')
 
+echo "CPU Arch:  $arch"
 echo "CPU Model: $cpu"
 echo "CPU Cores: $cores"
+echo "CPU Sockets: $sockets"
+echo "CPU Threads per core: $threads_per_core"
+echo "CPU Cores per socket: $cores_per_socket"
 echo "---------------------------------------------------"
 
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
