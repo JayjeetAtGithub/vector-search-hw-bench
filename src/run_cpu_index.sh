@@ -9,7 +9,10 @@ datetime=$(date +%Y-%m-%d_%H-%M)
 echo "Experiment time: $datetime"
 
 cpu=$(lscpu | sed -nr '/Model name/ s/.*:\s*(.*) @ .*/\1/p')
-echo "CPU: $cpu"
+cores=$(lscpu | sed -nr '/^CPU\(s\)/ s/.*:\s*(.*)/\1/p')
+
+echo "CPU Model: $cpu"
+echo "CPU Cores: $cores"
 echo "---------------------------------------------------"
 
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
