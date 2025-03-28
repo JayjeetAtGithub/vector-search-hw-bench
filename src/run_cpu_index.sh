@@ -14,9 +14,9 @@ l2_cache=$(lscpu | sed -nr '/L2 cache/ s/.*:\s*(.*)/\1/p')
 l3_cache=$(lscpu | sed -nr '/L3 cache/ s/.*:\s*(.*)/\1/p')
 dram=$(free -h | sed -nr '/Mem:/ s/.*:\s*(.*)/\1/p' | cut -d' ' -f1)
 
-echo "---------------------------------------------------------------"
+echo "------------------------------------------------------------------------"
 echo "Running CPU index benchmark on Yandex T2I dataset at $datetime"
-echo "---------------------------------------------------------------"
+echo "------------------------------------------------------------------------"
 echo " "
 echo "Arch:  $arch"
 echo "Model: $cpu"
@@ -30,7 +30,7 @@ echo "L2 cache: $l2_cache"
 echo "L3 cache: $l3_cache"
 echo "DRAM: $dram"
 echo " "
-echo "---------------------------------------------------------------"
+echo "------------------------------------------------------------------------"
 echo " "
 
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
