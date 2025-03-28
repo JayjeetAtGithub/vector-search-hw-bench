@@ -185,7 +185,6 @@ int main(int argc, char **argv) {
             curr_matches++;
           }
         }
-        std::cout << "Query " << i << " | Matches: " << curr_matches << std::endl;
         double curr_recall = (1.0f * curr_matches) / top_k;
         recalls += curr_recall;
       }
