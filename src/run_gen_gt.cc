@@ -97,7 +97,7 @@ int main(int argc, char **argv) {
   auto gt_nns_read = read_vector(gt_file.c_str(), n_query * top_k);
 
   // Compare gt_nns
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < n_query; i++) {
     for (int j = 0; j < top_k; j++) {
       if (gt_nns[i * top_k + j] != gt_nns_read[i * top_k + j]) {
         std::cerr << "[ERROR] gt_nns mismatch" << std::endl;
