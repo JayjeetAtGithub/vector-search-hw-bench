@@ -5,7 +5,7 @@ echo "---------------------------------------------------"
 echo "Running CPU index benchmark on Yandex T2I dataset"
 echo "---------------------------------------------------"
 
-datetime=$(date +%Y-%m-%d_%H-%M)
+datetime=$(date +"%Y-%m-%d %H:%M:%S")
 echo "Experiment time: $datetime"
 
 cpu=$(lscpu | sed -nr '/Model name/ s/.*:\s*(.*) @ .*/\1/p')
