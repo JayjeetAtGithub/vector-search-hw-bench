@@ -12,8 +12,7 @@ l1d_cache=$(lscpu | sed -nr '/L1d cache/ s/.*:\s*(.*)/\1/p')
 l1i_cache=$(lscpu | sed -nr '/L1i cache/ s/.*:\s*(.*)/\1/p')
 l2_cache=$(lscpu | sed -nr '/L2 cache/ s/.*:\s*(.*)/\1/p')
 l3_cache=$(lscpu | sed -nr '/L3 cache/ s/.*:\s*(.*)/\1/p')
-dram=$(free -h | sed -nr '/Mem:/ s/.*:\s*(.*)/\1/p')
-
+dram=$(free -h | sed -nr '/Mem:/ s/.*:\s*(.*)/\1/p' | cut -d' ' -f1)
 
 echo "---------------------------------------------------------------"
 echo "Running CPU index benchmark on Yandex T2I dataset at $datetime"
