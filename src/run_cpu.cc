@@ -190,7 +190,7 @@ int main(int argc, char **argv) {
         recalls += curr_recall;
       }
         
-      double avg_recall = recalls / n;
+      double avg_recall = recalls / n_query;
       std::cout << "Recall@" << top_k << ": " << avg_recall << std::endl;
     }
   }
