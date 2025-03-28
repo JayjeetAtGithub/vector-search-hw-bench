@@ -32,6 +32,9 @@ echo "DRAM: $dram"
 echo " "
 echo "------------------------------------------------------------------------"
 echo " "
+nvidia-smi
+echo " "
+echo "------------------------------------------------------------------------"
 
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
@@ -63,6 +66,8 @@ run_ivf() {
         --calc-recall true \
         --gt-file gt_${1}l_${2}s.bin
 }
+
+# IVF is at 91-92% recall with the given configuration
 
 run_flat 100000 1000
 run_flat 100000 10000
