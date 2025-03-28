@@ -176,19 +176,21 @@ int main(int argc, char **argv) {
     delete ridx;
 
     if (calc_recall == "true") {
-      auto gt_nns_read = read_vector(gt_file.c_str(), n_query * top_k);
-      int64_t recalls = 0;
-      for (int64_t i = 0; i < n_query; ++i) {
-        for (int64_t n = 0; n < top_k; n++) {
-          for (int64_t m = 0; m < top_k; m++) {
-            if (nns[i * top_k + n] == gt_nns_read[i * top_k + m]) {
-              recalls += 1;
-            }
+      auto nns_read = read_vector(gt_file.c_str(), n_query * top_k);
+      double recalls = 0.0;
+      for (int64_t i = 0; i < n_query; i++) {
+        int64_t curr_matches = 0;
+        for (int64_t j = 0; j < top_k; j++) {
+          if (nns[i * top_k + j] == nns_read[i * top_k + j]) {
+            curr_matches++;
           }
         }
+        double curr_recall = (1.0f * curr_matches) / top_k;
+        recalls += curr_recall;
       }
-      float recall = 1.0f * recalls / (top_k * n_query);
-      std::cout << "[INFO] Recall@" << top_k << ": " << recall << std::endl;
+        
+      double avg_recall = recalls / n_query;
+      std::cout << "Recall@" << top_k << ": " << avg_recall << std::endl;
     }
   }
 
