@@ -51,9 +51,13 @@ wget https://github.com/Kitware/CMake/releases/download/v3.30.5/cmake-3.30.5-lin
 chmod +x cmake-3.30.5-linux-x86_64.sh
 ./cmake-3.30.5-linux-x86_64.sh
 cd cmake-3.30.5-linux-x86_64
-sudo cp -r bin/* /usr/local/bin/
-sudo cp -r doc/* /usr/local/doc/
-sudo cp -r man/* /usr/local/man/
+sudo cp -r bin/*   /usr/local/bin/
+sudo cp -r doc/*   /usr/local/doc/
+sudo cp -r man/*   /usr/local/man/
 sudo cp -r share/* /usr/local/share/
+sudo cp -r bin/*   /usr/bin/
+sudo cp -r doc/*   /usr/doc/
+sudo cp -r man/*   /usr/man/
+sudo cp -r share/* /usr/share/
 cmake --version
 ```
