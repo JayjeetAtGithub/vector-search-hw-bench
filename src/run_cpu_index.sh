@@ -1,12 +1,11 @@
 #!/bin/bash
 set -e
 
-echo "---------------------------------------------------"
-echo "Running CPU index benchmark on Yandex T2I dataset"
-echo "---------------------------------------------------"
-
 datetime=$(date +"%Y-%m-%d %H:%M:%S")
-echo "Experiment time: $datetime"
+
+echo "---------------------------------------------------"
+echo "Running CPU index benchmark on Yandex T2I dataset at $datetime"
+echo "---------------------------------------------------"
 
 cpu=$(lscpu | sed -nr '/Model name/ s/.*:\s*(.*) @ .*/\1/p')
 cores=$(lscpu | sed -nr '/^CPU\(s\)/ s/.*:\s*(.*)/\1/p')
