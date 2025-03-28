@@ -58,6 +58,7 @@ run_hnsw() {
         --gt-file gt_${1}l_${2}s.bin
 }
 
+# IVF is at 91-92% recall with the given configuration
 # HNSW is at 90% recall with the given configuration
 
 # run_flat 100000 100
