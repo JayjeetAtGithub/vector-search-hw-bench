@@ -3,7 +3,7 @@
 #include "CLI11.hpp"
 
 int main(int argc, char **argv) {
-    CLI::App app{"Run FAISS Benchmarks"};
+    CLI::App app{"Run FAISS Benchmarks using Intel AMX"};
     argv = app.ensure_utf8(argv);
   
     std::string index_type = "flat";
