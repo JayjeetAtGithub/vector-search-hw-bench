@@ -18,6 +18,19 @@ static bool is_amxbf16_supported() {
   return edx & (1 << 22);
 }
 
+static void write_to_dnnl_memory(void const *handle, dnnl::memory &mem) {
+  dnnl::engine eng = mem.get_engine();
+  int32_t size = mem.get_desc().get_size();
+  if (!handle)
+    throw std::runtime_error("handle is nullptr.");
+  uint8_t *dst = static_cast<uint8_t *>(mem.get_data_handle());
+  if (!dst)
+    throw std::runtime_error("get_data_handle returned nullptr.");
+  for (int32_t i = 0; i < size; ++i) {
+    dst[i] = ((uint8_t *)handle)[i];
+  }
+}
+
 static dnnl::memory amx_inner_product(int32_t const &n, int32_t const &oc,
                               int32_t const &ic, std::vector<float> &src, std::vector<float> &w,
                               dnnl::engine &engine, dnnl::stream &stream) {
