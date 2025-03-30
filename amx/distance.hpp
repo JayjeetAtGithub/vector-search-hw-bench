@@ -5,7 +5,6 @@
 #include <unordered_map>
 
 #include "oneapi/dnnl/dnnl.hpp"
-#include "example_utils.hpp"
 
 using tag = dnnl::memory::format_tag;
 using dt = dnnl::memory::data_type;
