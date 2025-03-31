@@ -50,7 +50,7 @@ faiss::Index *CPU_create_flat_index(int64_t dim, std::string dis_metric) {
 }
 
 int main(int argc, char **argv) {
-  CLI::App app{"Run FAISS Benchmarks"};
+  CLI::App app{"Run FAISS Benchmarks using the CPU"};
   argv = app.ensure_utf8(argv);
 
   std::string index_type = "hnsw";

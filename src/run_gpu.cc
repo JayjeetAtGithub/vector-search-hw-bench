@@ -57,7 +57,7 @@ faiss::Index *GPU_create_ivf_index(
 }
 
 int main(int argc, char **argv) {
-  CLI::App app{"Run FAISS Benchmarks"};
+  CLI::App app{"Run FAISS Benchmarks using the GPU"};
   argv = app.ensure_utf8(argv);
 
   std::string index_type = "ivf";
