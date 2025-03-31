@@ -7,7 +7,7 @@ accelerators.
 ## Cloning the Repository
 
 ```bash
-git clone --recursive https://github.com/JayjeetAtGithub/vector-search-gpu
+git clone --recursive git@github.com:JayjeetAtGithub/vector-search-hw-bench
 ```
 
 ## Downloading Dataset
