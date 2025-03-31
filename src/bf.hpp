@@ -15,6 +15,28 @@ struct Comp {
   }
 };
 
+class IVF {
+  int32_t _dim;
+  int32_t _nq;
+  int32_t _nl;
+
+  dnnl::engine engine;
+  dnnl::stream stream;
+
+public:
+  void init_onednn() {
+    engine = dnnl::engine(dnnl::engine::kind::cpu, 0);
+    stream = dnnl::stream(engine);
+  }
+
+  IVF(int32_t dim, int32_t nq, int32_t nl) : _dim(dim), _nq(nq), _nl(nl) {
+    init_onednn();
+    if (!is_amxbf16_supported()) {
+      std::cout << "Intel AMX unavailable" << std::endl;
+    }
+  }
+};
+
 class BruteForceSearch {
   int32_t _dim;
   int32_t _nq;
