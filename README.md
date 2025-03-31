@@ -4,6 +4,11 @@ We study the performance of vector search algorithms such as IVF, HNSW, and Flat
 different hardware architectures such as Sapphire Rapids CPU, A100 GPUs, and Intel AMX
 accelerators. 
 
+## Preferred Machines for Benchmarking
+
+1. CPU/AMX: r7iz.metal-32xl
+2. GPU: Lambda H100 80GB SXM5
+
 ## Cloning the Repository
 
 ```bash
