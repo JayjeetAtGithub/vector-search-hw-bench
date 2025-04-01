@@ -75,7 +75,6 @@ sudo cp -r man/*   /usr/local/man/
 sudo cp -r share/* /usr/local/share/
 sudo cp -r bin/*   /usr/bin/
 sudo cp -r doc/*   /usr/doc/
-sudo cp -r man/*   /usr/man/
 sudo cp -r share/* /usr/share/
 cmake --version
 ```
