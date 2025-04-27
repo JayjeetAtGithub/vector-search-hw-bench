@@ -67,6 +67,21 @@ run_ivf() {
         --gt-file gt_${1}l_${2}s_${3}k.bin
 }
 
+
+run_flat 1000000  10000 10
+run_flat 2000000  10000 10
+run_flat 4000000  10000 10
+run_flat 8000000  10000 10
+run_flat 16000000 10000 10
+run_flat 32000000 10000 10
+
+run_flat 1000000  10000 100
+run_flat 2000000  10000 100
+run_flat 4000000  10000 100
+run_flat 8000000  10000 100
+run_flat 16000000 10000 100
+run_flat 32000000 10000 100
+
 # Note: IVF is at 90-91% recall with the given configuration
 run_ivf 1000000  10000 10 80
 run_ivf 2000000  10000 10 90

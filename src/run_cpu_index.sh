@@ -55,13 +55,13 @@ run_ivf() {
         --dataset-dir /workspace/dataset/t2i \
         --learn-limit ${1} \
         --search-limit ${2} \
-        --top-k 10 \
-        --n-probe ${3} \
+        --top-k ${3} \
+        --n-probe ${4} \
         --metric ip \
         --skip-build 1 \
         --index-file cpu_ivf_${1}l.faiss \
         --calc-recall true \
-        --gt-file gt_${1}l_${2}s.bin
+        --gt-file gt_${1}l_${2}s_${3}k.bin
 }
 
 run_hnsw() {
@@ -70,50 +70,28 @@ run_hnsw() {
         --dataset-dir /workspace/dataset/t2i \
         --learn-limit ${1} \
         --search-limit ${2} \
-        --top-k 10 \
-        --ef ${3} \
+        --top-k ${3} \
+        --ef ${4} \
         --metric ip \
         --skip-build 1 \
         --index-file cpu_hnsw_${1}l.faiss \
         --calc-recall true \
-        --gt-file gt_${1}l_${2}s.bin
+        --gt-file gt_${1}l_${2}s_${3}k.bin
 }
 
 # IVF is at 91-92% recall with the given configuration
 # HNSW is at 90% recall with the given configuration
 
-run_flat 100000 1000
-run_flat 100000 10000
-run_flat 100000 100000
+run_hnsw 1000000  10000 10 64
+run_hnsw 2000000  10000 10 64
+run_hnsw 4000000  10000 10 64
+run_hnsw 8000000  10000 10 256
+run_hnsw 16000000 10000 10 256
+run_hnsw 32000000 10000 10 256
 
-run_ivf  100000 1000   64
-run_ivf  100000 10000  64
-run_ivf  100000 100000 64
- 
-run_hnsw 100000 1000   64
-run_hnsw 100000 10000  64
-run_hnsw 100000 100000 64
-
-run_flat 1000000 1000
-run_flat 1000000 10000
-run_flat 1000000 100000
-
-run_ivf  1000000 1000   96
-run_ivf  1000000 10000  96
-run_ivf  1000000 100000 96
-
-run_hnsw 1000000 1000   256
-run_hnsw 1000000 10000  256
-run_hnsw 1000000 100000 256
-
-run_flat 10000000 1000
-run_flat 10000000 10000
-run_flat 10000000 100000
-
-run_ivf  10000000 1000   128
-run_ivf  10000000 10000  128
-run_ivf  10000000 100000 128
-
-run_hnsw 10000000 1000   1024
-run_hnsw 10000000 10000  1024
-run_hnsw 10000000 100000 1024
+run_hnsw 1000000  10000 100 64
+run_hnsw 2000000  10000 100 64
+run_hnsw 4000000  10000 100 64
+run_hnsw 8000000  10000 100 256
+run_hnsw 16000000 10000 100 256
+run_hnsw 32000000 10000 100 256
