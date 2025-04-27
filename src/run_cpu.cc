@@ -166,7 +166,6 @@ int main(int argc, char **argv) {
     std::vector<float> dis(top_k * n_query);
 
     // Perform the search
-    auto g_s = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < itr; i++) {
       auto s = std::chrono::high_resolution_clock::now();
       ridx->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
@@ -176,12 +175,7 @@ int main(int argc, char **argv) {
           << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count()
           << " us" << std::endl;
     }
-    auto g_e = std::chrono::high_resolution_clock::now();
-    std::cout
-        << "[TIME] Total Search: [ index: " << index_file.c_str() << " ][ # queries: " << n_query << " ]: "
-        << std::chrono::duration_cast<std::chrono::microseconds>(g_e - g_s).count()
-        << " us" << std::endl;
-    
+
     delete ridx;
 
     if (calc_recall == "true") {
