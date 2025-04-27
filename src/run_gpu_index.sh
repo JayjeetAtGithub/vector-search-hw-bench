@@ -44,12 +44,12 @@ run_flat() {
         --dataset-dir /workspace/dataset/t2i \
         --learn-limit ${1} \
         --search-limit ${2} \
-        --top-k 10 \
+        --top-k ${3} \
         --metric ip \
         --skip-build 1 \
         --index-file gpu_flat_${1}l.faiss \
         --calc-recall true \
-        --gt-file gt_${1}l_${2}s.bin
+        --gt-file gt_${1}l_${2}s_${3}k.bin
 }
 
 run_ivf() {
@@ -58,37 +58,25 @@ run_ivf() {
         --dataset-dir /workspace/dataset/t2i \
         --learn-limit ${1} \
         --search-limit ${2} \
-        --top-k 10 \
-        --n-probe ${3} \
+        --top-k ${3} \
+        --n-probe ${4} \
         --metric ip \
         --skip-build 1 \
         --index-file gpu_ivf_${1}l.faiss \
         --calc-recall true \
-        --gt-file gt_${1}l_${2}s.bin
+        --gt-file gt_${1}l_${2}s_${3}k.bin
 }
 
-# IVF is at 91-92% recall with the given configuration
+# Note: IVF is at 90-91% recall with the given configuration
+run_ivf 1000000  10000 10 80
+run_ivf 2000000  10000 10 90
+run_ivf 4000000  10000 10 100
+run_ivf 8000000  10000 10 110
+run_ivf 16000000 10000 10 115
+run_ivf 32000000 10000 10 120
 
-run_flat 100000 1000
-run_flat 100000 10000
-run_flat 100000 100000
-
-run_ivf  100000 1000   64
-run_ivf  100000 10000  64
-run_ivf  100000 100000 64
-
-run_flat 1000000 1000
-run_flat 1000000 10000
-run_flat 1000000 100000
-
-run_ivf  1000000 1000   96
-run_ivf  1000000 10000  96
-run_ivf  1000000 100000 96
-
-run_flat 10000000 1000
-run_flat 10000000 10000
-run_flat 10000000 100000
-
-run_ivf  10000000 1000   128
-run_ivf  10000000 10000  128
-run_ivf  10000000 100000 128
+run_ivf 1000000  10000 100 640
+run_ivf 2000000  10000 100 780
+run_ivf 4000000  10000 100 920
+run_ivf 8000000  10000 100 1100
+run_ivf 16000000 10000 100 1260
