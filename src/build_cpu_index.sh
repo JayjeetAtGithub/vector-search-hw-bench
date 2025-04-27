@@ -31,14 +31,10 @@ build_hnsw() {
 }
 
 
-build_flat 100000
-build_flat 1000000
-build_flat 10000000
-
-build_ivf  100000
-build_ivf  1000000
-build_ivf  10000000
-
-build_hnsw 100000
+# Build IVF index
 build_hnsw 1000000
-build_hnsw 10000000
+build_hnsw 2000000
+build_hnsw 4000000
+build_hnsw 8000000
+build_hnsw 16000000
+build_hnsw 32000000
