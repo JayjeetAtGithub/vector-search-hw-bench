@@ -12,34 +12,14 @@ run_gen_gt() {
         --gt-file gt_${1}l_${2}s_${3}k.bin
 }
 
-# Batch size = 100, Recall@10 = 90-91%
-run_gen_gt 1000000  100 10
-run_gen_gt 2000000  100 10
-run_gen_gt 4000000  100 10
-run_gen_gt 8000000  100 10
-run_gen_gt 16000000 100 10
-run_gen_gt 32000000 100 10
+dataset_size=(1000000 2000000 4000000 8000000 16000000 32000000)
+batch_size=(100 1000 10000 100000)
+top_k=(10 100)
 
-# Batch size = 1000, Recall@10 = 90-91%
-run_gen_gt 1000000  1000 10
-run_gen_gt 2000000  1000 10
-run_gen_gt 4000000  1000 10
-run_gen_gt 8000000  1000 10
-run_gen_gt 16000000 1000 10
-run_gen_gt 32000000 1000 10
-
-# Batch size = 10000, Recall@10 = 90-91%
-run_gen_gt 1000000  10000 10
-run_gen_gt 2000000  10000 10
-run_gen_gt 4000000  10000 10
-run_gen_gt 8000000  10000 10
-run_gen_gt 16000000 10000 10
-run_gen_gt 32000000 10000 10
-
-# Batch size = 100000, Recall@10 = 90-91%
-run_gen_gt 1000000  100000 10
-run_gen_gt 2000000  100000 10
-run_gen_gt 4000000  100000 10
-run_gen_gt 8000000  100000 10
-run_gen_gt 16000000 100000 10
-run_gen_gt 32000000 100000 10
+for size in "${dataset_size[@]}"; do
+    for batch in "${batch_size[@]}"; do
+        for k in "${top_k[@]}"; do
+            run_gen_gt ${size} ${batch} ${k}
+        done
+    done
+done
