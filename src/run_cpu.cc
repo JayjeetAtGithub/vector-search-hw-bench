@@ -91,9 +91,6 @@ int main(int argc, char **argv) {
   std::string gt_file = "gt_nns.bin";
   app.add_option("--gt-file", gt_file, "Ground truth file");
 
-  int64_t itr = 10;
-  app.add_option("--itr", itr, "Number of iterations");
-
   CLI11_PARSE(app, argc, argv);
 
   if (dataset_dir.empty()) {
@@ -166,14 +163,18 @@ int main(int argc, char **argv) {
     std::vector<float> dis(top_k * n_query);
 
     // Perform the search
-    for (int i = 0; i < itr; i++) {
-      auto s = std::chrono::high_resolution_clock::now();
-      ridx->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
-      auto e = std::chrono::high_resolution_clock::now();
-      std::cout
-          << "search," << index_file.c_str() << "," << n_query << ","  << top_k << "," 
-          << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count()
-          << " us" << std::endl;
+    for (int i = 0; i < 20; i++) {
+      if (i < 10) {
+        ridx->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
+      } else {
+        auto s = std::chrono::high_resolution_clock::now();
+        ridx->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
+        auto e = std::chrono::high_resolution_clock::now();
+        std::cout
+            << "search," << index_file.c_str() << "," << n_query << ","  << top_k << "," 
+            << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count()
+            << " us" << std::endl;
+      }
     }
 
     delete ridx;
