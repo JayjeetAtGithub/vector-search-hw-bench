@@ -79,6 +79,14 @@ run_hnsw() {
         --gt-file gt_${1}l_${2}s_${3}k.bin
 }
 
+# Batch size = 100, Recall@10 = 90-91%
+run_hnsw 1000000  100 10 250
+run_hnsw 2000000  100 10 450
+run_hnsw 4000000  100 10 850
+run_hnsw 8000000  100 10 1250
+run_hnsw 16000000 100 10 1650
+run_hnsw 32000000 100 10 2250
+
 # Batch size = 1000, Recall@10 = 90-91%
 run_hnsw 1000000  1000 10 250
 run_hnsw 2000000  1000 10 450
