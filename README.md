@@ -49,15 +49,10 @@ aws s3 cp --recursive s3://cpu-faiss-indexes .
 
 ## Machine Setup
 
-### Installing Docker
+### Setting up OneAPI using Docker
 
 ```bash
 curl -o- https://get.docker.com | bash
-```
-
-### Downloading oneAPI image
-
-```bash
 docker pull intel/oneapi:2025.1.0-0-devel-ubuntu24.04
 docker run -it -v $PWD:/workspace intel/oneapi:2025.1.0-0-devel-ubuntu24.04 bash
 ```
