@@ -80,7 +80,7 @@ run_hnsw() {
 }
 
 # Batch size = 100, Recall@10 = 90-91%
-run_hnsw 1000000  100 10 400
+run_hnsw 1000000  100 10 420
 run_hnsw 2000000  100 10 450
 run_hnsw 4000000  100 10 850
 run_hnsw 8000000  100 10 1250
