@@ -1,0 +1,7 @@
+901M    cpu_hnsw_1000000l_16M.faiss
+1023M   cpu_hnsw_1000000l_32M.faiss
+1.3G    cpu_hnsw_1000000l_64M.faiss
+1.8G    cpu_hnsw_1000000l_128M.faiss
+2.7G    cpu_hnsw_1000000l_256M.faiss
+4.6G    cpu_hnsw_1000000l_512M.faiss
+8.4G    cpu_hnsw_1000000l_1024M.faiss
