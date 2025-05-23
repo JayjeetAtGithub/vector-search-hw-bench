@@ -29,8 +29,6 @@ int main() {
         A[i] = B[i] + scalar * C[i];
     }
 
-    std::cout << "Starting sustained STREAM Triad...\n";
-
     // Measure sustained bandwidth
     double start = omp_get_wtime();
 
@@ -50,7 +48,6 @@ int main() {
     double total_bytes_write = 1.0 * N * sizeof(float) * iterations;
     double sustained_bandwidth_write = total_bytes_write / total_time / 1e9; // GB/s
 
-    std::cout << "Total time for " << iterations << " iterations: " << total_time << " seconds\n";
     std::cout << "Read bandwidth: " << sustained_bandwidth_read << " GB/s\n";
     std::cout << "Write bandwidth: " << sustained_bandwidth_write << " GB/s\n";
     std::cout << "Total bandwidth: " << (sustained_bandwidth_read + sustained_bandwidth_write) << " GB/s\n";
