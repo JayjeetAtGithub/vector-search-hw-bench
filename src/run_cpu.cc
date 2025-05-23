@@ -15,13 +15,14 @@
  * @brief Create a HNSW index using the CPU
  *
  * @param dim The dimension of the vectors
+ * @param M The number of neighbors to connect
  * @param dis_metric The distance metric to use
  */
-faiss::Index *CPU_create_hnsw_index(int64_t dim, std::string dis_metric) {
+faiss::Index *CPU_create_hnsw_index(int64_t dim, int64_t M, std::string dis_metric) {
   // Use the default value of M in FAISS
   auto faiss_metric_type = (dis_metric == "l2") ? faiss::MetricType::METRIC_L2
                                              : faiss::MetricType::METRIC_INNER_PRODUCT;
-  auto index = new faiss::IndexHNSWFlat(dim, 32, faiss_metric_type);
+  auto index = new faiss::IndexHNSWFlat(dim, M, faiss_metric_type);
   return index;
 }
 
@@ -82,6 +83,9 @@ int main(int argc, char **argv) {
   int64_t n_probe = 32;
   app.add_option("--n-probe", n_probe, "Number of probes");
 
+  int64_t M = 32;
+  app.add_option("--M", M, "Number of neighbors to connect");
+
   std::string dis_metric = "l2";
   app.add_option("--metric", dis_metric, "Distance metric to use (l2, ip)");
 
@@ -115,7 +119,7 @@ int main(int argc, char **argv) {
     // Create the index
     faiss::Index *widx;
     if (index_type == "hnsw") {
-      widx = CPU_create_hnsw_index(dim_learn, dis_metric);
+      widx = CPU_create_hnsw_index(dim_learn, M, dis_metric);
     } else if (index_type == "ivf") {
       widx = CPU_create_ivf_index(dim_learn, n_list, dis_metric);
       widx->train(n_learn, data_learn.data());
