@@ -35,3 +35,27 @@ plt.ylabel('Index Size (MiB)')
 plt.grid(True)
 plt.tight_layout(pad=1.0)
 plt.savefig('hnsw_index_size_scaling.pdf')
+
+# Corrected HNSW M values and durations (from filenames and [TIME] logs)
+M_values = [16, 32, 64, 128, 256, 512, 1024]
+durations_ms = [4975, 9074, 12968, 16537, 23016, 29100, 29296]
+
+# Create DataFrame
+df = pd.DataFrame({
+    "HNSW_M": M_values,
+    "Duration (ms)": durations_ms
+})
+
+# Generate equally spaced x-axis positions
+x_labels = df["HNSW_M"].astype(str).tolist()
+x_positions = list(range(len(x_labels)))
+
+# Plot
+plt.figure(figsize=(5, 2))
+plt.plot(x_positions, df["Duration (ms)"], marker='s', markersize=4, linestyle='-')
+plt.xticks(x_positions, x_labels)
+plt.xlabel("HNSW Parameter (M)")
+plt.ylabel("Duration (ms)")
+plt.grid(True)
+plt.tight_layout(pad=1.0)
+plt.savefig('hnsw_index_size_scaling_duration.pdf')
