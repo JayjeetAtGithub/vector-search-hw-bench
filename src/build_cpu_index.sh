@@ -3,7 +3,7 @@ set -e
 
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
-build_hnsw() {
+build_hnsw_deep() {
   ./run_cpu \
       --index-type hnsw \
       --dataset-dir /workspace/dataset/deep \
