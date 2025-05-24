@@ -32,11 +32,11 @@ build_hnsw_deep 32000000 128
 build_hnsw_deep 64000000 128
 build_hnsw_deep 128000000 128
 
-build_hnsw_t2i 1000000 128
-build_hnsw_t2i 2000000 128
-build_hnsw_t2i 4000000 128
-build_hnsw_t2i 8000000 128
-build_hnsw_t2i 16000000 128
-build_hnsw_t2i 32000000 128
-build_hnsw_t2i 64000000 128
-build_hnsw_t2i 128000000 128
+# build_hnsw_t2i 1000000 128
+# build_hnsw_t2i 2000000 128
+# build_hnsw_t2i 4000000 128
+# build_hnsw_t2i 8000000 128
+# build_hnsw_t2i 16000000 128
+# build_hnsw_t2i 32000000 128
+# build_hnsw_t2i 64000000 128
+# build_hnsw_t2i 128000000 128
