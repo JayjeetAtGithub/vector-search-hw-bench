@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 perf_stat() {
     perf stat -a -e uncore_imc/cas_count_read/ -e uncore_imc/cas_count_write/ "${1}"
