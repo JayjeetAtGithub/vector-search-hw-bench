@@ -2,7 +2,7 @@
 set -e
 
 perf_stat() {
-    perf stat -e uncore_imc/cas_count_rd/ -e uncore_imc/cas_count_wr/ $1
+    perf stat -a -e uncore_imc/cas_count_read/ -e uncore_imc/cas_count_write/ $1
 }
 
 perf_stat numactl -C 0-23 --membind 0 ./run_cpu --index-type hnsw --dataset-dir /workspace/dataset/t2i --learn-limit 32000000 --search-limit 100000 --top-k 10 --ef 2250 --metric ip --skip-build 1 --index-file cpu_hnsw_32000000l.faiss --calc-recall true --gt-file gt_32000000l_100000s_10k.bin
