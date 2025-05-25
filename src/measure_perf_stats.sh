@@ -7,14 +7,14 @@ perf_stat() {
     perf stat -a \
         -e uncore_imc/cas_count_read/ \
         -e uncore_imc/cas_count_write/ \
-        -e fp_arith_inst_retired.scalar_double/ \
-        -e fp_arith_inst_retired.scalar_single/ \
-        -e fp_arith_inst_retired.128b_packed_double/ \
-        -e fp_arith_inst_retired.128b_packed_single/ \
-        -e fp_arith_inst_retired.256b_packed_double/ \
-        -e fp_arith_inst_retired.256b_packed_single/ \
-        -e fp_arith_inst_retired.512b_packed_double/ \
-        -e fp_arith_inst_retired.512b_packed_single/ \
+        -e fp_arith_inst_retired.scalar_double \
+        -e fp_arith_inst_retired.scalar_single \
+        -e fp_arith_inst_retired.128b_packed_double \
+        -e fp_arith_inst_retired.128b_packed_single \
+        -e fp_arith_inst_retired.256b_packed_double \
+        -e fp_arith_inst_retired.256b_packed_single \
+        -e fp_arith_inst_retired.512b_packed_double \
+        -e fp_arith_inst_retired.512b_packed_single \
         -e fp_arith_inst_retired.vector \
         ${1}
 }
