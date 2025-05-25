@@ -90,7 +90,7 @@ if __name__ == "__main__":
             y_fit = power_law(x_fit, a, b)
 
             # plt.plot(x, y, 'o', label=f"Batch {batch_size} (data)")
-            plt.plot(x_fit, y_fit, '--', label=f"Batch Size {batch_size} fit: y={a:.2e}*x^{b:.2f}")
+            plt.plot(x_fit, y_fit, '--', label=f"BS: {batch_size} Fit: y={a:.2e}*x^{b:.2f}")
         else:
             plt.plot(x, y, 'o', label=f"Batch {batch_size} (insufficient data)")
 
