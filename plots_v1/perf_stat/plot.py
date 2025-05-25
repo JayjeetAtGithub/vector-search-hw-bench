@@ -4,7 +4,7 @@ import numpy as np
 
 if __name__ == "__main__":
     # Read the CSV file
-    df = pd.read_csv("mem_rd_wr.csv")
+    df = pd.read_csv("perf_data.csv")
 
     df['read_bytes'] = df['read_mib'] * (1024 * 1024)
     df['write_bytes'] = df['write_mib'] * (1024 * 1024)
