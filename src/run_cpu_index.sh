@@ -1,10 +1,10 @@
 #!/bin/bash
-set -ex
+set -e
 
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 run_hnsw() {
-    ./run_cpu \
+    numactl -C 0-23 --membind 0 ./run_cpu \
         --index-type hnsw \
         --dataset-dir /workspace/dataset/deep \
         --learn-limit ${1} \
