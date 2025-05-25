@@ -1,0 +1,96 @@
+1 cores
+Read bandwidth: 11.579 GiB/s
+Write bandwidth: 3.85967 GiB/s
+Total bandwidth: 15.4387 GiB/s
+2 cores
+Read bandwidth: 21.7194 GiB/s
+Write bandwidth: 7.2398 GiB/s
+Total bandwidth: 28.9592 GiB/s
+3 cores
+Read bandwidth: 31.2593 GiB/s
+Write bandwidth: 10.4198 GiB/s
+Total bandwidth: 41.6791 GiB/s
+4 cores
+Read bandwidth: 39.9144 GiB/s
+Write bandwidth: 13.3048 GiB/s
+Total bandwidth: 53.2192 GiB/s
+5 cores
+Read bandwidth: 47.1092 GiB/s
+Write bandwidth: 15.7031 GiB/s
+Total bandwidth: 62.8123 GiB/s
+6 cores
+Read bandwidth: 52.5884 GiB/s
+Write bandwidth: 17.5295 GiB/s
+Total bandwidth: 70.1179 GiB/s
+7 cores
+Read bandwidth: 57.6633 GiB/s
+Write bandwidth: 19.2211 GiB/s
+Total bandwidth: 76.8844 GiB/s
+8 cores
+Read bandwidth: 61.7851 GiB/s
+Write bandwidth: 20.595 GiB/s
+Total bandwidth: 82.3801 GiB/s
+9 cores
+Read bandwidth: 64.9291 GiB/s
+Write bandwidth: 21.643 GiB/s
+Total bandwidth: 86.5721 GiB/s
+10 cores
+Read bandwidth: 67.8612 GiB/s
+Write bandwidth: 22.6204 GiB/s
+Total bandwidth: 90.4816 GiB/s
+11 cores
+Read bandwidth: 69.9264 GiB/s
+Write bandwidth: 23.3088 GiB/s
+Total bandwidth: 93.2352 GiB/s
+12 cores
+Read bandwidth: 71.9175 GiB/s
+Write bandwidth: 23.9725 GiB/s
+Total bandwidth: 95.89 GiB/s
+13 cores
+Read bandwidth: 73.569 GiB/s
+Write bandwidth: 24.523 GiB/s
+Total bandwidth: 98.092 GiB/s
+14 cores
+Read bandwidth: 74.4508 GiB/s
+Write bandwidth: 24.8169 GiB/s
+Total bandwidth: 99.2677 GiB/s
+15 cores
+Read bandwidth: 75.2654 GiB/s
+Write bandwidth: 25.0885 GiB/s
+Total bandwidth: 100.354 GiB/s
+16 cores
+Read bandwidth: 76.1386 GiB/s
+Write bandwidth: 25.3795 GiB/s
+Total bandwidth: 101.518 GiB/s
+17 cores
+Read bandwidth: 76.4379 GiB/s
+Write bandwidth: 25.4793 GiB/s
+Total bandwidth: 101.917 GiB/s
+18 cores
+Read bandwidth: 77.0864 GiB/s
+Write bandwidth: 25.6955 GiB/s
+Total bandwidth: 102.782 GiB/s
+19 cores
+Read bandwidth: 76.9791 GiB/s
+Write bandwidth: 25.6597 GiB/s
+Total bandwidth: 102.639 GiB/s
+20 cores
+Read bandwidth: 78.8507 GiB/s
+Write bandwidth: 26.2836 GiB/s
+Total bandwidth: 105.134 GiB/s
+21 cores
+Read bandwidth: 82.5054 GiB/s
+Write bandwidth: 27.5018 GiB/s
+Total bandwidth: 110.007 GiB/s
+22 cores
+Read bandwidth: 91.7828 GiB/s
+Write bandwidth: 30.5943 GiB/s
+Total bandwidth: 122.377 GiB/s
+23 cores
+Read bandwidth: 93.8999 GiB/s
+Write bandwidth: 31.3 GiB/s
+Total bandwidth: 125.2 GiB/s
+24 cores
+Read bandwidth: 94.8791 GiB/s
+Write bandwidth: 31.6264 GiB/s
+Total bandwidth: 126.505 GiB/s
