@@ -23,6 +23,10 @@ if __name__ == "__main__":
     df['sp_flops'] = df['sp_scalar'] + df['sp_128b_packed'] * 4 + df['sp_256b_packed'] * 8 + df['sp_512b_packed'] * 16
     df['sp_gflops'] = df['sp_flops'] / (10**9)
 
+    df['operational_intensity'] = df['sp_flops'] / (df['read_bytes'])
+
+    print(df)
+
     x = df['dataset_size'].values
 
     fig, axs = plt.subplots(1, 3, figsize=(14, 3))
