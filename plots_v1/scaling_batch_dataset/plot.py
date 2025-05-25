@@ -24,12 +24,7 @@ if __name__ == "__main__":
             dataset = tokens[2]  # 'deep'
             dataset_size = int(tokens[3].rstrip('l'))  # 128000000l -> 128000000
             param_m = int(tokens[4].rstrip('m'))  # 32m -> 32
-            if queries == 10:
-                continue
-            elif queries == 100:
-                duration_us *= 100
-            elif queries == 1000:
-                duration_us *= 10
+
             parsed_data.append({
                 'hw': hw,
                 'algo': algo,
@@ -38,8 +33,9 @@ if __name__ == "__main__":
                 'param_m': param_m,
                 'batch_size': queries,
                 'k': topk,
-                'duration_us': duration_us,
-                'duration_s': duration_us / 1e6
+                'duration_us': duration_us * (10000 / queries),
+                'duration_s': duration_us * (10000 / queries) / 1e6,
+                "qps": 10000 / (duration_us * (10000 / queries) / 1e6)
             })
 
         df_fixed = pd.DataFrame(parsed_data)
@@ -47,7 +43,8 @@ if __name__ == "__main__":
     # aggregate by all params except 'duration_us' and duration_s'
     df = df_fixed.groupby(['hw', 'algo', 'dataset', 'dataset_size', 'param_m', 'batch_size', 'k']).agg({
         'duration_us': 'mean',
-        'duration_s': 'mean'
+        'duration_s': 'mean',
+        'qps': 'mean'
     }).reset_index()
 
     df.to_csv('parsed_data.csv', index=False)
@@ -64,13 +61,12 @@ if __name__ == "__main__":
         return a * x ** b
 
     # ---- PLOT 1: Raw Duration vs Dataset Size ----
-    plt.figure(figsize=(8, 5))
+    plt.figure(figsize=(5, 3))
     for batch_size in sorted(df["batch_size"].unique()):
         batch_df = df[df["batch_size"] == batch_size]
-        plt.plot(batch_df["dataset_size"], batch_df["duration_s"], label=f"Batch {batch_size}", marker='o')
+        plt.plot(batch_df["dataset_size"], batch_df["qps"], label=f"Batch {batch_size}", marker='o')
     plt.xlabel("Dataset Size")
-    plt.ylabel("Duration (s)")
-    plt.title("Duration vs Dataset Size")
+    plt.ylabel("QPS")
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
@@ -81,7 +77,7 @@ if __name__ == "__main__":
     for batch_size in sorted(df["batch_size"].unique()):
         batch_df = df[df["batch_size"] == batch_size]
         x = batch_df["dataset_size"].values
-        y = batch_df["duration_s"].values
+        y = batch_df["qps"].values
 
         if len(x) >= 2:  # Need at least 2 points to fit
             popt, _ = curve_fit(power_law, x, y)
@@ -95,7 +91,7 @@ if __name__ == "__main__":
             plt.plot(x, y, 'o', label=f"Batch {batch_size} (insufficient data)")
 
     plt.xlabel("Dataset Size")
-    plt.ylabel("Duration (s)")
+    plt.ylabel("QPS")
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
