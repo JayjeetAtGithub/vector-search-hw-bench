@@ -1,6 +1,8 @@
 #!/bin/bash
 set -ex
 
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
 perf_stat() {
     perf stat -a -e uncore_imc/cas_count_read/ -e uncore_imc/cas_count_write/ ${1}
 }
