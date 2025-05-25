@@ -6,7 +6,7 @@ from scipy.optimize import curve_fit
 if __name__ == "__main__":
     # Update the parsing logic: assign 'deep' as the dataset, and interpret '32m' as M=32
     parsed_data = []
-    with open('data_dump.txt', 'r') as f:
+    with open('data_dump_2.txt', 'r') as f:
         raw_data = f.readlines()
 
     for line in raw_data:
