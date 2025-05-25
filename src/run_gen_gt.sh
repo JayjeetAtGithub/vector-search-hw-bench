@@ -9,6 +9,7 @@ run_gen_gt() {
         --learn-limit ${1} \
         --search-limit ${2} \
         --top-k ${3} \
+        --mem-type managed \
         --gt-file gt_${1}l_${2}s_${3}k.bin
 }
 
