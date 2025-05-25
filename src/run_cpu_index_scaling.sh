@@ -13,7 +13,7 @@ run_hnsw() {
         --ef ${4} \
         --metric l2 \
         --skip-build 1 \
-        --index-file cpu_hnsw_${1}l_${6}m.faiss \
+        --index-file cpu_hnsw_yandex_deep_${1}l_${6}m.faiss \
         --calc-recall true \
         --gt-file gt_${1}l_${2}s_${3}k.bin
 }
