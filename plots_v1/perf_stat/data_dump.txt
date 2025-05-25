@@ -1,0 +1,271 @@
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1556050 us
+search,cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1555740 us
+search,cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1554123 us
+search,cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1557216 us
+search,cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1565997 us
+search,cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1555987 us
+search,cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1560723 us
+search,cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1555420 us
+search,cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1558024 us
+search,cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1553832 us
+
+ Performance counter stats for 'system wide':
+
+      2,596,609.54 MiB  uncore_imc/cas_count_read/                                            
+        547,123.74 MiB  uncore_imc/cas_count_write/                                           
+         4,242,135      fp_arith_inst_retired.scalar_double                                        (54.55%)
+           542,729      fp_arith_inst_retired.scalar_single                                        (54.55%)
+               527      fp_arith_inst_retired.128b_packed_double                                        (54.55%)
+    11,101,932,215      fp_arith_inst_retired.128b_packed_single                                        (54.55%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (50.57%)
+     7,279,132,268      fp_arith_inst_retired.256b_packed_single                                        (59.66%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (68.75%)
+    64,290,598,551      fp_arith_inst_retired.512b_packed_single                                        (77.84%)
+    82,661,911,338      fp_arith_inst_retired.vector                                            (72.73%)
+
+     105.555404349 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1175199 us
+search,cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1174754 us
+search,cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1177428 us
+search,cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1175514 us
+search,cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1175432 us
+search,cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1177245 us
+search,cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1176780 us
+search,cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1177273 us
+search,cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1178082 us
+search,cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1176505 us
+
+ Performance counter stats for 'system wide':
+
+      1,996,810.46 MiB  uncore_imc/cas_count_read/                                            
+        353,559.85 MiB  uncore_imc/cas_count_write/                                           
+         3,033,621      fp_arith_inst_retired.scalar_double                                        (54.54%)
+           292,322      fp_arith_inst_retired.scalar_single                                        (54.55%)
+               270      fp_arith_inst_retired.128b_packed_double                                        (54.55%)
+     9,217,162,112      fp_arith_inst_retired.128b_packed_single                                        (54.55%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (50.38%)
+     6,039,461,334      fp_arith_inst_retired.256b_packed_single                                        (59.47%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (68.56%)
+    53,300,920,029      fp_arith_inst_retired.512b_packed_single                                        (77.65%)
+    68,516,261,508      fp_arith_inst_retired.vector                                            (72.73%)
+
+      58.020804722 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,cpu_hnsw_deep_32000000l_32m.faiss,10000,10,738850 us
+search,cpu_hnsw_deep_32000000l_32m.faiss,10000,10,738798 us
+search,cpu_hnsw_deep_32000000l_32m.faiss,10000,10,738467 us
+search,cpu_hnsw_deep_32000000l_32m.faiss,10000,10,738510 us
+search,cpu_hnsw_deep_32000000l_32m.faiss,10000,10,738549 us
+search,cpu_hnsw_deep_32000000l_32m.faiss,10000,10,738532 us
+search,cpu_hnsw_deep_32000000l_32m.faiss,10000,10,738360 us
+search,cpu_hnsw_deep_32000000l_32m.faiss,10000,10,738964 us
+search,cpu_hnsw_deep_32000000l_32m.faiss,10000,10,738528 us
+search,cpu_hnsw_deep_32000000l_32m.faiss,10000,10,738491 us
+
+ Performance counter stats for 'system wide':
+
+      1,322,650.17 MiB  uncore_imc/cas_count_read/                                            
+        214,137.43 MiB  uncore_imc/cas_count_write/                                           
+         2,361,632      fp_arith_inst_retired.scalar_double                                        (54.54%)
+           162,636      fp_arith_inst_retired.scalar_single                                        (54.55%)
+               167      fp_arith_inst_retired.128b_packed_double                                        (54.55%)
+     6,729,966,956      fp_arith_inst_retired.128b_packed_single                                        (54.55%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (50.76%)
+     4,409,425,443      fp_arith_inst_retired.256b_packed_single                                        (59.85%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (68.94%)
+    38,931,497,334      fp_arith_inst_retired.512b_packed_single                                        (78.03%)
+    50,062,190,481      fp_arith_inst_retired.vector                                            (72.73%)
+
+      32.959504841 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552248 us
+search,cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552266 us
+search,cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552226 us
+search,cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552373 us
+search,cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552468 us
+search,cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552347 us
+search,cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552511 us
+search,cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552376 us
+search,cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552423 us
+search,cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552548 us
+
+ Performance counter stats for 'system wide':
+
+        987,732.03 MiB  uncore_imc/cas_count_read/                                            
+        141,368.61 MiB  uncore_imc/cas_count_write/                                           
+         1,590,056      fp_arith_inst_retired.scalar_double                                        (54.55%)
+           101,435      fp_arith_inst_retired.scalar_single                                        (54.55%)
+               102      fp_arith_inst_retired.128b_packed_double                                        (54.55%)
+     5,290,280,323      fp_arith_inst_retired.128b_packed_single                                        (54.55%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (51.90%)
+     3,466,092,669      fp_arith_inst_retired.256b_packed_single                                        (60.99%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (70.08%)
+    30,588,154,645      fp_arith_inst_retired.512b_packed_single                                        (79.17%)
+    39,344,533,126      fp_arith_inst_retired.vector                                            (72.72%)
+
+      21.067757482 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408010 us
+search,cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408022 us
+search,cpu_hnsw_deep_8000000l_32m.faiss,10000,10,407989 us
+search,cpu_hnsw_deep_8000000l_32m.faiss,10000,10,407920 us
+search,cpu_hnsw_deep_8000000l_32m.faiss,10000,10,407932 us
+search,cpu_hnsw_deep_8000000l_32m.faiss,10000,10,407875 us
+search,cpu_hnsw_deep_8000000l_32m.faiss,10000,10,407884 us
+search,cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408143 us
+search,cpu_hnsw_deep_8000000l_32m.faiss,10000,10,407897 us
+search,cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408011 us
+
+ Performance counter stats for 'system wide':
+
+        723,445.77 MiB  uncore_imc/cas_count_read/                                            
+         91,300.76 MiB  uncore_imc/cas_count_write/                                           
+           791,069      fp_arith_inst_retired.scalar_double                                        (54.54%)
+            67,873      fp_arith_inst_retired.scalar_single                                        (54.55%)
+                61      fp_arith_inst_retired.128b_packed_double                                        (54.55%)
+     4,075,448,649      fp_arith_inst_retired.128b_packed_single                                        (54.56%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (53.23%)
+     2,669,036,907      fp_arith_inst_retired.256b_packed_single                                        (62.32%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (71.41%)
+    23,559,318,345      fp_arith_inst_retired.512b_packed_single                                        (80.50%)
+    30,316,335,782      fp_arith_inst_retired.vector                                            (72.72%)
+
+      13.215289782 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,cpu_hnsw_deep_4000000l_32m.faiss,10000,10,303064 us
+search,cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302716 us
+search,cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302996 us
+search,cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302743 us
+search,cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302826 us
+search,cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302783 us
+search,cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302763 us
+search,cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302719 us
+search,cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302710 us
+search,cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302794 us
+
+ Performance counter stats for 'system wide':
+
+        537,280.47 MiB  uncore_imc/cas_count_read/                                            
+         59,227.10 MiB  uncore_imc/cas_count_write/                                           
+           783,301      fp_arith_inst_retired.scalar_double                                        (54.54%)
+            39,503      fp_arith_inst_retired.scalar_single                                        (54.54%)
+                43      fp_arith_inst_retired.128b_packed_double                                        (54.55%)
+     3,197,247,117      fp_arith_inst_retired.128b_packed_single                                        (54.56%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (52.29%)
+     2,094,410,345      fp_arith_inst_retired.256b_packed_single                                        (61.38%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (70.46%)
+    18,474,036,444      fp_arith_inst_retired.512b_packed_single                                        (79.55%)
+    23,772,591,838      fp_arith_inst_retired.vector                                            (72.72%)
+
+       8.841030610 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167840 us
+search,cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167925 us
+search,cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167925 us
+search,cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167898 us
+search,cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167988 us
+search,cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167951 us
+search,cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167907 us
+search,cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167930 us
+search,cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167866 us
+search,cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167930 us
+
+ Performance counter stats for 'system wide':
+
+        298,778.38 MiB  uncore_imc/cas_count_read/                                            
+         27,164.20 MiB  uncore_imc/cas_count_write/                                           
+           742,509      fp_arith_inst_retired.scalar_double                                        (54.54%)
+             9,598      fp_arith_inst_retired.scalar_single                                        (54.56%)
+                21      fp_arith_inst_retired.128b_packed_double                                        (54.57%)
+     1,939,187,680      fp_arith_inst_retired.128b_packed_single                                        (54.58%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (50.59%)
+     1,271,382,231      fp_arith_inst_retired.256b_packed_single                                        (59.68%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (68.76%)
+    11,227,723,601      fp_arith_inst_retired.512b_packed_single                                        (77.85%)
+    14,442,744,950      fp_arith_inst_retired.vector                                            (72.71%)
+
+       4.634447962 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134208 us
+search,cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134187 us
+search,cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134265 us
+search,cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134286 us
+search,cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134185 us
+search,cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134338 us
+search,cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134320 us
+search,cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134243 us
+search,cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134207 us
+search,cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134198 us
+
+ Performance counter stats for 'system wide':
+
+        232,646.38 MiB  uncore_imc/cas_count_read/                                            
+         14,866.92 MiB  uncore_imc/cas_count_write/                                           
+            27,725      fp_arith_inst_retired.scalar_double                                        (54.55%)
+            14,978      fp_arith_inst_retired.scalar_single                                        (54.56%)
+                17      fp_arith_inst_retired.128b_packed_double                                        (54.57%)
+     1,768,975,124      fp_arith_inst_retired.128b_packed_single                                        (54.57%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (52.29%)
+     1,158,699,865      fp_arith_inst_retired.256b_packed_single                                        (61.38%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (70.47%)
+    10,219,051,393      fp_arith_inst_retired.512b_packed_single                                        (79.55%)
+    13,153,461,966      fp_arith_inst_retired.vector                                            (72.70%)
+
+       3.498594528 seconds time elapsed
