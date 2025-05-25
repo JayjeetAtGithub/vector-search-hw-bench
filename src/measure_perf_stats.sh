@@ -16,6 +16,8 @@ perf_stat() {
         -e fp_arith_inst_retired.512b_packed_double \
         -e fp_arith_inst_retired.512b_packed_single \
         -e fp_arith_inst_retired.vector \
+        -e cpu_clk_unhalted.thread \
+        -e inst_retired.any \
         ${1}
 }
 
