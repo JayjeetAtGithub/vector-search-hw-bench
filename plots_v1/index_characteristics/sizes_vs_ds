@@ -1,0 +1,8 @@
+-rw-r--r-- 1 root     root      626M May 24 19:39 cpu_hnsw_deep_1000000l_32m.faiss
+-rw-r--r-- 1 root     root       79G May 24 19:30 cpu_hnsw_deep_128000000l_32m.faiss
+-rw-r--r-- 1 root     root      9.8G May 24 18:35 cpu_hnsw_deep_16000000l_32m.faiss
+-rw-r--r-- 1 root     root      1.3G May 24 18:30 cpu_hnsw_deep_2000000l_32m.faiss
+-rw-r--r-- 1 root     root       20G May 24 18:40 cpu_hnsw_deep_32000000l_32m.faiss
+-rw-r--r-- 1 root     root      2.5G May 24 18:31 cpu_hnsw_deep_4000000l_32m.faiss
+-rw-r--r-- 1 root     root       40G May 24 18:54 cpu_hnsw_deep_64000000l_32m.faiss
+-rw-r--r-- 1 root     root      4.9G May 24 18:32 cpu_hnsw_deep_8000000l_32m.faiss
