@@ -37,13 +37,10 @@ aws s3 cp --recursive s3://cpu-faiss-indexes .
 ## Installing FAISS on CPU & GPU
 
 ```bash
-# for Sapphire Rapids CPU
-./install_faiss_cpu_spr.sh
-
-# for other CPU
+# for x86_64 CPU
 ./install_faiss_cpu.sh
 
-# for NVIDIA GPU
+# for x86_64 CPU with NVIDIA GPU
 ./install_faiss_gpu.sh
 ```
 
