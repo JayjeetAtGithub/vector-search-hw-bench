@@ -4,7 +4,19 @@ set -ex
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 perf_stat() {
-    perf stat -a -e uncore_imc/cas_count_read/ -e uncore_imc/cas_count_write/ ${1}
+    perf stat -a \
+        -e uncore_imc/cas_count_read/ \
+        -e uncore_imc/cas_count_write/ \
+        -e fp_arith_inst_retired.scalar_double/ \
+        -e fp_arith_inst_retired.scalar_single/ \
+        -e fp_arith_inst_retired.128b_packed_double/ \
+        -e fp_arith_inst_retired.128b_packed_single/ \
+        -e fp_arith_inst_retired.256b_packed_double/ \
+        -e fp_arith_inst_retired.256b_packed_single/ \
+        -e fp_arith_inst_retired.512b_packed_double/ \
+        -e fp_arith_inst_retired.512b_packed_single/ \
+        -e fp_arith_inst_retired.vector \
+        ${1}
 }
 
 perf_stat "./run_cpu --index-type hnsw --dataset-dir /workspace/dataset/deep --learn-limit 128000000 --search-limit 10000 --top-k 10 --ef 650 --metric l2 --skip-build 1 --index-file cpu_hnsw_deep_128000000l_32m.faiss --calc-recall false"
