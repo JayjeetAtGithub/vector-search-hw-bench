@@ -16,7 +16,7 @@ def compute_median_bandwidth(file_path):
     return df['Read'].max(), df['Write'].max(), df['Memory'].max()
 
 def get_batch_size(filename):
-    match = re.search(r'_(\d+)s\.pcm_log_fixed$', filename)
+    match = re.search(r'_(\d+)s\.pcm_log$', filename)
     if match:
         batch_size = int(match.group(1))
         return batch_size
@@ -33,11 +33,9 @@ if __name__ == '__main__':
         # Remove the first line of the log file
         with open(log_file, 'r') as f:
             lines = f.readlines()
-        with open(f"{log_file}_fixed", 'w') as f:
-            f.writelines(lines[1:])
 
-        batch_size = get_batch_size(f"{log_file}_fixed")
-        rd, wr, total = compute_median_bandwidth(f"{log_file}_fixed")
+        batch_size = get_batch_size(log_file)
+        rd, wr, total = compute_median_bandwidth(log_file)
         print(f"Batch Size: {batch_size}, Read: {rd:.2f} GiB/s, Write: {wr:.2f} GiB/s, Total: {total:.2f} GiB/s")
         data.append(
             {
