@@ -4,7 +4,7 @@ set -e
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 run_hnsw_deep() {
-    pcm-memory 0.5 --csv="pcm_bw_hnsw_deep_${2}s.pcm_log" -- "numactl -C 0-23 --membind 0 ./run_cpu \
+    pcm-memory 0.5 --csv="pcm_bw_hnsw_deep_${2}s.pcm_log" numactl -C 0-23 --membind 0 ./run_cpu \
         --index-type hnsw \
         --dataset-dir /workspace/dataset/deep \
         --learn-limit ${1} \
@@ -14,7 +14,7 @@ run_hnsw_deep() {
         --metric l2 \
         --skip-build 1 \
         --index-file cpu_hnsw_deep_${1}l_${5}m.faiss \
-        --calc-recall false"
+        --calc-recall false
 }
 
 # batch size = 100, Recall@10 = 95%
