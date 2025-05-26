@@ -3,7 +3,7 @@ set -e
 
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
-BINARY_PATH="/workspace/vector_search_hw_bench/src/run_cpu"
+BINARY_PATH="/workspace/vector-search-hw-bench/src/run_cpu"
 
 numactl -C 0-23 --membind 0 ${BINARY_PATH} \
         --index-type hnsw \
