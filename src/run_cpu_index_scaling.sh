@@ -4,7 +4,7 @@ set -e
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 run_hnsw() {
-    numactl -C ${5} --membind 0 ./run_cpu \
+    numactl -C ${6} --membind 0 ./run_cpu \
         --index-type hnsw \
         --dataset-dir /workspace/dataset/deep \
         --learn-limit ${1} \
@@ -13,13 +13,13 @@ run_hnsw() {
         --ef ${4} \
         --metric l2 \
         --skip-build 1 \
-        --index-file cpu_hnsw_deep_${1}l_${6}m.faiss \
+        --index-file cpu_hnsw_deep_${1}l_${5}m.faiss \
         --calc-recall false
 }
 
-run_hnsw 128000000 10000 10 650 0-0 32
-run_hnsw 128000000 10000 10 650 0-1 32
-run_hnsw 128000000 10000 10 650 0-3 32
-run_hnsw 128000000 10000 10 650 0-7 32
-run_hnsw 128000000 10000 10 650 0-15 32 
-run_hnsw 128000000 10000 10 650 0-23 32
+run_hnsw 128000000 10000 10 650 32 0-0
+run_hnsw 128000000 10000 10 650 32 0-1
+run_hnsw 128000000 10000 10 650 32 0-3
+run_hnsw 128000000 10000 10 650 32 0-7
+run_hnsw 128000000 10000 10 650 32 0-15
+run_hnsw 128000000 10000 10 650 32 0-23
