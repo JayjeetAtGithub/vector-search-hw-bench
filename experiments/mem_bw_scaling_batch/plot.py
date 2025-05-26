@@ -13,7 +13,7 @@ def find_pcm_logs(root_dir='.'):
 
 def compute_median_bandwidth(file_path):
     df = pd.read_csv(file_path)
-    return df['Read'].median(), df['Write'].median(), df['Memory'].median()
+    return df['Read'].max(), df['Write'].max(), df['Memory'].max()
 
 def get_batch_size(filename):
     match = re.search(r'_(\d+)s\.pcm_log$', filename)
@@ -29,8 +29,6 @@ if __name__ == '__main__':
     print(f"Found {len(pcm_logs)} .pcm_log files.")
 
     for log_file in pcm_logs:
-        print(f"Processing {log_file}...")
-
         # Remove the first line of the log file
         with open(log_file, 'r') as f:
             lines = f.readlines()
