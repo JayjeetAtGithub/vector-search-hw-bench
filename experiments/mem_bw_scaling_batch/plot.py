@@ -2,6 +2,7 @@ import os
 import re
 import sys
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def find_pcm_logs(root_dir='.'):
     pcm_files = []
@@ -45,3 +46,19 @@ if __name__ == '__main__':
 
     final_df = pd.DataFrame(data)
     print(final_df)
+
+    df_to_plot = final_df.sort_values('bs')
+
+    # Plot
+    plt.figure(figsize=(5, 2.5))
+    plt.plot(df_to_plot['bs'], df_to_plot['total'], marker='o', linestyle='-', label='Total Bandwidth')
+    plt.plot(df_to_plot['bs'], df_to_plot['rd'], marker='^', linestyle='-', label='Read Bandwidth')
+    plt.plot(df_to_plot['bs'], df_to_plot['wr'], marker='X', linestyle='-', label='Write Bandwidth')
+
+    plt.xlabel('Batch Size')
+    plt.ylabel('Bandwidth (GB/s)')
+    plt.grid(True)
+    plt.tight_layout()
+    plt.legend()
+    plt.savefig('mem_bw_scaling_batch.pdf')
+
