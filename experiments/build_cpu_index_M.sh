@@ -24,4 +24,4 @@ build_hnsw_deep 1000000 256
 build_hnsw_deep 1000000 512
 build_hnsw_deep 1000000 1024
 
-du -h cpu_hnsw_deep_1000000l_*.faiss
+du -h ${INDEX_DIR}/cpu_hnsw_deep_1000000l_*.faiss
