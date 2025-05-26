@@ -32,10 +32,6 @@ if __name__ == '__main__':
     data = list()
 
     for log_file in pcm_logs:
-        # Remove the first line of the log file
-        with open(log_file, 'r') as f:
-            lines = f.readlines()
-
         batch_size = get_batch_size(log_file)
         rd, wr, total = compute_median_bandwidth(log_file)
         data.append(
