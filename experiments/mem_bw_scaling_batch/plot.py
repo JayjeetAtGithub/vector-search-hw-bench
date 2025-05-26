@@ -38,3 +38,13 @@ if __name__ == '__main__':
         batch_size = get_batch_size(f"{log_file}_fixed")
         rd, wr, total = compute_median_bandwidth(f"{log_file}_fixed")
         print(f"Batch Size: {batch_size}, Read: {rd:.2f} GiB/s, Write: {wr:.2f} GiB/s, Total: {total:.2f} GiB/s")
+        data = list()
+        data.append(
+            {
+                "bs": batch_size,
+                "rd": rd,
+                "wr": wr,
+                "total": total,
+            })
+        df = pd.DataFrame(data)
+        print(df)
