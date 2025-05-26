@@ -24,7 +24,8 @@ if __name__ == "__main__":
     df['sp_gflops'] = df['sp_flops'] / (10**9)
 
     df['operational_intensity'] = df['sp_flops'] / (df['read_bytes'])
-
+    print("Operational Intensity (FLOP/Byte):")
+    print(df['dataset_size'], df['operational_intensity'])
     print(df)
 
     x = df['dataset_size'].values
@@ -83,4 +84,3 @@ if __name__ == "__main__":
 
     # Save combined figure
     plt.savefig("combined_plots.pdf")
-    plt.show()
