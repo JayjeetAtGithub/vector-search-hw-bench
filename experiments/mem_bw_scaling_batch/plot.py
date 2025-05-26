@@ -43,5 +43,5 @@ if __name__ == '__main__':
                 "total": total,
             })
 
-    df = pd.DataFrame(data)
-    print(df)
+    final_df = pd.DataFrame(data)
+    print(final_df)
