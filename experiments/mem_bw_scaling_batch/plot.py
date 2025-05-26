@@ -56,7 +56,7 @@ if __name__ == '__main__':
     plt.plot(df_to_plot['bs'], df_to_plot['wr'], marker='X', linestyle='-', label='Write Bandwidth')
 
     plt.xlabel('Batch Size')
-    plt.ylabel('Bandwidth (GB/s)')
+    plt.ylabel('Bandwidth (MB/s)')
     plt.grid(True)
     plt.tight_layout()
     plt.legend()
