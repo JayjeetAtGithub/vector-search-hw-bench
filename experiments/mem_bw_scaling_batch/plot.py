@@ -30,6 +30,13 @@ if __name__ == '__main__':
 
     for log_file in pcm_logs:
         print(f"Processing {log_file}...")
+
+        # Remove the first line of the log file
+        with open(log_file, 'r') as f:
+            lines = f.readlines()
+        with open(log_file, 'w') as f:
+            f.writelines(lines[1:])
+
         batch_size = get_batch_size(log_file)
         rd, wr, total = compute_median_bandwidth(log_file)
         print(f"Batch Size: {batch_size}, Read: {rd:.2f} GiB/s, Write: {wr:.2f} GiB/s, Total: {total:.2f} GiB/s")
