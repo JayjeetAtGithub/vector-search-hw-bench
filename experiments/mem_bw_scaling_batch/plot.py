@@ -36,6 +36,7 @@ if __name__ == '__main__':
 
         batch_size = get_batch_size(log_file)
         rd, wr, total = compute_median_bandwidth(log_file)
+        print(rd, wr, total)
         print(f"Batch Size: {batch_size}, Read: {rd:.2f} GiB/s, Write: {wr:.2f} GiB/s, Total: {total:.2f} GiB/s")
         data.append(
             {
