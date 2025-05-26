@@ -51,10 +51,10 @@ if __name__ == '__main__':
 
     # Plot
     plt.figure(figsize=(5, 2.5))
-    plt.plot(df_to_plot['bs'], df_to_plot['total'], marker='o', linestyle='-', label='Total Bandwidth')
-    plt.plot(df_to_plot['bs'], df_to_plot['rd'], marker='^', linestyle='-', label='Read Bandwidth')
-    plt.plot(df_to_plot['bs'], df_to_plot['wr'], marker='X', linestyle='-', label='Write Bandwidth')
-
+    plt.plot(df_to_plot['bs'], df_to_plot['total'], marker='o', linestyle='-', label='Total B/W')
+    plt.plot(df_to_plot['bs'], df_to_plot['rd'], marker='^', linestyle='-', label='Read B/W')
+    plt.plot(df_to_plot['bs'], df_to_plot['wr'], marker='X', linestyle='-', label='Write B/W')
+    plt.xticks([1, 2, 4, 8, 16, 24]) 
     plt.xlabel('# of Cores')
     plt.ylabel('Bandwidth (MB/s)')
     plt.grid(True)
