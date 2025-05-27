@@ -1,8 +1,6 @@
 #!/bin/bash
 set -ex
 
-echo "use numactcl to bind to CPU cores and memory node 0"
-
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 perf_stat() {
