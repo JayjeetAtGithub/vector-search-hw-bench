@@ -1,0 +1,287 @@
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1553858 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1551077 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1566184 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1552330 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1557143 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1555653 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1554685 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1556524 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1553385 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_128000000l_32m.faiss,10000,10,1555832 us
+
+ Performance counter stats for 'system wide':
+
+      2,599,311.53 MiB  uncore_imc/cas_count_read/                                            
+        551,291.83 MiB  uncore_imc/cas_count_write/                                           
+         7,029,552      fp_arith_inst_retired.scalar_double                                        (46.15%)
+           505,199      fp_arith_inst_retired.scalar_single                                        (46.15%)
+               496      fp_arith_inst_retired.128b_packed_double                                        (46.15%)
+    11,097,651,198      fp_arith_inst_retired.128b_packed_single                                        (46.15%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (43.11%)
+     7,275,926,071      fp_arith_inst_retired.256b_packed_single                                        (50.80%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (58.49%)
+    64,314,282,956      fp_arith_inst_retired.512b_packed_single                                        (66.19%)
+    82,710,099,073      fp_arith_inst_retired.vector                                            (61.54%)
+ 2,260,082,199,454      cpu_clk_unhalted.thread                                                 (69.23%)
+ 1,055,093,769,650      inst_retired.any                                                        (76.92%)
+
+     102.095266521 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1173138 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1174801 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1174162 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1175938 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1173977 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1175832 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1176763 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1175416 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1174601 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_64000000l_32m.faiss,10000,10,1175363 us
+
+ Performance counter stats for 'system wide':
+
+      1,990,093.98 MiB  uncore_imc/cas_count_read/                                            
+        365,046.17 MiB  uncore_imc/cas_count_write/                                           
+         2,079,088      fp_arith_inst_retired.scalar_double                                        (46.15%)
+           308,332      fp_arith_inst_retired.scalar_single                                        (46.15%)
+               306      fp_arith_inst_retired.128b_packed_double                                        (46.15%)
+     9,204,136,585      fp_arith_inst_retired.128b_packed_single                                        (46.16%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (43.91%)
+     6,031,746,066      fp_arith_inst_retired.256b_packed_single                                        (51.60%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (59.30%)
+    53,309,013,982      fp_arith_inst_retired.512b_packed_single                                        (66.99%)
+    68,572,358,793      fp_arith_inst_retired.vector                                            (61.54%)
+ 1,670,948,052,462      cpu_clk_unhalted.thread                                                 (69.23%)
+   770,000,755,386      inst_retired.any                                                        (76.92%)
+
+      64.063632985 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_32000000l_32m.faiss,10000,10,740627 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_32000000l_32m.faiss,10000,10,740765 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_32000000l_32m.faiss,10000,10,740642 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_32000000l_32m.faiss,10000,10,740605 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_32000000l_32m.faiss,10000,10,740731 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_32000000l_32m.faiss,10000,10,740396 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_32000000l_32m.faiss,10000,10,740803 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_32000000l_32m.faiss,10000,10,740465 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_32000000l_32m.faiss,10000,10,740512 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_32000000l_32m.faiss,10000,10,740517 us
+
+ Performance counter stats for 'system wide':
+
+      1,322,908.66 MiB  uncore_imc/cas_count_read/                                            
+        213,550.06 MiB  uncore_imc/cas_count_write/                                           
+         1,908,399      fp_arith_inst_retired.scalar_double                                        (46.15%)
+           175,267      fp_arith_inst_retired.scalar_single                                        (46.16%)
+               155      fp_arith_inst_retired.128b_packed_double                                        (46.16%)
+     6,709,087,980      fp_arith_inst_retired.128b_packed_single                                        (46.16%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (42.31%)
+     4,402,601,731      fp_arith_inst_retired.256b_packed_single                                        (50.00%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (57.69%)
+    38,947,411,901      fp_arith_inst_retired.512b_packed_single                                        (65.39%)
+    50,098,541,379      fp_arith_inst_retired.vector                                            (61.54%)
+ 1,067,114,175,593      cpu_clk_unhalted.thread                                                 (69.23%)
+   477,615,867,727      inst_retired.any                                                        (76.92%)
+
+      32.919154753 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552931 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_16000000l_32m.faiss,10000,10,553107 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552880 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_16000000l_32m.faiss,10000,10,553113 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552975 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_16000000l_32m.faiss,10000,10,553102 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_16000000l_32m.faiss,10000,10,553036 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552971 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552972 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_16000000l_32m.faiss,10000,10,552920 us
+
+ Performance counter stats for 'system wide':
+
+        987,794.69 MiB  uncore_imc/cas_count_read/                                            
+        137,995.46 MiB  uncore_imc/cas_count_write/                                           
+         1,790,623      fp_arith_inst_retired.scalar_double                                        (46.15%)
+           104,073      fp_arith_inst_retired.scalar_single                                        (46.15%)
+                86      fp_arith_inst_retired.128b_packed_double                                        (46.16%)
+     5,282,700,009      fp_arith_inst_retired.128b_packed_single                                        (46.16%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (43.76%)
+     3,464,366,101      fp_arith_inst_retired.256b_packed_single                                        (51.45%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (59.14%)
+    30,613,121,110      fp_arith_inst_retired.512b_packed_single                                        (66.83%)
+    39,387,623,925      fp_arith_inst_retired.vector                                            (61.54%)
+   782,569,565,749      cpu_clk_unhalted.thread                                                 (69.23%)
+   358,853,450,956      inst_retired.any                                                        (76.92%)
+
+      19.660557774 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408272 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408245 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408218 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408194 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408230 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408300 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408198 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408215 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408244 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_8000000l_32m.faiss,10000,10,408250 us
+
+ Performance counter stats for 'system wide':
+
+        723,701.85 MiB  uncore_imc/cas_count_read/                                            
+         90,816.06 MiB  uncore_imc/cas_count_write/                                           
+            64,788      fp_arith_inst_retired.scalar_double                                        (46.15%)
+            57,839      fp_arith_inst_retired.scalar_single                                        (46.15%)
+                63      fp_arith_inst_retired.128b_packed_double                                        (46.16%)
+     4,075,600,414      fp_arith_inst_retired.128b_packed_single                                        (46.16%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (43.76%)
+     2,671,502,335      fp_arith_inst_retired.256b_packed_single                                        (51.45%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (59.14%)
+    23,582,839,066      fp_arith_inst_retired.512b_packed_single                                        (66.83%)
+    30,331,431,748      fp_arith_inst_retired.vector                                            (61.54%)
+   574,071,406,147      cpu_clk_unhalted.thread                                                 (69.23%)
+   276,960,541,113      inst_retired.any                                                        (76.92%)
+
+      13.023150998 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302997 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302869 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302900 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_4000000l_32m.faiss,10000,10,303056 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_4000000l_32m.faiss,10000,10,303023 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_4000000l_32m.faiss,10000,10,303108 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_4000000l_32m.faiss,10000,10,303128 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302977 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302949 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_4000000l_32m.faiss,10000,10,302938 us
+
+ Performance counter stats for 'system wide':
+
+        537,085.73 MiB  uncore_imc/cas_count_read/                                            
+         57,575.91 MiB  uncore_imc/cas_count_write/                                           
+            45,535      fp_arith_inst_retired.scalar_double                                        (46.15%)
+            32,668      fp_arith_inst_retired.scalar_single                                        (46.15%)
+                47      fp_arith_inst_retired.128b_packed_double                                        (46.16%)
+     3,195,138,092      fp_arith_inst_retired.128b_packed_single                                        (46.17%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (41.52%)
+     2,091,674,127      fp_arith_inst_retired.256b_packed_single                                        (49.21%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (56.91%)
+    18,469,076,195      fp_arith_inst_retired.512b_packed_single                                        (64.60%)
+    23,762,591,273      fp_arith_inst_retired.vector                                            (61.54%)
+   423,636,934,601      cpu_clk_unhalted.thread                                                 (69.23%)
+   214,493,615,486      inst_retired.any                                                        (76.92%)
+
+       8.134794299 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167945 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167886 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167871 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_2000000l_32m.faiss,10000,10,168044 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167951 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167884 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167914 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167904 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_2000000l_32m.faiss,10000,10,168047 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_2000000l_32m.faiss,10000,10,167990 us
+
+ Performance counter stats for 'system wide':
+
+        298,871.24 MiB  uncore_imc/cas_count_read/                                            
+         27,048.24 MiB  uncore_imc/cas_count_write/                                           
+            19,560      fp_arith_inst_retired.scalar_double                                        (46.14%)
+            23,594      fp_arith_inst_retired.scalar_single                                        (46.15%)
+                21      fp_arith_inst_retired.128b_packed_double                                        (46.16%)
+     1,939,845,213      fp_arith_inst_retired.128b_packed_single                                        (46.18%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (45.22%)
+     1,271,131,547      fp_arith_inst_retired.256b_packed_single                                        (52.91%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (60.61%)
+    11,229,327,878      fp_arith_inst_retired.512b_packed_single                                        (68.30%)
+    14,440,082,143      fp_arith_inst_retired.vector                                            (61.55%)
+   238,411,069,159      cpu_clk_unhalted.thread                                                 (69.23%)
+   134,559,840,730      inst_retired.any                                                        (76.91%)
+
+       4.441518557 seconds time elapsed
+
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134349 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134486 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134338 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_1000000l_32m.faiss,10000,10,134382 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_1000000l_32m.faiss,10000,10,135129 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_1000000l_32m.faiss,10000,10,135284 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_1000000l_32m.faiss,10000,10,135080 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_1000000l_32m.faiss,10000,10,135336 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_1000000l_32m.faiss,10000,10,135163 us
+search,/workspace/vector-search-hw-bench/src/cpu_hnsw_deep_1000000l_32m.faiss,10000,10,135165 us
+
+ Performance counter stats for 'system wide':
+
+        232,478.13 MiB  uncore_imc/cas_count_read/                                            
+         14,148.64 MiB  uncore_imc/cas_count_write/                                           
+           867,235      fp_arith_inst_retired.scalar_double                                        (46.14%)
+            12,081      fp_arith_inst_retired.scalar_single                                        (46.15%)
+                17      fp_arith_inst_retired.128b_packed_double                                        (46.17%)
+     1,766,462,219      fp_arith_inst_retired.128b_packed_single                                        (46.19%)
+                 0      fp_arith_inst_retired.256b_packed_double                                        (42.67%)
+     1,156,537,782      fp_arith_inst_retired.256b_packed_single                                        (50.36%)
+                 0      fp_arith_inst_retired.512b_packed_double                                        (58.06%)
+    10,210,572,075      fp_arith_inst_retired.512b_packed_single                                        (65.74%)
+    13,139,769,263      fp_arith_inst_retired.vector                                            (61.55%)
+   191,737,716,931      cpu_clk_unhalted.thread                                                 (69.23%)
+   124,683,393,159      inst_retired.any                                                        (76.91%)
+
+       3.231429261 seconds time elapsed
