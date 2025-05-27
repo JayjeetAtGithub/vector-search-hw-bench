@@ -1,46 +1,53 @@
-import pandas as pd
+import re
 import matplotlib.pyplot as plt
 
-# Full dataset
-cores = list(range(1, 25))
-read_bandwidth = [
-    11.579, 21.7194, 31.2593, 39.9144, 47.1092, 52.5884, 57.6633, 61.7851, 64.9291, 67.8612,
-    69.9264, 71.9175, 73.569, 74.4508, 75.2654, 76.1386, 76.4379, 77.0864, 76.9791, 78.8507,
-    82.5054, 91.7828, 93.8999, 94.8791
-]
-write_bandwidth = [
-    3.85967, 7.2398, 10.4198, 13.3048, 15.7031, 17.5295, 19.2211, 20.595, 21.643, 22.6204,
-    23.3088, 23.9725, 24.523, 24.8169, 25.0885, 25.3795, 25.4793, 25.6955, 25.6597, 26.2836,
-    27.5018, 30.5943, 31.3, 31.6264
-]
-total_bandwidth = [
-    15.4387, 28.9592, 41.6791, 53.2192, 62.8123, 70.1179, 76.8844, 82.3801, 86.5721, 90.4816,
-    93.2352, 95.89, 98.092, 99.2677, 100.354, 101.518, 101.917, 102.782, 102.639, 105.134,
-    110.007, 122.377, 125.2, 126.505
-]
+# Path to the file
+filename = "data.txt"
 
-# Create DataFrame
-df = pd.DataFrame({
-    'Cores': cores,
-    'Read Bandwidth (GiB/s)': read_bandwidth,
-    'Write Bandwidth (GiB/s)': write_bandwidth,
-    'Total Bandwidth (GiB/s)': total_bandwidth
-})
+# Read file
+with open(filename, "r") as f:
+    raw_data = f.read()
 
-# Filter only specific core counts
-selected_cores = [1, 2, 4, 8, 16, 24]
-df_filtered = df[df['Cores'].isin(selected_cores)]
+# Extract all data
+core_pattern = r"(\d+)\s+cores"
+read_pattern = r"Read bandwidth:\s+([\d.]+)"
+write_pattern = r"Write bandwidth:\s+([\d.]+)"
+total_pattern = r"Total bandwidth:\s+([\d.]+)"
+
+all_cores = [int(x) for x in re.findall(core_pattern, raw_data)]
+all_read_bw = [float(x) for x in re.findall(read_pattern, raw_data)]
+all_write_bw = [float(x) for x in re.findall(write_pattern, raw_data)]
+all_total_bw = [float(x) for x in re.findall(total_pattern, raw_data)]
+
+# Filter for desired cores
+target_cores = [1, 2, 4, 8, 16, 24]
+filtered_cores = []
+filtered_read_bw = []
+filtered_write_bw = []
+filtered_total_bw = []
+
+for core, r, w, t in zip(all_cores, all_read_bw, all_write_bw, all_total_bw):
+    if core in target_cores:
+        filtered_cores.append(core)
+        filtered_read_bw.append(r)
+        filtered_write_bw.append(w)
+        filtered_total_bw.append(t)
+
+# Print filtered data
+print("Cores\tRead BW\t\tWrite BW\tTotal BW")
+for c, r, w, t in zip(filtered_cores, filtered_read_bw, filtered_write_bw, filtered_total_bw):
+    print(f"{c}\t{r:.4f} GiB/s\t{w:.4f} GiB/s\t{t:.4f} GiB/s")
 
 # Plot
 plt.figure(figsize=(5, 3))
-plt.plot(df_filtered['Cores'], df_filtered['Read Bandwidth (GiB/s)'], label='Read Bandwidth', marker='o', linestyle='-')
-plt.plot(df_filtered['Cores'], df_filtered['Write Bandwidth (GiB/s)'], label='Write Bandwidth', marker='s', linestyle='-')
-plt.plot(df_filtered['Cores'], df_filtered['Total Bandwidth (GiB/s)'], label='Total Bandwidth', marker='^', linestyle='--')
+plt.plot(filtered_cores, filtered_read_bw, marker='^', linestyle='--', label='Read B/W')
+plt.plot(filtered_cores, filtered_write_bw, marker='x', linestyle='--', label='Write B/W')
+plt.plot(filtered_cores, filtered_total_bw, marker='o', linestyle='-', label='Total B/W')
 
+plt.xticks(target_cores)
 plt.xlabel('Number of Cores')
 plt.ylabel('Bandwidth (GiB/s)')
-plt.xticks(selected_cores)
-plt.legend()
 plt.grid(True)
+plt.legend()
 plt.tight_layout()
-plt.savefig('triad_mem.pdf')
+plt.show()
