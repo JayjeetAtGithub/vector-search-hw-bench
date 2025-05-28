@@ -2,3 +2,4 @@
 set -ex
 
 g++ -std=c++23 -Ofast run_cpu.cc -lfaiss_avx512 -mavx512f -mfma -o run_cpu
+g++ -std=c++23 -Ofast run_cpu_profile.cc -lfaiss_avx512 -mavx512f -mfma -o run_cpu_profile
