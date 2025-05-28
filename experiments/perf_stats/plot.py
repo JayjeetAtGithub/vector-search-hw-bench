@@ -12,39 +12,31 @@ with open("data.txt", "r") as file:
 # Split blocks using info header as a delimiter
 blocks = content.strip().split("[INFO] Read in file")
 
-# Helper function to extract values from lines like:
-#  1,234,567      fp_arith_inst_retired.scalar_single
 def extract_fp_value(event_name, text):
     pattern = rf'([\d,]+)\s+{re.escape(event_name)}'
     match = re.search(pattern, text)
     return int(match.group(1).replace(',', '')) if match else 0
 
-# Collect results
 results = []
 
 for block in blocks:
     if "search" not in block or "Performance counter stats" not in block:
         continue
 
-    # Dataset size
     ds_match = re.search(r'cpu_hnsw_deep_(\d+)l', block)
     dataset_size = int(ds_match.group(1)) if ds_match else 0
 
-    # Search durations in microseconds → milliseconds
     search_times = [int(m.group(1)) for m in re.finditer(r',(\d+) us', block)]
     avg_search_time_ms = mean(search_times) / 1000.0 if search_times else 0
 
-    # Memory bandwidth (MiB)
     read_mib = float(re.search(r'([\d,\.]+) MiB\s+uncore_imc/cas_count_read', block).group(1).replace(',', ''))
     write_mib = float(re.search(r'([\d,\.]+) MiB\s+uncore_imc/cas_count_write', block).group(1).replace(',', ''))
 
-    # Floating-point instruction counts (single precision)
     sp_scalar = extract_fp_value('fp_arith_inst_retired.scalar_single', block)
     sp_128b_packed = extract_fp_value('fp_arith_inst_retired.128b_packed_single', block)
     sp_256b_packed = extract_fp_value('fp_arith_inst_retired.256b_packed_single', block)
     sp_512b_packed = extract_fp_value('fp_arith_inst_retired.512b_packed_single', block)
 
-    # IPC = instructions / cycles
     clk_match = re.search(r'([\d,]+)\s+cpu_clk_unhalted\.thread', block)
     inst_match = re.search(r'([\d,]+)\s+inst_retired\.any', block)
     if clk_match and inst_match:
@@ -54,7 +46,6 @@ for block in blocks:
     else:
         ipc = 0
 
-    # Store the parsed result
     results.append({
         "dataset_size": dataset_size,
         "avg_search_time_ms": avg_search_time_ms,
@@ -67,7 +58,6 @@ for block in blocks:
         "ipc": ipc
     })
 
-# Convert to DataFrame and save
 df = pd.DataFrame(results)
 df.to_csv("perf_stats.csv", index=False)
 
@@ -76,7 +66,7 @@ def power_law(x, a, b):
 
 df = pd.read_csv("perf_stats.csv")
 
-# Compute derived metrics
+# Derived metrics
 df['read_bytes'] = df['read_mib'] * (1024 * 1024)
 df['write_bytes'] = df['write_mib'] * (1024 * 1024)
 df['tota_read_bytes_per_iteration'] = df['read_bytes'] / 20
@@ -88,16 +78,13 @@ df['avg_write_mib_per_query'] = df['avg_write_bytes_per_query'] / (1024 * 1024)
 df['avg_total_mib_per_query'] = df['avg_read_mib_per_query'] + df['avg_write_mib_per_query']
 df['sp_flops'] = df['sp_scalar'] + df['sp_128b_packed'] * 4 + df['sp_256b_packed'] * 8 + df['sp_512b_packed'] * 16
 df['sp_gflops'] = df['sp_flops'] / (10**9)
-
 df['operational_intensity'] = df['sp_flops'] / (df['read_bytes'])
-print("Operational Intensity (FLOP/Byte):")
-print(df['dataset_size'], df['operational_intensity'])
-print(df)
 
 x = df['dataset_size'].values
 
-fig, axs = plt.subplots(1, 3, figsize=(14, 3))
-fig.tight_layout(pad=2.5)
+fig, axs = plt.subplots(2, 3, figsize=(18, 8))
+fig.tight_layout(pad=4.0)
+axs = axs.flatten()
 
 # ---- Subplot 1: MiB per Query ----
 y_read = df['avg_read_mib_per_query'].values
@@ -114,7 +101,6 @@ axs[0].plot(x, y_write, marker='^', linestyle='-', color='r',
             label=rf'Write $y={popt_write[0]:.2e} \cdot x^{{{popt_write[1]:.2f}}}$')
 axs[0].plot(x, y_total, marker='X', linestyle='-', color='g',
             label=rf'Total $y={popt_total[0]:.2e} \cdot x^{{{popt_total[1]:.2f}}}$')
-
 axs[0].plot(x, power_law(x, *popt_read), 'b--')
 axs[0].plot(x, power_law(x, *popt_write), 'r--')
 axs[0].plot(x, power_law(x, *popt_total), 'g--')
@@ -147,6 +133,33 @@ axs[2].set_xlabel("Dataset Size")
 axs[2].set_ylabel("Search Duration (ms)")
 axs[2].grid()
 axs[2].legend()
+
+# ---- Subplot 4: Operational Intensity ----
+y_oi = df['operational_intensity'].values
+popt_oi, _ = curve_fit(power_law, x, y_oi)
+axs[3].plot(x, y_oi, marker='o', linestyle='-', color='purple', label='Op. Intensity')
+axs[3].plot(x, power_law(x, *popt_oi), 'k--',
+            label=rf'Trend $y={popt_oi[0]:.2e} \cdot x^{{{popt_oi[1]:.2f}}}$')
+
+axs[3].set_xlabel("Dataset Size")
+axs[3].set_ylabel("Operational Intensity (FLOP/Byte)")
+axs[3].grid()
+axs[3].legend()
+
+# ---- Subplot 5: IPC ----
+y_ipc = df['ipc'].values
+popt_ipc, _ = curve_fit(power_law, x, y_ipc)
+axs[4].plot(x, y_ipc, marker='o', linestyle='-', color='brown', label='IPC')
+axs[4].plot(x, power_law(x, *popt_ipc), 'k--',
+            label=rf'Trend $y={popt_ipc[0]:.2e} \cdot x^{{{popt_ipc[1]:.2f}}}$')
+
+axs[4].set_xlabel("Dataset Size")
+axs[4].set_ylabel("IPC")
+axs[4].grid()
+axs[4].legend()
+
+# ---- Remove unused subplot (axs[5]) ----
+fig.delaxes(axs[5])
 
 # Save combined figure
 plt.savefig("perf_stats.pdf")
