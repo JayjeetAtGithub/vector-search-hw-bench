@@ -143,7 +143,7 @@ int main(int argc, char **argv) {
 
     // Perform the search
     System::stat(out, [&]() {
-        ridx->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
+        ridx->search(n_query * pow(2, qif), data_query.data(), top_k, dis.data(), nns.data());
     });
     
     delete ridx;
