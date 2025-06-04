@@ -60,7 +60,7 @@ if __name__ == "__main__":
     def power_law(x, a, b):
         return a * x ** b
 
-    # ---- PLOT 1: Raw Duration vs Dataset Size ----
+    # ---- PLOT 1: QPS vs Dataset Size ----
     plt.figure(figsize=(5, 3))
     for batch_size in sorted(df["batch_size"].unique()):
         batch_df = df[df["batch_size"] == batch_size]
@@ -70,9 +70,21 @@ if __name__ == "__main__":
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig('scaling_batch_dataset_raw.pdf')
+    plt.savefig('qps_scaling_batch_ds_raw.pdf')
 
-    # ---- PLOT 2: Power Law Fit ----
+    # ---- PLOT 2: Duration vs Dataset Size ----
+    plt.figure(figsize=(5, 3))
+    for batch_size in sorted(df["batch_size"].unique()):
+        batch_df = df[df["batch_size"] == batch_size]
+        plt.plot(batch_df["dataset_size"], batch_df["duration_s"], label=f"Batch {batch_size}", marker='o')
+    plt.xlabel("Dataset Size")
+    plt.ylabel("Duration (s)")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig('dur_scaling_batch_ds_raw.pdf')
+
+    # ---- PLOT 3: QPS Power Law Fit ----
     plt.figure(figsize=(5, 3))
     for batch_size in sorted(df["batch_size"].unique()):
         batch_df = df[df["batch_size"] == batch_size]
@@ -95,4 +107,30 @@ if __name__ == "__main__":
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig('qps_scaling_batch_ds.pdf')
+    plt.savefig('qps_scaling_batch_ds_power.pdf')
+
+    # ---- PLOT 3: Duration Power Law Fit ----
+    plt.figure(figsize=(5, 3))
+    for batch_size in sorted(df["batch_size"].unique()):
+        batch_df = df[df["batch_size"] == batch_size]
+        x = batch_df["dataset_size"].values
+        y = batch_df["duration_s"].values
+
+        if len(x) >= 2:  # Need at least 2 points to fit
+            popt, _ = curve_fit(power_law, x, y)
+            a, b = popt
+            x_fit = np.linspace(x.min(), x.max(), 100)
+            y_fit = power_law(x_fit, a, b)
+
+            # plt.plot(x, y, 'o', label=f"Batch {batch_size} (data)")
+            plt.plot(x_fit, y_fit, '--', label=f"BS: {batch_size} Fit: y={a:.2e}*x^{b:.2f}")
+        else:
+            plt.plot(x, y, 'o', label=f"Batch {batch_size} (insufficient data)")
+
+    plt.xlabel("Dataset Size")
+    plt.ylabel("Duration (s)")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig('dur_scaling_batch_ds_power.pdf')
+
