@@ -52,6 +52,8 @@ struct System
                 "-e", "LLC-load-misses",
                 "-e", "L1-dcache-loads",
                 "-e", "L1-dcache-load-misses",
+                "-e", "nvidia_scf_pmu/cmem_rd_access/",
+                "-e", "nvidia_scf_pmu/cmem_rd_data/", 
                 
                 "-o",
                 filename.c_str(),
