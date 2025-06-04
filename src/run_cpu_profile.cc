@@ -40,7 +40,12 @@ struct System
                 "perf",
                 "stat",
                 "-a",
-
+                "-e", "cpu-cycles",
+                "-e", "inst_retired",
+                "-e", "op_retired",
+                "-e", "fp_scale_ops_spec",
+                "-e", "fp_fixed_ops_spec",
+                "-e", "task-clock",
                 "-e", "l1d_cache",
                 "-e", "l1d_cache_rd",
                 "-e", "l1d_cache_refill",
