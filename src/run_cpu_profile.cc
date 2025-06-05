@@ -160,10 +160,17 @@ int main(int argc, char **argv) {
         data_query.insert(data_query.end(), data_query.begin(), data_query.end());
     }
 
-    // Perform the search
-    System::stat(out, [&]() {
+    // Perform the search with or without profiling
+    if (!out.empty()) {
+        System::stat(out, [&]() {
+            ridx->search(n_query * pow(2, qif), data_query.data(), top_k, dis.data(), nns.data());
+        });
+    } else {
+        auto s = std::chrono::high_resolution_clock::now();
         ridx->search(n_query * pow(2, qif), data_query.data(), top_k, dis.data(), nns.data());
-    });
+        auto e = std::chrono::high_resolution_clock::now();
+        std::cout << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count() << " us" << std::endl;
+    }
     
     delete ridx;
     return 0;
