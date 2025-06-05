@@ -15,7 +15,7 @@ run_exp() {
             --top-k 10 \
             --ef 840 \
             --metric l2 \
-            --index-file ${INDEX_DIR}/cpu_hnsw_deep_64000000l_32m.faiss \
+            --index-file ${INDEX_DIR}/cpu_hnsw_deep_256000000l_32m.faiss \
             --out cpu_hnsw_deep_256M_${1}.perf-stat
 }
 
