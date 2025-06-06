@@ -166,10 +166,12 @@ int main(int argc, char **argv) {
             ridx->search(n_query * pow(2, qif), data_query.data(), top_k, dis.data(), nns.data());
         });
     } else {
-        auto s = std::chrono::high_resolution_clock::now();
-        ridx->search(n_query * pow(2, qif), data_query.data(), top_k, dis.data(), nns.data());
-        auto e = std::chrono::high_resolution_clock::now();
-        std::cout << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count() << " us" << std::endl;
+        for (int32_t i = 0; i < 10; i++) {
+            auto s = std::chrono::high_resolution_clock::now();
+            ridx->search(n_query * pow(2, qif), data_query.data(), top_k, dis.data(), nns.data());
+            auto e = std::chrono::high_resolution_clock::now();
+            std::cout << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count() << " us" << std::endl;
+        }
     }
     
     delete ridx;
