@@ -7,7 +7,7 @@ BINARY_DIR="/workspace/vector-search-hw-bench/src/"
 INDEX_DIR="/workspace/vector-search-hw-bench/src/"
 
 run_exp() {
-    numactl -C ${1} --membind 0 ${BINARY_DIR}/run_cpu \
+    numactl -C ${1} --membind 0 ${BINARY_DIR}/run_cpu_profile \
             --index-type hnsw \
             --dataset-dir /workspace/dataset/deep \
             --learn-limit 256000000 \
