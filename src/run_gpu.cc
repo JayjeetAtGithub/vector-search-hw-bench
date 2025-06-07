@@ -55,14 +55,10 @@ faiss::Index *GPU_create_ivf_index(
   config.device = cuda_device;
   config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
                                             : faiss::gpu::MemorySpace::Unified;
-  auto quantizer = new faiss::gpu::GpuIndexFlatIP(
+  auto quantizer = new faiss::gpu::GpuIndexFlatL2(
       provider, dim, faiss::gpu::GpuIndexFlatConfig{config});
-  if (dis_metric == "l2") {
-    quantizer = new faiss::gpu::GpuIndexFlatL2(
-        provider, dim, faiss::gpu::GpuIndexFlatConfig{config});
-  }
   auto index = new faiss::gpu::GpuIndexIVFFlat(
-      provider, quantizer, dim, nlist, faiss::MetricType::METRIC_INNER_PRODUCT,
+      provider, quantizer, dim, nlist, faiss::MetricType::METRIC_L2,
       faiss::gpu::GpuIndexIVFFlatConfig{config});
   return index;
 }
