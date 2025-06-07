@@ -36,15 +36,6 @@ run_ivf() {
         --gt-file ${INDEX_DIR}/gt_${1}l_10000s_10k.bin
 }
 
-
-dataset_size=(1000000 2000000 4000000 8000000 16000000 32000000 64000000)
-batch_size=(1 10 100 1000 10000)
-for size in "${dataset_size[@]}"; do
-    for batch in "${batch_size[@]}"; do
-        run_flat ${size} ${batch}
-    done
-done
-
 # Batch size = 1, Recall@10 = 95%
 run_ivf 1000000   1 100
 run_ivf 2000000   1 110
