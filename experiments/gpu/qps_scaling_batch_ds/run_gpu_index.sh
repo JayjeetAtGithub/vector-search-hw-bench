@@ -9,7 +9,7 @@ INDEX_DIR="/workspace/vector-search-hw-bench/src/"
 run_flat() {
     ${BINARY_DIR}/run_gpu \
         --index-type flat \
-        --dataset-dir /workspace/dataset/t2i \
+        --dataset-dir /workspace/dataset/deep \
         --learn-limit ${1} \
         --search-limit ${2} \
         --top-k ${3} \
@@ -22,7 +22,7 @@ run_flat() {
 run_ivf() {
     ${BINARY_DIR}/run_gpu \
         --index-type ivf \
-        --dataset-dir /workspace/dataset/t2i \
+        --dataset-dir /workspace/dataset/deep \
         --learn-limit ${1} \
         --search-limit ${2} \
         --top-k ${3} \
