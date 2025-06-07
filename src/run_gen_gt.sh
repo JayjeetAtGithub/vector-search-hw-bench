@@ -14,7 +14,7 @@ run_gen_gt() {
 }
 
 dataset_size=(1000000 2000000 4000000 8000000 16000000 32000000 64000000)
-batch_size=(10 100 1000 10000)
+batch_size=(10 100 200 500 1000 2000 5000 10000)
 top_k=(10)
 
 for size in "${dataset_size[@]}"; do
