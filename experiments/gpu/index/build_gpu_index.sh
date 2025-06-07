@@ -7,7 +7,7 @@ BINARY_DIR="/workspace/vector-search-hw-bench/src/"
 INDEX_DIR="/workspace/vector-search-hw-bench/src/"
 
 build_flat_deep() {
-  numactl -C 0-23 --membind 0 ${BINARY_DIR}/run_gpu \
+  ${BINARY_DIR}/run_gpu \
       --index-type flat \
       --dataset-dir /workspace/dataset/deep \
       --learn-limit ${1} \
@@ -17,7 +17,7 @@ build_flat_deep() {
 }
 
 build_ivf_deep() {
-  numactl -C 0-23 --membind 0 ${BINARY_DIR}/run_gpu \
+  ${BINARY_DIR}/run_gpu \
       --index-type ivf \
       --dataset-dir /workspace/dataset/deep \
       --learn-limit ${1} \
