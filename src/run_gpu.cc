@@ -63,6 +63,19 @@ faiss::Index *GPU_create_ivf_index(
   return index;
 }
 
+void run_in_batches(faiss::Index *index, int64_t batch_size, int64_t dims, int64_t n_query, const float *data_query,
+                   int64_t top_k, std::vector<float> &dis,
+                   std::vector<faiss::idx_t> &nns) {
+  int64_t n_batches = (n_query + batch_size - 1) / batch_size;
+  for (int64_t i = 0; i < n_batches; i++) {
+    int64_t start = i * batch_size;
+    int64_t end = std::min(start + batch_size, n_query);
+    int64_t curr_batch_size = end - start;
+    index->search(curr_batch_size, data_query + start * dims, top_k,
+                  dis.data() + start * top_k, nns.data() + start * top_k);
+  }
+}
+
 int main(int argc, char **argv) {
   CLI::App app{"Run FAISS Benchmarks"};
   argv = app.ensure_utf8(argv);
@@ -92,6 +105,10 @@ int main(int argc, char **argv) {
   int64_t search_limit = 10000;
   app.add_option("--search-limit", search_limit,
                  "Limit the number of search vectors");
+
+  int64_t batch_size = 10000;
+  app.add_option("--batch-size", batch_size,
+                 "Mention the batch size for search");
 
   int64_t top_k = 10;
   app.add_option("-k,--top-k", top_k, "Number of nearest neighbors");
@@ -188,13 +205,13 @@ int main(int argc, char **argv) {
     // Perform the search
     for (int i = 0; i < 20; i++) {
       if (i < 10) {
-        ridx_gpu->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
+        run_in_batches(ridx_gpu, batch_size, dim_query, n_query, data_query.data(), top_k, dis, nns);
       } else {
         auto s = std::chrono::high_resolution_clock::now();
-        ridx_gpu->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
+        run_in_batches(ridx_gpu, batch_size, dim_query, n_query, data_query.data(), top_k, dis, nns);
         auto e = std::chrono::high_resolution_clock::now();
         std::cout
-            << "search," << index_file.c_str() << "," << n_query << ","  << top_k << "," 
+            << "search," << index_file.c_str() << "," << n_query << ","  << top_k << "," << batch_size << ","
             << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count()
             << " us" << std::endl; 
       }
