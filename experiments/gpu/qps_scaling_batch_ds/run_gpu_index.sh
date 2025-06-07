@@ -11,7 +11,8 @@ run_flat() {
         --index-type flat \
         --dataset-dir /workspace/dataset/deep \
         --learn-limit ${1} \
-        --search-limit ${2} \
+        --search-limit 10000 \
+        --batch-size ${2} \
         --top-k ${3} \
         --metric l2 \
         --skip-build 1 \
@@ -24,7 +25,8 @@ run_ivf() {
         --index-type ivf \
         --dataset-dir /workspace/dataset/deep \
         --learn-limit ${1} \
-        --search-limit ${2} \
+        --search-limit 10000 \
+        --batch-size ${2} \
         --top-k ${3} \
         --n-probe ${4} \
         --metric l2 \
