@@ -1,0 +1,13 @@
+-rw-r--r-- 1 root root 367M Jun  7 18:54 gpu_flat_deep_1000000l.faiss
+-rw-r--r-- 1 root root 5.8G Jun  7 18:55 gpu_flat_deep_16000000l.faiss
+-rw-r--r-- 1 root root 733M Jun  7 18:54 gpu_flat_deep_2000000l.faiss
+-rw-r--r-- 1 root root  12G Jun  7 18:56 gpu_flat_deep_32000000l.faiss
+-rw-r--r-- 1 root root 1.5G Jun  7 18:54 gpu_flat_deep_4000000l.faiss
+-rw-r--r-- 1 root root 2.9G Jun  7 18:54 gpu_flat_deep_8000000l.faiss
+-rw-r--r-- 1 root root 376M Jun  7 18:57 gpu_ivf_deep_1000000l.faiss
+-rw-r--r-- 1 root root 5.9G Jun  7 18:59 gpu_ivf_deep_16000000l.faiss
+-rw-r--r-- 1 root root 750M Jun  7 18:57 gpu_ivf_deep_2000000l.faiss
+-rw-r--r-- 1 root root  12G Jun  7 19:01 gpu_ivf_deep_32000000l.faiss
+-rw-r--r-- 1 root root 1.5G Jun  7 18:57 gpu_ivf_deep_4000000l.faiss
+-rw-r--r-- 1 root root  24G Jun  7 19:05 gpu_ivf_deep_64000000l.faiss
+-rw-r--r-- 1 root root 3.0G Jun  7 18:58 gpu_ivf_deep_8000000l.faiss
