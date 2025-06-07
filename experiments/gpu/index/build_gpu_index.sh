@@ -30,6 +30,7 @@ build_flat_deep 4000000
 build_flat_deep 8000000 
 build_flat_deep 16000000 
 build_flat_deep 32000000
+build_flat_deep 64000000
 
 build_ivf_deep 1000000
 build_ivf_deep 2000000 
@@ -37,3 +38,4 @@ build_ivf_deep 4000000
 build_ivf_deep 8000000 
 build_ivf_deep 16000000 
 build_ivf_deep 32000000
+build_ivf_deep 64000000
