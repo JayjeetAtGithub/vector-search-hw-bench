@@ -12,7 +12,7 @@ build_flat_deep() {
       --dataset-dir /workspace/dataset/deep \
       --learn-limit ${1} \
       --metric l2 \
-      --index-file ${INDEX_DIR}/gpu_flat_deep_${1}l_${2}m.faiss
+      --index-file ${INDEX_DIR}/gpu_flat_deep_${1}l.faiss
 }
 
 build_ivf_deep() {
@@ -21,7 +21,7 @@ build_ivf_deep() {
       --dataset-dir /workspace/dataset/deep \
       --learn-limit ${1} \
       --metric l2 \
-      --index-file ${INDEX_DIR}/gpu_ivf_deep_${1}l_${2}m.faiss
+      --index-file ${INDEX_DIR}/gpu_ivf_deep_${1}l.faiss
 }
 
 build_flat_deep 1000000 
