@@ -33,7 +33,7 @@ run_ivf() {
         --skip-build 1 \
         --index-file ${INDEX_DIR}/gpu_ivf_deep_${1}l.faiss \
         --calc-recall true \
-        --gt-file ${INDEX_DIR}/gt_${1}l_${2}s_${3}k.bin
+        --gt-file ${INDEX_DIR}/gt_${1}l_10000s_${3}k.bin
 }
 
 run_ivf 64000000  10 10 160
