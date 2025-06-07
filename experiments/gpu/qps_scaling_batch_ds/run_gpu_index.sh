@@ -35,12 +35,12 @@ run_ivf() {
 }
 
 # Batch size = 100, Recall@10 = 95%
-# run_flat 1000000  100 10
-# run_flat 2000000  100 10
-# run_flat 4000000  100 10
-# run_flat 8000000  100 10
-# run_flat 16000000 100 10
-# run_flat 32000000 100 10
+run_flat 1000000  100 10
+run_flat 2000000  100 10
+run_flat 4000000  100 10
+run_flat 8000000  100 10
+run_flat 16000000 100 10
+run_flat 32000000 100 10
 # run_ivf 1000000   100 10 75
 # run_ivf 2000000   100 10 78
 # run_ivf 4000000   100 10 80
@@ -50,12 +50,12 @@ run_ivf() {
 # run_ivf 64000000  100 10 100
 
 # Batch size = 1000, Recall@10 = 95%
-# run_flat 1000000  1000 10
-# run_flat 2000000  1000 10
-# run_flat 4000000  1000 10
-# run_flat 8000000  1000 10
-# run_flat 16000000 1000 10
-# run_flat 32000000 1000 10
+run_flat 1000000  1000 10
+run_flat 2000000  1000 10
+run_flat 4000000  1000 10
+run_flat 8000000  1000 10
+run_flat 16000000 1000 10
+run_flat 32000000 1000 10
 # run_ivf 1000000   1000 10 80
 # run_ivf 2000000   1000 10 90
 # run_ivf 4000000   1000 10 100
@@ -65,12 +65,12 @@ run_ivf() {
 # run_ivf 64000000  1000 10 120
 
 # Batch size = 10000, Recall@10 = 95%
-# run_flat 1000000  10000 10
-# run_flat 2000000  10000 10
-# run_flat 4000000  10000 10
-# run_flat 8000000  10000 10
-# run_flat 16000000 10000 10
-# run_flat 32000000 10000 10
+run_flat 1000000  10000 10
+run_flat 2000000  10000 10
+run_flat 4000000  10000 10
+run_flat 8000000  10000 10
+run_flat 16000000 10000 10
+run_flat 32000000 10000 10
 run_ivf 1000000   10000 10 100
 run_ivf 2000000   10000 10 110
 run_ivf 4000000   10000 10 120
