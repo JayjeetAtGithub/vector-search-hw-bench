@@ -24,7 +24,7 @@ faiss::Index *GPU_create_flat_index(int64_t dim, std::string mem_type,
   config.device = cuda_device;
   config.memorySpace = (mem_type == "cuda") ? faiss::gpu::MemorySpace::Device
                                             : faiss::gpu::MemorySpace::Unified;
-  auto index = new faiss::gpu::GpuIndexFlatIP(
+  auto index = new faiss::gpu::GpuIndexFlatL2(
       provider, dim, faiss::gpu::GpuIndexFlatConfig{config});
   return index;
 }
