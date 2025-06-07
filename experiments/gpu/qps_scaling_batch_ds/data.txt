@@ -1,0 +1,630 @@
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1,1919840 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1,1924365 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1,1939243 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1,1964795 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1,1960872 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1,1943997 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1,1950220 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1,2012988 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1,1960750 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1,1983122 us
+Recall@10: 0.95404
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1,2121048 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1,2115381 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1,2121780 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1,2119856 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1,2114328 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1,2133610 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1,2118612 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1,2134744 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1,2125164 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1,2130227 us
+Recall@10: 0.95478
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1,2668973 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1,2650104 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1,2680190 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1,2930517 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1,2905579 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1,2968795 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1,2766055 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1,2664844 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1,2670545 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1,2972428 us
+Recall@10: 0.95435
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1,3571758 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1,3406858 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1,3411572 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1,3403415 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1,3398194 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1,3384762 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1,3407431 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1,3393654 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1,3381477 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1,3410302 us
+Recall@10: 0.95404
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1,4486854 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1,4487532 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1,4489545 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1,4498601 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1,4480702 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1,4501405 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1,4471852 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1,4484798 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1,4483077 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1,4490592 us
+Recall@10: 0.95219
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1,5967868 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1,6140411 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1,6155688 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1,6016075 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1,5783482 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1,5928375 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1,6074747 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1,5813222 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1,6001164 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1,5954021 us
+Recall@10: 0.95304
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1,7699242 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1,7684694 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1,7697428 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1,7688456 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1,7696421 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1,7678179 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1,7698607 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1,7688345 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1,7904119 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1,7700232 us
+Recall@10: 0.95349
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10,281019 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10,268424 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10,273248 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10,264837 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10,274502 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10,281286 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10,269613 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10,273824 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10,272402 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10,276285 us
+Recall@10: 0.95404
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10,349166 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10,354599 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10,350011 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10,343604 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10,345125 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10,349316 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10,350062 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10,349405 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10,347286 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10,348000 us
+Recall@10: 0.95478
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10,482118 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10,461335 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10,456953 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10,455224 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10,456787 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10,459827 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10,457378 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10,455133 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10,457576 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10,460570 us
+Recall@10: 0.95435
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10,592790 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10,592117 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10,579796 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10,582331 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10,575550 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10,583513 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10,578570 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10,575136 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10,577049 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10,575185 us
+Recall@10: 0.95404
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10,822656 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10,821205 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10,819468 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10,818600 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10,820211 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10,818295 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10,820475 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10,818327 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10,819735 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10,817338 us
+Recall@10: 0.95219
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10,1113255 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10,1112618 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10,1118909 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10,1116473 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10,1114214 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10,1113282 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10,1110728 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10,1113788 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10,1114892 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10,1114861 us
+Recall@10: 0.95304
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10,1643618 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10,1643705 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10,1649721 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10,1646228 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10,1645364 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10,1645032 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10,1646175 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10,1645453 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10,1645443 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10,1646797 us
+Recall@10: 0.95349
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,100,97341 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,100,97285 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,100,97283 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,100,97314 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,100,97238 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,100,97094 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,100,97056 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,100,97318 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,100,97478 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,100,97550 us
+Recall@10: 0.95404
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,100,142719 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,100,142677 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,100,142424 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,100,142412 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,100,142420 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,100,142400 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,100,142265 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,100,142437 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,100,142282 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,100,142461 us
+Recall@10: 0.95478
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,100,212457 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,100,212113 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,100,212004 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,100,212056 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,100,212023 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,100,212055 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,100,212112 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,100,212047 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,100,212370 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,100,211970 us
+Recall@10: 0.95435
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,100,309235 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,100,309579 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,100,309820 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,100,309321 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,100,309806 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,100,309773 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,100,311698 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,100,313106 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,100,312148 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,100,311861 us
+Recall@10: 0.95404
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,100,470807 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,100,471826 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,100,471670 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,100,471637 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,100,471685 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,100,472249 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,100,471816 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,100,471670 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,100,472017 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,100,471474 us
+Recall@10: 0.95219
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,100,686445 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,100,686341 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,100,686110 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,100,685972 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,100,686198 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,100,685034 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,100,684827 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,100,685125 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,100,685177 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,100,686781 us
+Recall@10: 0.95304
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,100,1051490 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,100,1052214 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,100,1051903 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,100,1051551 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,100,1051344 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,100,1051144 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,100,1052008 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,100,1051771 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,100,1052003 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,100,1051846 us
+Recall@10: 0.95349
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1000,80982 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1000,81015 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1000,81025 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1000,80979 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1000,80987 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1000,80972 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1000,80946 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1000,80975 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1000,80971 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,1000,80987 us
+Recall@10: 0.95404
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1000,124623 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1000,124590 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1000,124569 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1000,124631 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1000,124757 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1000,124687 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1000,124649 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1000,124664 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1000,124723 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,1000,124601 us
+Recall@10: 0.95478
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1000,190553 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1000,190598 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1000,190615 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1000,190578 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1000,190664 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1000,190575 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1000,190519 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1000,190703 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1000,190635 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,1000,190488 us
+Recall@10: 0.95435
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1000,282885 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1000,282917 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1000,283091 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1000,282933 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1000,283133 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1000,282895 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1000,283273 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1000,282494 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1000,283185 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,1000,282852 us
+Recall@10: 0.95404
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1000,441716 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1000,441485 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1000,441468 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1000,441623 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1000,441719 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1000,441670 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1000,441617 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1000,441433 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1000,441100 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,1000,440866 us
+Recall@10: 0.95219
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1000,643577 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1000,643523 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1000,643790 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1000,643619 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1000,643670 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1000,643760 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1000,643814 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1000,643670 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1000,643569 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,1000,643563 us
+Recall@10: 0.95304
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1000,999386 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1000,999520 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1000,999415 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1000,999521 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1000,999248 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1000,999441 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1000,999462 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1000,999502 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1000,999656 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,1000,999259 us
+Recall@10: 0.95349
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10000,79482 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10000,79507 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10000,79482 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10000,79487 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10000,79497 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10000,79477 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10000,79500 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10000,79480 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10000,79469 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_1000000l.faiss,10000,10,10000,79477 us
+Recall@10: 0.95404
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10000,122639 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10000,122671 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10000,122620 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10000,122625 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10000,122609 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10000,122611 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10000,122606 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10000,122577 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10000,122589 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_2000000l.faiss,10000,10,10000,122624 us
+Recall@10: 0.95478
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10000,188336 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10000,188376 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10000,188304 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10000,188361 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10000,188353 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10000,188363 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10000,188348 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10000,188363 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10000,188397 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_4000000l.faiss,10000,10,10000,188407 us
+Recall@10: 0.95435
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10000,277477 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10000,277512 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10000,277535 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10000,277603 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10000,277612 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10000,277541 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10000,277582 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10000,277625 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10000,277572 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_8000000l.faiss,10000,10,10000,277567 us
+Recall@10: 0.95404
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10000,436292 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10000,436098 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10000,436098 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10000,436106 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10000,436120 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10000,436174 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10000,436123 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10000,436111 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10000,436058 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_16000000l.faiss,10000,10,10000,436141 us
+Recall@10: 0.95219
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10000,637641 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10000,637465 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10000,637481 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10000,637567 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10000,637542 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10000,637516 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10000,637530 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10000,637598 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10000,637453 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_32000000l.faiss,10000,10,10000,637468 us
+Recall@10: 0.95304
+[INFO] Read in file - N:10000, dim:96
+[INFO] Query dataset shape: 96 x 10000
+0.0701771 0.138362 -0.065688 -0.0616986 -0.041488 -0.098603 -0.104723 -0.140611 0.123457 -0.15287 
+-0.0676842 0.00898412 -0.0410892 -0.118442 0.19883 0.00303117 -0.0791794 -0.216323 0.0927029 0.12626 
+-0.0610926 0.00862329 -0.065361 -0.122677 -0.072841 0.0212938 0.260897 0.0160217 -0.018354 -0.15671 
+-0.00974924 0.0884832 0.113526 0.123578 -0.00942517 0.106615 0.0642639 -0.0287325 -0.203452 0.190357 
+-0.153995 -0.0442647 0.0523194 -0.0140989 -0.061015 0.154921 -0.0131091 -0.0250827 -0.0801269 -0.0421465 
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10000,993733 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10000,993568 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10000,993593 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10000,993643 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10000,993471 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10000,993634 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10000,993546 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10000,993577 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10000,993786 us
+search,/workspace/vector-search-hw-bench/src//gpu_ivf_deep_64000000l.faiss,10000,10,10000,993515 us
+Recall@10: 0.95349
