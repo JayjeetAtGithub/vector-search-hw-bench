@@ -15,7 +15,7 @@ run_flat() {
         --top-k ${3} \
         --metric l2 \
         --skip-build 1 \
-        --index-file gpu_flat_deep_${1}l.faiss \
+        --index-file ${INDEX_DIR}gpu_flat_deep_${1}l.faiss \
         --calc-recall false
 }
 
