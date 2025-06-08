@@ -74,6 +74,10 @@ int main(int argc, char **argv) {
   app.add_option("--search-limit", search_limit,
                  "Limit the number of search vectors");
 
+  int64_t batch_size = 10000;
+  app.add_option("--batch-size", batch_size,
+                 "Mention the batch size for search");
+
   int64_t top_k = 10;
   app.add_option("-k,--top-k", top_k, "Number of nearest neighbors");
 
