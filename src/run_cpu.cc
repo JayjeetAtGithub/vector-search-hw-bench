@@ -50,6 +50,19 @@ faiss::Index *CPU_create_flat_index(int64_t dim, std::string dis_metric) {
   return new faiss::IndexFlat(dim, faiss_metric_type);
 }
 
+void run_in_batches(faiss::Index *index, int64_t batch_size, int64_t dims, int64_t n_query, const float *data_query,
+                   int64_t top_k, std::vector<float> &dis,
+                   std::vector<faiss::idx_t> &nns) {
+  int64_t n_batches = (n_query + batch_size - 1) / batch_size;
+  for (int64_t i = 0; i < n_batches; i++) {
+    int64_t start = i * batch_size;
+    int64_t end = std::min(start + batch_size, n_query);
+    int64_t curr_batch_size = end - start;
+    index->search(curr_batch_size, data_query + start * dims, top_k,
+                  dis.data() + start * top_k, nns.data() + start * top_k);
+  }
+}
+
 int main(int argc, char **argv) {
   CLI::App app{"Run FAISS Benchmarks"};
   argv = app.ensure_utf8(argv);
