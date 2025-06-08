@@ -192,7 +192,7 @@ int main(int argc, char **argv) {
         ridx->search(n_query, data_query.data(), top_k, dis.data(), nns.data());
         auto e = std::chrono::high_resolution_clock::now();
         std::cout
-            << "search," << index_file.c_str() << "," << n_query << ","  << top_k << "," 
+            << "search," << index_file.c_str() << "," << n_query << ","  << top_k << "," << batch_size << ","
             << std::chrono::duration_cast<std::chrono::microseconds>(e - s).count()
             << " us" << std::endl;
       }
