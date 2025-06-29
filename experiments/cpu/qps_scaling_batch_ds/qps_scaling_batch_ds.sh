@@ -14,10 +14,10 @@ run_hnsw() {
         --search-limit 10000 \
         --batch-size ${2} \
         --top-k 10 \
-        --ef ${4} \
+        --ef ${3} \
         --metric l2 \
         --skip-build 1 \
-        --index-file ${INDEX_DIR}/cpu_hnsw_deep_${1}l_${5}m.faiss \
+        --index-file ${INDEX_DIR}/cpu_hnsw_deep_${1}l_${4}m.faiss \
         --calc-recall false
 }
 
