@@ -186,10 +186,10 @@ int main(int argc, char **argv) {
     // Perform the search
     for (int i = 0; i < 20; i++) {
       if (i < 10) {
-        run_in_batches(ridx_gpu, batch_size, dim_query, n_query, data_query.data(), top_k, dis, nns);
+        run_in_batches(ridx, batch_size, dim_query, n_query, data_query.data(), top_k, dis, nns);
       } else {
         auto s = std::chrono::high_resolution_clock::now();
-        run_in_batches(ridx_gpu, batch_size, dim_query, n_query, data_query.data(), top_k, dis, nns);
+        run_in_batches(ridx, batch_size, dim_query, n_query, data_query.data(), top_k, dis, nns);
         auto e = std::chrono::high_resolution_clock::now();
         std::cout
             << "search," << index_file.c_str() << "," << n_query << ","  << top_k << "," << batch_size << ","
