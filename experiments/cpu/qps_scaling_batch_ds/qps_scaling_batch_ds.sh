@@ -18,7 +18,8 @@ run_hnsw() {
         --metric l2 \
         --skip-build 1 \
         --index-file ${INDEX_DIR}/cpu_hnsw_deep_${1}l_${4}m.faiss \
-        --calc-recall false
+        --calc-recall true \
+        --gt-file ${INDEX_DIR}/gt_${1}l_10000s_10k.bin
 }
 
 # Batch size = 1, Recall@10 = 95%
