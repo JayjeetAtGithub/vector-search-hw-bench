@@ -65,8 +65,10 @@ if __name__ == "__main__":
     for batch_size in sorted(df["batch_size"].unique()):
         batch_df = df[df["batch_size"] == batch_size]
         plt.plot(batch_df["dataset_size"], batch_df["qps"], label=f"Batch {batch_size}", marker='o')
-    plt.xlabel("Dataset Size")
+    plt.xlabel("Dataset Size (M)")
     plt.ylabel("QPS")
+    plt.xscale('log')
+    # plt.yscale('log')
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
@@ -77,8 +79,10 @@ if __name__ == "__main__":
     for batch_size in sorted(df["batch_size"].unique()):
         batch_df = df[df["batch_size"] == batch_size]
         plt.plot(batch_df["dataset_size"], batch_df["duration_s"], label=f"Batch {batch_size}", marker='o')
-    plt.xlabel("Dataset Size")
+    plt.xlabel("Dataset Size (M)")
     plt.ylabel("Duration (s)")
+    plt.xscale('log')
+    # plt.yscale('log')
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
@@ -98,16 +102,18 @@ if __name__ == "__main__":
             y_fit = power_law(x_fit, a, b)
 
             # plt.plot(x, y, 'o', label=f"Batch {batch_size} (data)")
-            plt.plot(x_fit, y_fit, '--', label=f"BS: {batch_size} Fit: y={a:.2e}*x^{b:.2f}")
+            plt.plot(x_fit, y_fit, '--', label=f"BS: {batch_size}")
         else:
             plt.plot(x, y, 'o', label=f"Batch {batch_size} (insufficient data)")
 
-    plt.xlabel("Dataset Size")
+    plt.xlabel("HNSW Index Size (M)")
     plt.ylabel("QPS")
+    plt.xscale('log')
+    # plt.yscale('log')
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig('qps_scaling_batch_ds_power.pdf')
+    plt.savefig('qps_scaling_batch_ds_power_new.pdf')
 
     # ---- PLOT 3: Duration Power Law Fit ----
     plt.figure(figsize=(5, 3))
@@ -123,14 +129,16 @@ if __name__ == "__main__":
             y_fit = power_law(x_fit, a, b)
 
             # plt.plot(x, y, 'o', label=f"Batch {batch_size} (data)")
-            plt.plot(x_fit, y_fit, '--', label=f"BS: {batch_size} Fit: y={a:.2e}*x^{b:.2f}")
+            plt.plot(x_fit, y_fit, '--', label=f"Batch size: {batch_size}")
         else:
             plt.plot(x, y, 'o', label=f"Batch {batch_size} (insufficient data)")
 
-    plt.xlabel("Dataset Size")
+    plt.xlabel("HNSW Index Size (M)")
     plt.ylabel("Duration (s)")
+    plt.xscale('log')
+    # plt.yscale('log')
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig('dur_scaling_batch_ds_power.pdf')
+    plt.savefig('dur_scaling_batch_ds_power_new.pdf')
 
